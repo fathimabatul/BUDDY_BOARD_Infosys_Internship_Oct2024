@@ -1,19 +1,13 @@
 // src/app/app.component.ts
 import { Component } from '@angular/core';
-
-import { SignupComponent } from './signup/signup.component'; // Import SignupComponent
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <div class="container">
-      
-      <app-signup></app-signup> <!-- Display SignupComponent -->
-    </div>
-  `,
-  styleUrls: ['./app.component.scss'],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [ SignupComponent ], // Import both components here
+  imports: [RouterOutlet], // Import both components here
 })
 export class AppComponent {
   title = 'my-angular-app';
