@@ -1,16 +1,84 @@
-
 <div class="form-box">
-<form class="form">
+  <form class="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <span class="title">Sign up </span>
     <span class="subtitle">Create a free BuddyBoard Account</span>
     <div class="form-container">
-      <input type="text" class="input" placeholder="Full Name">
-			<input type="email" class="input" placeholder="Email">
-			<input type="password" class="input" placeholder="Password">
+      <!-- Full Name Input -->
+      <input
+        type="text"
+        class="input"
+        placeholder="Full Name"
+        formControlName="fullName"
+      />
+      <div
+        *ngIf="
+          signupForm.get('fullName')?.touched &&
+          signupForm.get('fullName')?.invalid
+        "
+        class="error-tooltip"
+      >
+        <span class="error-icon">!</span>
+        <span *ngIf="signupForm.get('fullName')?.errors?.['required']"
+          >Please fill out this field.</span
+        >
+        <span *ngIf="signupForm.get('fullName')?.errors?.['pattern']"
+          >Name cannot contain numbers or special characters.</span
+        >
+      </div>
+
+      <!-- Email Input -->
+      <input
+        type="email"
+        class="input"
+        placeholder="Email"
+        formControlName="email"
+      />
+      <div
+        *ngIf="
+          signupForm.get('email')?.touched && signupForm.get('email')?.invalid
+        "
+        class="error-tooltip"
+      >
+        <span class="error-icon">!</span>
+        <span *ngIf="signupForm.get('email')?.errors?.['required']"
+          >Please fill out this field.</span
+        >
+        <span *ngIf="signupForm.get('email')?.errors?.['email']"
+          >Please enter a valid email address.</span
+        >
+
+        <span *ngIf="signupForm.get('email')?.errors?.['pattern']"
+          >Please enter a valid email format (e.g., user&#64;example.com).</span
+        >
+      </div>
+
+      <!-- Password Input -->
+      <input
+        type="password"
+        class="input"
+        placeholder="Password"
+        formControlName="password"
+      />
+      <div
+        *ngIf="
+          signupForm.get('password')?.touched &&
+          signupForm.get('password')?.invalid
+        "
+        class="error-tooltip"
+      >
+        <span class="error-icon">!</span>
+        <span *ngIf="signupForm.get('password')?.errors?.['required']"
+          >Please fill out this field.</span
+        >
+        <span *ngIf="signupForm.get('password')?.errors?.['minlength']"
+          >Password must be at least 6 characters long.</span
+        >
+      </div>
     </div>
-    <button>Sign up</button>
-</form>
-<div class="form-section">
-  <p>Have an account? <a href= " ">Log in</a> </p>
-</div>
+
+    <button type="submit">Sign up</button>
+  </form>
+  <div class="form-section">
+    <p>Have an account? <a href="#">Log in</a></p>
+  </div>
 </div>
