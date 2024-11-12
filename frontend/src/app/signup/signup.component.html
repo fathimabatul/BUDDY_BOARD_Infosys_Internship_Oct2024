@@ -10,20 +10,22 @@
         placeholder="Full Name"
         formControlName="fullName"
       />
-      <div
-        *ngIf="
-          signupForm.get('fullName')?.touched &&
-          signupForm.get('fullName')?.invalid
-        "
-        class="error-tooltip"
-      >
-        <span class="error-icon">!</span>
-        <span *ngIf="signupForm.get('fullName')?.errors?.['required']"
-          >Please fill out this field.</span
+      <div class="error-space">
+        <div
+          *ngIf="
+            signupForm.get('fullName')?.touched &&
+            signupForm.get('fullName')?.invalid
+          "
+          class="error-tooltip"
         >
-        <span *ngIf="signupForm.get('fullName')?.errors?.['pattern']"
-          >Name cannot contain numbers or special characters.</span
-        >
+          <span class="error-icon">!</span>
+          <span *ngIf="signupForm.get('fullName')?.errors?.['required']"
+            >Please fill out this field.</span
+          >
+          <span *ngIf="signupForm.get('fullName')?.errors?.['pattern']"
+            >Name cannot contain numbers or special characters.</span
+          >
+        </div>
       </div>
 
       <!-- Email Input -->
@@ -33,19 +35,21 @@
         placeholder="Email"
         formControlName="email"
       />
-      <div
-        *ngIf="
-          signupForm.get('email')?.touched && signupForm.get('email')?.invalid
-        "
-        class="error-tooltip"
-      >
-        <span class="error-icon">!</span>
-        <span *ngIf="signupForm.get('email')?.errors?.['required']"
-          >Please fill out this field.</span
+      <div class="error-space">
+        <div
+          *ngIf="
+            signupForm.get('email')?.touched && signupForm.get('email')?.invalid
+          "
+          class="error-tooltip"
         >
-        <span *ngIf="signupForm.get('email')?.errors?.['email']"
-          >Please enter a valid email address.</span
-        >
+          <span class="error-icon">!</span>
+          <span *ngIf="signupForm.get('email')?.errors?.['required']"
+            >Please fill out this field.</span
+          >
+          <span *ngIf="signupForm.get('email')?.errors?.['email']"
+            >Please enter a valid email address.</span
+          >
+        </div>
       </div>
 
       <!-- Password Input with Toggle Icon -->
@@ -60,20 +64,22 @@
           passwordVisible ? "👁️" : "🙈"
         }}</i>
       </div>
-      <div
-        *ngIf="
-          signupForm.get('password')?.touched &&
-          signupForm.get('password')?.invalid
-        "
-        class="error-tooltip"
-      >
-        <span class="error-icon">!</span>
-        <span *ngIf="signupForm.get('password')?.errors?.['required']"
-          >Please fill out this field.</span
+      <div class="error-space">
+        <div
+          *ngIf="
+            signupForm.get('password')?.touched &&
+            signupForm.get('password')?.invalid
+          "
+          class="error-tooltip"
         >
-        <span *ngIf="signupForm.get('password')?.errors?.['minlength']"
-          >Password must be at least 6 characters long.</span
-        >
+          <span class="error-icon">!</span>
+          <span *ngIf="signupForm.get('password')?.errors?.['required']"
+            >Please fill out this field.</span
+          >
+          <span *ngIf="signupForm.get('password')?.errors?.['minlength']"
+            >Password must be at least 6 characters long.</span
+          >
+        </div>
       </div>
     </div>
 
