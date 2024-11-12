@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "buddyboard-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/frontend",
+            "outputPath": "dist/buddyboard-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "frontend:build:production"
+              "buildTarget": "buddyboard-frontend:build:production"
             },
             "development": {
-              "buildTarget": "frontend:build:development"
+              "buildTarget": "buddyboard-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,5 +97,12 @@
         }
       }
     }
+  },
+  "cli": {
+<<<<<<< HEAD
+    "analytics": "ba08dd04-3ffd-4cab-a9b1-bfe57f03c657"
+=======
+    "analytics": false
+>>>>>>> 9d7e0a75467febebe7a408aed64819bc77cb628c
   }
 }
