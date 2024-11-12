@@ -27,6 +27,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    passwordResetToken: String,
+    emailVerificationToken: String,
+    passwordResetExpires: Date,
   },
   { timestamps: true }
 );

@@ -1,143 +1,144 @@
 .form-box {
-  max-width: 300px;
+  width: 300px;
+  height: 600px; /* Adjusted height to fit all content without scrolling */
+  margin: auto;
+  padding: 20px;
   background: #f1f7fe;
-  overflow: hidden;
   border-radius: 16px;
-  color: #010101;
-}
-
-.form {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 32px 24px 24px;
-  gap: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-/*Form text*/
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Title and Subtitle Styling */
 .title {
   font-weight: bold;
   font-size: 1.6rem;
+  margin-bottom: 8px;
 }
 
 .subtitle {
   font-size: 1rem;
   color: #666;
+  margin-bottom: 16px;
 }
 
-/*Inputs box*/
+/* Input and Form Container Styling */
 .form-container {
-  overflow: hidden;
-  border-radius: 8px;
   background-color: #fff;
-  margin: 1rem 0 0.5rem;
-  width: 100%;
+  border-radius: 8px;
+  padding: 1rem;
 }
 
 .input {
-  background: none;
-  border: 0;
-  outline: 0;
-  height: 40px;
   width: 100%;
-  border-bottom: 1px solid #eee;
+  height: 40px;
+  margin-bottom: 8px;
+  border: none;
+  border-bottom: 1px solid #ddd;
   font-size: 0.9rem;
-  padding: 8px 15px;
+  padding: 8px;
+  outline: none;
+  transition: border-color 0.3s;
 }
 
-.form-section {
-  padding: 16px;
+.input:focus {
+  border-bottom: 2px solid #0066ff;
+}
+
+/* Password Container with Toggle Icon */
+.password-container {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #666;
+  transition: color 0.3s;
+}
+
+.eye-icon:hover {
+  color: #333;
+}
+
+/* Error Tooltip Styling */
+.error-space {
+  min-height: 30px; /* Reserve space for the error message */
+}
+
+.error-tooltip {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  padding: 8px;
+  border-radius: 4px;
   font-size: 0.85rem;
-  background-color: #e0ecfb;
-  box-shadow: rgb(0 0 0 / 8%) 0 -1px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  justify-content: flex-start;
 }
 
-.form-section a {
-  font-weight: bold;
-  color: #0066ff;
-  transition: color 0.3s ease;
+/* Tooltip Icon Styling */
+.error-icon {
+  background-color: #ffa500;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
 }
 
-.form-section a:hover {
-  color: #005ce6;
-  text-decoration: underline;
-}
-
-/*Button*/
+/* Button Styling */
 .form button {
+  width: 100%;
+  padding: 10px;
   background-color: #0066ff;
   color: #fff;
-  border: 0;
+  border: none;
   border-radius: 24px;
-  padding: 10px 16px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
+  margin-top: 10px;
 }
 
 .form button:hover {
   background-color: #005ce6;
 }
 
-/* Error tooltip styling */
-.error-tooltip {
-  position: relative;
-  background-color: #ffffff;
-  color: #333;
-  border: 1px solid #ffa500;
-  padding: 10px 12px;
-  margin-top: 6px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.3s ease-in-out;
-  transition: opacity 0.3s ease;
+/* Footer Link Styling */
+.form-section {
+  padding: 16px;
+  font-size: 0.85rem;
+  background-color: #e0ecfb;
+  border-top: 1px solid #ddd;
+  margin-top: 20px;
+  border-radius: 0 0 16px 16px;
 }
 
-/* Tooltip arrow */
-.error-tooltip::before {
-  content: "";
-  position: absolute;
-  top: -8px;
-  left: 15px;
-  border-width: 8px;
-  border-style: solid;
-  border-color: transparent transparent #ffa500 transparent;
-}
-
-/* Icon Styling */
-.error-icon {
-  background-color: #ffa500;
-  color: #fff;
+.form-section a {
   font-weight: bold;
-  font-size: 1rem;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease;
+  color: #0066ff;
+  text-decoration: none;
 }
 
-.error-icon:hover {
-  transform: scale(1.2);
-}
-
-/* Tooltip Appearance Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.form-section a:hover {
+  color: #005ce6;
+  text-decoration: underline;
 }
