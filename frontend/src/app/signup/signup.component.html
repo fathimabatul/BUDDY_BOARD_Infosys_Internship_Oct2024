@@ -1,6 +1,6 @@
 <div class="form-box">
   <form class="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-    <span class="title">Sign up </span>
+    <span class="title">Sign up</span>
     <span class="subtitle">Create a free BuddyBoard Account</span>
     <div class="form-container">
       <!-- Full Name Input -->
@@ -46,19 +46,20 @@
         <span *ngIf="signupForm.get('email')?.errors?.['email']"
           >Please enter a valid email address.</span
         >
-
-        <span *ngIf="signupForm.get('email')?.errors?.['pattern']"
-          >Please enter a valid email format (e.g., user&#64;example.com).</span
-        >
       </div>
 
-      <!-- Password Input -->
-      <input
-        type="password"
-        class="input"
-        placeholder="Password"
-        formControlName="password"
-      />
+      <!-- Password Input with Toggle Icon -->
+      <div class="password-container">
+        <input
+          [type]="passwordVisible ? 'text' : 'password'"
+          class="input"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <i class="eye-icon" (click)="togglePasswordVisibility()">{{
+          passwordVisible ? "👁️" : "🙈"
+        }}</i>
+      </div>
       <div
         *ngIf="
           signupForm.get('password')?.touched &&
