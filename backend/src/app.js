@@ -20,6 +20,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 import userRouter from "./routes/user.routes.js";
-app.use("/api/auth", userRouter);
+app.use("/api/auth/users", userRouter);
 
 export { app };
