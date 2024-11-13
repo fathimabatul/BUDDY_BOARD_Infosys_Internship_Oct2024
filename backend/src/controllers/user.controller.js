@@ -23,27 +23,24 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const signUp = asyncHandler(async (req, res) => {
-  const { username, password, email, role } = req.body;
+  const { name, password, email } = req.body;
 
-  if ([username, password, email, role].some((field) => field?.trim() === "")) {
+  if ([name, password, email].some((field) => field?.trim() === "")) {
     throw new ApiError(400, "All fields are required !!");
   }
 
-  const existedUser = await User.findOne({
-    $or: [{ username }, { email }],
-  });
+  const existedUser = await User.findOne({ email });
 
   if (existedUser) {
-    throw new ApiError(400, "Username or email already exists");
+    throw new ApiError(400, "Email already exists");
   }
 
   const emailVerificationToken = crypto.randomBytes(32).toString("hex");
 
   const user = await User.create({
-    username: username.toLowerCase().trim(),
+    name: name.trim(),
     email: email.toLowerCase().trim(),
     password,
-    role,
     isEmailVerified: false,
     emailVerificationToken,
   });
@@ -96,9 +93,9 @@ const signUp = asyncHandler(async (req, res) => {
 });
 
 const signIn = asyncHandler(async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ email });
 
   if (!user) {
     throw new ApiError(400, "Invalid Credentials!");
