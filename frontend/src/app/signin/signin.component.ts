@@ -1,4 +1,3 @@
-// src/app/signup/signup.component.ts
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -9,61 +8,52 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { SignupRequest } from '../interfaces/auth.interface';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'app-signin',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.scss'],
 })
-export class SignupComponent {
+export class SigninComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  signupForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2)]],
+  signinForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.pattern(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
-        ),
-      ],
-    ],
+    password: ['', [Validators.required]],
   });
 
   isLoading = false;
   errorMessage = '';
-  successMessage = '';
   showPassword = false;
 
   onSubmit(): void {
-    if (this.signupForm.valid) {
+    if (this.signinForm.valid) {
       this.isLoading = true;
       this.errorMessage = '';
-      this.successMessage = '';
 
-      const signupData: SignupRequest = this.signupForm.value;
-
-      this.authService.signup(signupData).subscribe({
+      this.authService.signin(this.signinForm.value).subscribe({
         next: (response) => {
-          this.successMessage = 'Signup successful!';
-          this.signupForm.reset();
-          setTimeout(() => {
-            this.router.navigate(['/signup-follow-up'], {
-              queryParams: { email: signupData.email },
-            });
-          }, 2000);
+          // Store the token in localStorage
+          if (response.token) {
+            localStorage.setItem('token', response.token);
+          }
+
+          // Store user data if needed
+          if (response.user) {
+            localStorage.setItem('user', JSON.stringify(response.user));
+          }
+
+          // Navigate to dashboard or home page
+          this.router.navigate(['/landing']);
         },
         error: (error) => {
+          console.log(error);
           this.errorMessage =
-            error.error?.message || 'An error occurred during signup';
+            error.error?.message || 'Invalid email or password';
           this.isLoading = false;
         },
         complete: () => {
@@ -71,7 +61,7 @@ export class SignupComponent {
         },
       });
     } else {
-      this.markFormGroupTouched(this.signupForm);
+      this.markFormGroupTouched(this.signinForm);
     }
   }
 

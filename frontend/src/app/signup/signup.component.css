@@ -1,48 +1,57 @@
+body {
+  margin: 10px;
+  padding: 10px;
+  border: 4px solid black;
+  box-sizing: border-box;
+  background-color: #ffa500;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-title {
+  font-size: 4rem;
+  font-weight: bold;
+  color: rgb(8, 0, 0);
+  position: absolute;
+  top: 10px;
+  text-align: center;
+  width: 100%;
+  font-family: "Papyrus", fantasy;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #c0c0c0;
+  border: 4px solid black;
+  box-sizing: border-box;
+}
+
 .form-box {
   width: 300px;
-  height: 600px; /* Adjusted height to fit all content without scrolling */
-  margin: auto;
   padding: 20px;
-  background: #f1f7fe;
-  border-radius: 16px;
+  background: #ffffff;
+  border: 3px solid black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  text-align: left;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-/* Title and Subtitle Styling */
-.title {
-  font-weight: bold;
-  font-size: 1.6rem;
-  margin-bottom: 8px;
-}
-
-.subtitle {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 16px;
-}
-
-/* Input and Form Container Styling */
-.form-container {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 1rem;
+  gap: 10px;
 }
 
 .input {
   width: 100%;
-  height: 40px;
-  margin-bottom: 8px;
-  border: none;
-  border-bottom: 1px solid #ddd;
+  height: 30px;
+  background-color: #e0e0e0;
+  border: 1px solid #080808;
   font-size: 0.9rem;
-  padding: 8px;
   outline: none;
   transition: border-color 0.3s;
 }
@@ -51,7 +60,6 @@
   border-bottom: 2px solid #0066ff;
 }
 
-/* Password Container with Toggle Icon */
 .password-container {
   position: relative;
 }
@@ -71,74 +79,101 @@
   color: #333;
 }
 
-/* Error Tooltip Styling */
-.error-space {
-  min-height: 30px; /* Reserve space for the error message */
-}
-
-.error-tooltip {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeeba;
-  padding: 8px;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  justify-content: flex-start;
-}
-
-/* Tooltip Icon Styling */
-.error-icon {
-  background-color: #ffa500;
-  color: #fff;
-  font-size: 1rem;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  margin-right: 6px;
-}
-
-/* Button Styling */
-.form button {
-  width: 100%;
+.submit-button {
+  width: 100px;
   padding: 10px;
-  background-color: #0066ff;
-  color: #fff;
-  border: none;
-  border-radius: 24px;
+  background-color: #87CEEB;
+  color: #070000;
+  border: 1px solid #080808;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-top: 10px;
+  margin: 10px auto 0 auto;
+  display: block; 
+  font-family: "Papyrus", fantasy;
 }
 
-.form button:hover {
+.submit-button:hover {
   background-color: #005ce6;
 }
 
-/* Footer Link Styling */
 .form-section {
-  padding: 16px;
   font-size: 0.85rem;
-  background-color: #e0ecfb;
-  border-top: 1px solid #ddd;
   margin-top: 20px;
-  border-radius: 0 0 16px 16px;
+  text-align: center;
 }
 
-.form-section a {
+.form-section a, .form-section p {
   font-weight: bold;
   color: #0066ff;
   text-decoration: none;
+  font-family: "Papyrus", fantasy;
 }
 
 .form-section a:hover {
   color: #005ce6;
   text-decoration: underline;
+}
+
+form label {
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  text-align: left;
+  font-family: "Papyrus", fantasy;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgb(12, 12, 12);
+  font-weight: bold;
+  font-family: "Papyrus", fantasy;
+  margin-top: auto;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.alert {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

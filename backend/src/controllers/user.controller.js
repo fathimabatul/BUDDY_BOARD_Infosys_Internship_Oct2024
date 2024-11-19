@@ -170,9 +170,7 @@ const sendPasswordResetEmail = asyncHandler(async (req, res) => {
   user.passwordResetExpires = Date.now() + 3600000; // 1 hour
   await user.save();
 
-  const resetUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/auth/users/resetPassword/${resetToken}`;
+  const resetUrl = `${req.protocol}://localhost:4200/reset-password/${resetToken}`;
 
   const message = `You are receiving this email because you (or someone else) have requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
 
@@ -186,8 +184,7 @@ const sendPasswordResetEmail = asyncHandler(async (req, res) => {
 });
 
 const resetPassword = asyncHandler(async (req, res) => {
-  const { token } = req.params;
-  const { password } = req.body;
+  const { token, password } = req.body;
 
   const user = await User.findOne({
     passwordResetToken: token,
