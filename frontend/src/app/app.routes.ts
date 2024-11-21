@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LandingComponent } from './landing/landing.component';
 import { SignupFollowUpComponent } from './signup-follow-up/signup-follow-up.component';
-//import {SignupComponent} from './signup/signup.component';
+
 
 export const routes: Routes = [
   {
