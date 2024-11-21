@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Full-page container */
+body,
+html {
+  font-family: "Papyrus", fantasy;
+  background-color: #cfcfcf; /* Light gray background */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevents overflow scrollbars */
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 5px solid black;
+  background-color: #cfcfcf;
+  padding: 0;
+}
+
+/* Header styling */
+.header h1 {
+  font-size: 4em;
+  font-family: "Papyrus", fantasy; /* Custom font style */
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* Main content styling */
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.box {
+  background-color: white;
+  padding: 20px;
+  border: 2px solid black;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  font-size: 1.2em;
+  line-height: 1.5em;
+}
+
+.link {
+  color: blue;
+  font-size: 0.9em;
+  text-decoration: underline;
+  display: inline-block;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+/* Footer styling */
+.footer {
+  font-size: 0.8em;
+  text-align: center;
+  color: black;
+  padding: 10px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2em;
+  }
+
+  .box {
+    width: 90%;
+    max-width: 300px;
+    font-size: 1em;
+    padding: 15px;
+  }
+
+  .footer {
+    font-size: 0.7em;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.8em;
+  }
+
+  .box {
+    width: 95%;
+    max-width: 260px;
+    font-size: 0.9em;
+    padding: 10px;
+  }
+
+  .link {
+    font-size: 0.8em;
+  }
+
+  .footer {
+    font-size: 0.6em;
+  }
+}

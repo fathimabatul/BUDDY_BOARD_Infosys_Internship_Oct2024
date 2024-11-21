@@ -7,7 +7,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://localhost:4200",
     credentials: true,
   })
 );
@@ -20,6 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 import userRouter from "./routes/user.routes.js";
-app.use("/api/auth", userRouter);
+import { errorHandler } from "./middlewares/errorHandler.middleware.js";
+app.use("/api/auth/users", userRouter);
+app.use(errorHandler);
 
 export { app };
