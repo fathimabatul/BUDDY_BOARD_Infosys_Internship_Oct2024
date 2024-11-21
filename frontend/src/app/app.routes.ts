@@ -4,6 +4,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { LandingComponent } from './landing/landing.component';
 import { SignupFollowUpComponent } from './signup-follow-up/signup-follow-up.component';
 
+
 export const routes: Routes = [
   {
     path: '',

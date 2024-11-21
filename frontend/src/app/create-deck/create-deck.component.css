@@ -1,0 +1,91 @@
+
+  .overlay{
+    width: 100%;
+    top: 0%;
+    position: fixed;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    opacity:0;
+    z-index: -1;
+    transition: 1s;
+  }
+   .showoverlay{
+      opacity: 1;
+      z-index: 1;
+    }
+
+.form-container {
+  width:300px;
+  padding:30px 20px;
+  background-color:white;
+  box-shadow:0 0 10px 3px #ccc;
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%,-50%);  
+    transition: 2s;
+  }
+  .showDeckForm{
+    top: 50%;
+    z-index:9;
+    }
+    .form-container span{
+      position: absolute;
+      right: 0;
+      width: 30px;
+      line-height: 30px;
+      height: 30px;
+      color: white;
+      text-align: center;
+      background-color: green;
+      top : 0;
+      cursor:pointer;
+     
+    }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  small {
+    color: red;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+  
+  .feedback-message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #e0f7e9;
+    color: #2e7d32;
+  }
+  
+  .feedback-message.error {
+    background-color: #fdecea;
+    color: #d32f2f;
+  }
+  
+
