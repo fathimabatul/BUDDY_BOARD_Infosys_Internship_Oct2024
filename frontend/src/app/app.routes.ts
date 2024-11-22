@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LandingComponent } from './landing/landing.component';
 import { SignupFollowUpComponent } from './signup-follow-up/signup-follow-up.component';
-
+import { FlashcardComponent } from './flashcard/flashcard.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +34,10 @@ export const routes: Routes = [
   {
     path: 'landing',
     component: LandingComponent,
+  },
+  {
+    path: 'flashcard',  
+    component: FlashcardComponent,  
   },
   {
     path: 'reset-password/:token',
