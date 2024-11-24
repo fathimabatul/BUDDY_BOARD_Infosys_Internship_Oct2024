@@ -1,0 +1,66 @@
+.flashcard-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 10px 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .flashcard-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .flashcard-form div {
+    margin-bottom: 15px;
+  }
+  .flashcard-form label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .flashcard-form input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .flashcard-form input:focus {
+    border-color: #aaa;
+    outline: none;
+  }
+  .flashcard-form small {
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+    color: red;
+  }
+  .flashcard-form button {
+    width: 48%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .flashcard-form button[type="submit"]:disabled,
+  .flashcard-form button[type="button"]:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+  }
+  
+  .flashcard-form button:hover {
+    opacity: 0.9;
+  }
+  body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }  
+  .flashcard-form button[type="submit"] {
+  margin-right: 4%;
+}
+
