@@ -1,0 +1,76 @@
+
+<div class ='overlay' [class.showoverlay]="isModalVisible" (click)="toggleOverlay()"></div>
+<div class='form-container' [class.showDeckForm]="isModalVisible">
+    <span (click)="toggleOverlay()">&times;</span>
+    <!-- Form -->
+    <form [formGroup]='deckForm' (ngSubmit)="onSubmit()">
+      <!-- Deck Name -->
+      <div class="form-group">
+        <label for="deckName">Deck Name</label>
+        <input
+          type="text"
+          id="deckName"
+          formControlName="deckName"
+          placeholder="Enter deck name"
+          required
+        />
+        <div *ngIf="deckForm.get('deckName')?.touched && deckForm.get('deckName')?.invalid">
+          <small *ngIf="deckForm.get('deckName')?.hasError('required')">Deck Name is required.</small>
+          <small *ngIf="deckForm.get('deckName')?.hasError('minlength')">Deck Name must be at least 3 characters long.</small>
+          <small *ngIf="deckForm.get('deckName')?.hasError('maxlength')">Deck Name cannot exceed 100 characters.</small>
+        </div>
+      </div>
+  
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Provide a brief description of the deck"
+          rows="3"
+        ></textarea>
+        <div *ngIf="deckForm.get('description')?.touched && deckForm.get('description')?.hasError('maxlength')">
+          <small>Description cannot exceed 500 characters.</small>
+        </div>
+      </div>
+  
+      <!-- Visibility -->
+      <div class="form-group">
+        <label>Visibility</label>
+        <div class="action-buttons">
+          <label for="public">Public</label>
+          <input
+            type="radio"
+            id="public"
+            value="Public"
+            formControlName="visibility"
+          />
+        </div>
+        <div class="action-buttons">
+         <label for="private">Private</label>
+          <input
+            type="radio"
+            id="private"
+            value="Private"
+            formControlName="visibility"
+            checked
+          />
+          
+        </div>
+      </div>
+  
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button type="submit" [disabled]="deckForm.invalid">Create Deck</button>
+        <button type="button" (click)="onCancel()">Cancel</button>
+      </div>
+    </form>
+  
+    <!-- Feedback Message -->
+    <div *ngIf="feedbackMessage" class="feedback-message">
+      <p>{{ feedbackMessage }}</p>
+    </div>
+
+</div>
+  

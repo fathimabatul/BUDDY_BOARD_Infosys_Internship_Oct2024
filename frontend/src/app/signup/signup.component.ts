@@ -18,6 +18,7 @@ import { SignupRequest } from '../interfaces/auth.interface';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
 })
+
 export class SignupComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
