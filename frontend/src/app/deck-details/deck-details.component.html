@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="header">
+    <h1>Study Buddies</h1>
+    <nav>
+      <a href="#">Feed</a>
+      <a href="#">Cards</a>
+      <a href="#">Decks</a>
+      <a href="#">Logout</a>
+    </nav>
+  </div>
+
+  <div class="content">
+    <div class="sidebar">
+      <div class="index-page">
+        <button class="back-button">Back to Decks</button>
+        <h2>{{ deckTitle }}</h2>
+        <div class="actions">
+          <button class="like-button">👍</button>
+          <button class="dislike-button">👎</button>
+        </div>
+        <ul class="menu">
+          <!-- <li
+              *ngFor="let card of cards; let i = index">
+              {{ i + 1 }}. {{ card.title }}
+            </li> -->
+          @for(card of cards; track card ; let i = $index){
+          <li [class.active]="i === currentIndex" (click)="changeCard(i)">
+            {{ i + 1 }}.{{ card.title }}
+          </li>
+          }
+        </ul>
+      </div>
+      <div class="info">
+        <p>❤️<span>13k</span></p>
+        <p>Created On: 12th Feb</p>
+        <p>Created By: BabaRam</p>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="content">
+        <h3>{{ cards[currentIndex].title }}</h3>
+        <p>{{ cards[currentIndex].description }}</p>
+      </div>
+      <div class="navigation">
+        <button (click)="goToPrevious()" [disabled]="currentIndex === 0">
+          &lt; Previous
+        </button>
+        <span>{{ currentIndex + 1 }}/{{ cards.length }}</span>
+        <button
+          (click)="goToNext()"
+          [disabled]="currentIndex === cards.length - 1"
+        >
+          Next &gt;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
