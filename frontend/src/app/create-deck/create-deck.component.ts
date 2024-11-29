@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component,Input } from '@angular/core';
+import { Component,Input,Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-create-deck',
   standalone: true,
@@ -11,13 +12,12 @@ import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular
 
 export class CreateDeckComponent {
   deckForm: FormGroup;
-  savedDeck: { title: string; visibility: string } | null = null; // Simulate saved deck
+  savedDeck: { title: string; description: string } | null = null; // Simulate saved deck
   feedbackMessage: string = ''; // Success or error feedback
   @Input() isModalVisible: boolean = false; 
-  toggleOverlay(): void {
-    this. isModalVisible= !this.isModalVisible;
-  }
-  
+  @Input() isSuccess:Boolean | null = null;;
+  @Output() passedDeckFormData =new EventEmitter<{ title: string; description: string }>();
+
   constructor(private fb: FormBuilder) {
     this.deckForm = this.fb.group({
       deckName: [
@@ -25,33 +25,44 @@ export class CreateDeckComponent {
         [Validators.required, Validators.minLength(3), Validators.maxLength(100)]
       ],
       description: ['', [Validators.maxLength(500)]],
-      visibility: ['Private'] // Default to Private
     });
   }
   onSubmit(): void {
     if (this.deckForm.valid) {
-      const { deckName, visibility } = this.deckForm.value;
-      this.savedDeck = { title: deckName, visibility };
-      this.feedbackMessage = 'Deck successfully saved!';
-      this.deckForm.reset({
-        deckName: '',
-        description: '',
-        visibility: 'Private'
-      });
+      const { deckName, description } = this.deckForm.value;
+      const deckData = { title: deckName, description: description };
+  
+      this.feedbackMessage = 'Saving deck...'; // Indicate processing
+      this.passedDeckFormData.emit(deckData); // Emit the data to the parent
+      
     } else {
       this.feedbackMessage = 'Error: Please fix the form errors before saving.';
     }
   }
+  
 
   onCancel(): void {
     this.deckForm.reset({
       deckName: '',
       description: '',
-      visibility: 'Private'
     });
     this.feedbackMessage = '';
     this.savedDeck = null;
     this.isModalVisible = false;
+    this.isSuccess=null;
+  }
+
+  ngOnChanges(): void {
+    // Update feedback message based on `isSuccess` changes
+    if (this.isSuccess === true) {
+      this.feedbackMessage = 'Deck successfully saved!';
+      this.deckForm.reset({
+        deckName: '',
+        description: '',
+      });
+    } else if (this.isSuccess === false) {
+      this.feedbackMessage = 'Error: Failed to save the deck. Please try again.';
+    }
   }
 
 }

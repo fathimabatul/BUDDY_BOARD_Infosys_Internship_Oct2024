@@ -1,7 +1,7 @@
 
-<div class ='overlay' [class.showoverlay]="isModalVisible" (click)="toggleOverlay()"></div>
+<div class ='overlay' [class.showoverlay]="isModalVisible" (click)="onCancel()"></div>
 <div class='form-container' [class.showDeckForm]="isModalVisible">
-    <span (click)="toggleOverlay()">&times;</span>
+    <span (click)="onCancel()">&times;</span>
     <!-- Form -->
     <form [formGroup]='deckForm' (ngSubmit)="onSubmit()">
       <!-- Deck Name -->
@@ -32,31 +32,6 @@
         ></textarea>
         <div *ngIf="deckForm.get('description')?.touched && deckForm.get('description')?.hasError('maxlength')">
           <small>Description cannot exceed 500 characters.</small>
-        </div>
-      </div>
-  
-      <!-- Visibility -->
-      <div class="form-group">
-        <label>Visibility</label>
-        <div class="action-buttons">
-          <label for="public">Public</label>
-          <input
-            type="radio"
-            id="public"
-            value="Public"
-            formControlName="visibility"
-          />
-        </div>
-        <div class="action-buttons">
-         <label for="private">Private</label>
-          <input
-            type="radio"
-            id="private"
-            value="Private"
-            formControlName="visibility"
-            checked
-          />
-          
         </div>
       </div>
   
