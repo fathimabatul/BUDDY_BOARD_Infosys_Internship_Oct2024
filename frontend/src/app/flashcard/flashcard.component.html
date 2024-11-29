@@ -1,0 +1,27 @@
+<div class="flashcard-form">
+    <h2>Create Flashcard</h2>
+    <form [formGroup]="flashcardForm" (ngSubmit)="onSave()">
+      <div>
+        <label for="text">Text:</label>
+        <input id="text" type="text" formControlName="text" />
+        <div *ngIf="flashcardForm.get('text')?.touched && flashcardForm.get('text')?.invalid">
+          <small *ngIf="flashcardForm.get('text')?.hasError('required')">Text is required.</small>
+          <small *ngIf="flashcardForm.get('text')?.hasError('minlength')">Minimum 5 characters.</small>
+        </div>
+      </div>
+      <div>
+        <label for="tags">Tags: <span class="optional">(Optional)</span></label>
+        <input id="tags" type="text" formControlName="tags" placeholder="Enter tags separated by commas" />
+      </div>
+      <div>
+        <label for="deck">Deck Assignment:</label>
+        <input id="deck" type="text" formControlName="deckAssignment" />
+        <div *ngIf="flashcardForm.get('deckAssignment')?.touched && flashcardForm.get('deckAssignment')?.invalid">
+          <small *ngIf="flashcardForm.get('deckAssignment')?.hasError('required')">Deck Assignment is required.</small>
+        </div>
+      </div>
+      <button type="submit" [disabled]="flashcardForm.invalid">Save</button>
+      <button type="button" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+  

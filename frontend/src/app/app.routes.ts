@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LandingComponent } from './landing/landing.component';
 import { SignupFollowUpComponent } from './signup-follow-up/signup-follow-up.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 export const routes: Routes = [
@@ -42,4 +43,13 @@ export const routes: Routes = [
         (m) => m.ResetPasswordComponent
       ),
   },
+  // { path: 'feed', component: FeedComponent },
+  // { path: 'cards', component: CardsComponent },
+  // { path: 'decks', component: DecksComponent },
+  // { path: 'logout', component: LogoutComponent },
+  { 
+    path: 'dashboard', 
+    component: DashboardComponent 
+  },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
