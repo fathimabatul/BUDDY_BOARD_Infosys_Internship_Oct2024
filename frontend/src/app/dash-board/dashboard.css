@@ -1,0 +1,169 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Papyrus', 'Arial', sans-serif;
+  background-color: #dcdcdc;
+  color: #000;
+  border: #000;
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #c0c0c0;
+  border: 4px solid black;
+  box-sizing: border-box;
+}
+
+/* Header */
+header {
+  font-family: 'Papyrus', 'Arial', sans-serif;
+  background-color: white;
+  border-bottom: 2px solid black;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+header nav a {
+  margin: 0 8px;
+  text-decoration: none;
+  color: blue;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Section Titles */
+.deck-section h2 {
+  font-size: 16px;
+  color: #0000ff;
+  margin-bottom: 5px;
+}
+
+/* Deck Container */
+.decks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+}
+
+.deck-title {
+  text-align: center;
+  font-size: 14px;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.deck-author {
+  font-size: 10px;
+  color: #000;
+}
+.deck-author a{
+  color: #0000ff;
+}
+
+.divider {
+  border: 2px solid black;
+  margin: 2px 0;
+}
+
+
+.heart {
+  color: red;
+  font-size: 10px;
+}
+
+/* See All Link */
+.see-all {
+  text-decoration: none;
+  color: #0000ff;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+/* Footer */
+footer {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 10px;
+  padding: 5px;
+}
+/* Icon Container */
+.icon {
+  position: relative;
+  width: 50px; /* Reduced size */
+  height: 65px; /* Reduced size */
+}
+
+/* Paper Base */
+.paper {
+  position: absolute;
+  width: 60px;
+  height: 75px;
+  background-color: yellow;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.paper.back {
+  bottom: 6px;
+  right: 6px;
+}
+
+.paper.middle {
+  bottom: 3px;
+  right: 3px;
+}
+
+.paper.front {
+  bottom: 0;
+  right: 0;
+}
+
+/* Dotted Lines */
+.paper .line {
+  width: 60%;
+  height: 1px;
+  background-color: black;
+  border-bottom: 1px dotted black;
+  margin: 5px auto;
+}
+
+/* Icon Link */
+.icon-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.icon-link:hover .icon {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
