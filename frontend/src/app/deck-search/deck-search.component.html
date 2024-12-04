@@ -1,93 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Study Buddies - Deck Search</title>
-</head>
-<body>
-  <div class="container">
-    <header class="navbar">
-      <h1>Study Buddies</h1>
-      <nav>
-        <a href="#">Feed</a>
-        <a href="#">Cards</a>
-        <a href="#" class="active">Decks</a>
-        <a href="#">Logout</a>
-      </nav>
-    </header>
+<link rel="stylesheet" href="deck-search.component.css">
+<div class="container">
+  <header class="navbar">
+    <h1>Study Buddies</h1>
+    <nav>
+      <a href="#">Feed</a>
+      <a href="#">Cards</a>
+      <a href="#" class="active">Decks</a>
+      <a href="#">Logout</a>
+    </nav>
+  </header>
 
-    <main>
-      <div class="sidebar">
-        <button class="back-button">Back to Decks</button>
-        <div class="filters">
-          <label>
-            <input type="checkbox">
-            Exact Match
-          </label>
-          <label>
-            Likes greater than
-            <input type="range" min="0" max="10000">
-          </label>
-          <label>
-            Cards greater than
-            <input type="range" min="0" max="20">
-          </label>
-          <label>
-            Posted After
-            <input type="date">
-          </label>
-        </div>
+  <main>
+    <button class="back-button" (click)="resetFilters()">Back to Decks</button>
+    <div class="sidebar">
+      <div class="filters">
+        <label>
+          <input type="checkbox" [(ngModel)]="exactMatch">
+          Exact Match
+        </label>
+        <label>
+          Likes greater than
+          <input type="range" [(ngModel)]="likesThreshold" min="0" max="10000">
+          <div class="slider-labels">
+            <span>0</span>
+            <span>10k+</span>
+          </div>
+        </label>
+        <label>
+          Cards greater than
+          <input type="range" [(ngModel)]="cardsThreshold" min="0" max="20">
+          <div class="slider-labels">
+            <span>0</span>
+            <span>20+</span>
+          </div>
+        </label>
+        <label>
+          Posted After
+          <input type="date" [(ngModel)]="postedAfter">
+        </label>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="search-bar">
+        <input type="text" [(ngModel)]="searchKeyword" placeholder="Search deck by keyword">
+        <button class="search-button" (click)="searchDecks()">🔍</button>
       </div>
 
-      <div class="main-content">
-        <div class="search-bar">
-          <input type="text" placeholder="Search deck">
-          <button class="search-button">🔍</button>
-        </div>
-
-        <div class="deck-list">
-          <div class="deck-item" onclick="openDeck('Operating Systems')">
-            <div class="deck-content">
-              <h3>Operating Systems</h3>
-              <p>by <a href="user.html?username=Random_M" class="deck-username">Random_M</a></p>
-              <p>5 cards in deck, posted on <strong>6th Jan, 2024</strong></p>
-            </div>
-            <button class="likes-button" data-likes="2000">❤️ <span>2k</span></button>
+      <div class="deck-list">
+        <div 
+          *ngFor="let deck of filteredDecks" 
+          class="deck-item" 
+          (click)="openDeck(deck)">
+          <div class="deck-content">
+            <h3>{{ deck.name }}
+              <span>By <a [routerLink]="['/user', deck.username]" class="deck-username">{{ deck.username }}</a></span>
+            </h3>
+            <p>{{ deck.cards }} cards in deck, posted on <strong>{{ deck.postedOn | date }}</strong></p>
           </div>
-          <div class="deck-item" onclick="openDeck('Environmental Systems Engineering')">
-            <div class="deck-content">
-              <h3>Environmental Systems Engineering</h3>
-              <p>by <a href="user.html?username=KanishShan" class="deck-username">KanishShan</a></p>
-              <p>17 cards in deck, posted on <strong>13th Dec, 2023</strong></p>
-            </div>
-            <button class="likes-button" data-likes="13000">❤️ <span>13k</span></button>
-          </div>
-          <div class="deck-item" onclick="openDeck('Conserving EcoSystems')">
-            <div class="deck-content">
-              <h3>Conserving EcoSystems</h3>
-              <p>by <a href="user.html?username=RangFlare" class="deck-username">RangFlare</a></p>
-              <p>4 cards in deck, posted on <strong>22nd Jun, 2022</strong></p>
-            </div>
-            <button class="likes-button" data-likes="179">❤️ <span>179</span></button>
-          </div>
-          <div class="deck-item" onclick="openDeck('Software Systems Engineering')">
-            <div class="deck-content">
-              <h3>Software Systems Engineering</h3>
-              <p>by <a href="user.html?username=MathuSwamy" class="deck-username">MathuSwamy</a></p>
-              <p>9 cards in deck, posted on <strong>19th Feb, 2024</strong></p>
-            </div>
-            <button class="likes-button" data-likes="972">❤️ <span>972</span></button>
-          </div>
+          <button class="likes-button">❤️ <span>{{ deck.likes }}</span></button>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <footer>
-      <p>Study Buddies. All rights reserved, 2024</p>
-    </footer>
-  </div>
-  <script src="index.js"></script>
-</body>
-</html>
-
+  <footer>
+    <p>Study Buddies, All rights reserved, 2024</p>
+  </footer>
+</div>

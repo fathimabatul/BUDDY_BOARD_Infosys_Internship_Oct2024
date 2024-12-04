@@ -1,46 +1,70 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-deck-search',
-  standalone: true,
-  imports: [],
   templateUrl: './deck-search.component.html',
-  styleUrl: './deck-search.component.css'
+  styleUrls: ['./deck-search.component.css']
 })
-export class DeckSearchComponent {
-   decks = [
-    { name: 'Operating Systems', username: 'Random_M', cardsCount: 5, postedDate: '6th Jan, 2024', likes: 2000 },
-    { name: 'Environmental Systems Engineering', username: 'KanishShan', cardsCount: 17, postedDate: '13th Dec, 2023', likes: 13000 },
-    { name: 'Conserving EcoSystems', username: 'RangFlare', cardsCount: 4, postedDate: '22nd Jun, 2022', likes: 179 },
-    { name: 'Software Systems Engineering', username: 'MathuSwamy', cardsCount: 9, postedDate: '19th Feb, 2024', likes: 972 }
-  ];
+export class DeckSearchComponent implements OnInit {
+  searchKeyword: string = '';
+  exactMatch: boolean = false;
+  likesThreshold: number = 10000;
+  cardsThreshold: number = 20;
+  postedAfter: string | null = null;
 
-  filters = {
-    exactMatch: false,
-    minLikes: 0,
-    minCards: 0,
-    postedAfter: ''
-  };
+  decks: any[] = []; // Full list of decks from the backend
+  filteredDecks: any[] = []; // Filtered decks to display
 
-  get filteredDecks() {
-    return this.decks.filter(deck => {
-      return (
-        deck.likes >= this.filters.minLikes &&
-        deck.cardsCount >= this.filters.minCards &&
-        (!this.filters.postedAfter || new Date(deck.postedDate) >= new Date(this.filters.postedAfter))
-      );
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.fetchDecks();
+  }
+
+  // Fetch decks from backend API
+  fetchDecks(): void {
+    this.http.get<any[]>('/api/decks').subscribe(
+      (data) => {
+        this.decks = data;
+        this.filteredDecks = data; // Initially, all decks are shown
+      },
+      (error) => {
+        console.error('Error fetching decks:', error);
+      }
+    );
+  }
+
+  // Filter decks based on search criteria
+  searchDecks(): void {
+    this.filteredDecks = this.decks.filter((deck) => {
+      const matchesKeyword = this.exactMatch
+        ? deck.name.toLowerCase() === this.searchKeyword.toLowerCase()
+        : deck.name.toLowerCase().includes(this.searchKeyword.toLowerCase());
+
+      const matchesLikes = deck.likes >= this.likesThreshold;
+      const matchesCards = deck.cards >= this.cardsThreshold;
+      const matchesDate =
+        !this.postedAfter || new Date(deck.postedOn) >= new Date(this.postedAfter);
+
+      return matchesKeyword && matchesLikes && matchesCards && matchesDate;
     });
   }
 
-  openDeck(deckName: string) {
-    alert('Opening deck: ' + deckName);
-    
+  // Reset filters and fetch all decks again
+  resetFilters(): void {
+    this.searchKeyword = '';
+    this.exactMatch = false;
+    this.likesThreshold = 10000;
+    this.cardsThreshold = 20;
+    this.postedAfter = null;
+    this.filteredDecks = [...this.decks];
   }
 
-  likeDeck(deck: any) {
-    deck.likes += 100; 
+  // Open a specific deck
+  openDeck(deck: any): void {
+    console.log('Opening deck:', deck.name);
+    // Navigate to the deck detail page or perform other actions
   }
 }
-  
-
 
