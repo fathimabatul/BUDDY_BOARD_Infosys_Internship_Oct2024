@@ -9,25 +9,27 @@
     </nav>
   </div>
 
+  <!-- Popup Message -->
+  <div class="popup-message" *ngIf="message">
+    <p>{{ message }}</p>
+  </div>
+
   <div class="content">
     <div class="sidebar">
       <div class="index-page">
         <button class="back-button">Back to Decks</button>
         <h2>{{ deckTitle }}</h2>
         <div class="actions">
-          <button class="like-button">👍</button>
-          <button class="dislike-button">👎</button>
+          <button class="like-button" (click)="likeDeck()">👍</button>
+          <button class="dislike-button" (click)="dislikeDeck()">👎</button>
         </div>
         <ul class="menu">
-          <!-- <li
-              *ngFor="let card of cards; let i = index">
-              {{ i + 1 }}. {{ card.title }}
-            </li> -->
-          @for(card of cards; track card ; let i = $index){
-          <li [class.active]="i === currentIndex" (click)="changeCard(i)">
-            {{ i + 1 }}.{{ card.title }}
+          <li 
+            *ngFor="let card of cards; let i = index" 
+            [class.active]="i === currentIndex" 
+            (click)="changeCard(i)">
+            {{ i + 1 }}. {{ card.title }}
           </li>
-          }
         </ul>
       </div>
       <div class="info">
@@ -47,10 +49,7 @@
           &lt; Previous
         </button>
         <span>{{ currentIndex + 1 }}/{{ cards.length }}</span>
-        <button
-          (click)="goToNext()"
-          [disabled]="currentIndex === cards.length - 1"
-        >
+        <button (click)="goToNext()" [disabled]="currentIndex === cards.length - 1">
           Next &gt;
         </button>
       </div>
