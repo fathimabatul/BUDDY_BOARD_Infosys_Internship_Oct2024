@@ -8,8 +8,6 @@
       <a href="#">Logout</a>
     </nav>
   </div>
-
-  <!-- Popup Message -->
   <div class="popup-message" *ngIf="message">
     <p>{{ message }}</p>
   </div>
@@ -33,9 +31,9 @@
         </ul>
       </div>
       <div class="info">
-        <p>❤️<span>13k</span></p>
-        <p>Created On: 12th Feb</p>
-        <p>Created By: BabaRam</p>
+        <p>❤️<span>{{ likesCount | number }}</span></p>
+        <p>Created On: {{ createdOn }}</p>
+        <p>Created By: {{ createdBy }}</p>
       </div>
     </div>
 
