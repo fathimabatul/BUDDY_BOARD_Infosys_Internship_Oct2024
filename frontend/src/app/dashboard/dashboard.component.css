@@ -1,0 +1,149 @@
+/* Reset Styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Dashboard Layout */
+  .dashboard {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  /* Header Section */
+  .header {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #000;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+  }
+  
+  .nav-links a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Main Content Area */
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 30px;
+    box-sizing: border-box;
+  }
+  
+  /* Favorite Decks and Public Decks Sections */
+  .favorite-decks h2,
+  .public-decks h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  /* Deck List and Card */
+  .deck-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .deck-card {
+    width: 130px; /* Reduced width */
+    height: auto;
+    background-color: yellow;
+    border: 2px solid #000;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: center; */
+    padding: 15px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .deck-card-content {
+    margin-top: auto; /* Push content to the bottom of the card */
+  }
+  
+  .deck-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .deck-lines {
+    width: 80%;
+    height: 2px;
+    background-color: #000;
+    margin: 5px 0;
+  }
+  
+  /* Deck Details (Outside Deck) */
+  .deck-details {
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .deck-name, .deck-author, .likes {
+    font-size: 14px;
+    margin-top:10px;
+  }
+  
+  .deck-author {
+    font-size: 12px;
+    color: #777;
+  }
+  
+  .likes {
+    font-size: 14px;
+    color: #e74c3c;
+  }
+  
+  .see-all {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+  }
+  
+  .see-all:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .deck-list {
+        justify-content: flex-start; /* Align decks left for small screens */
+    }
+    .deck-card {
+        width: 140px; /* Smaller width on mobile */
+    }
+  }
+  
