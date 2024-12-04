@@ -10,45 +10,30 @@ import { RouterLink } from '@angular/router';
   styleUrl: './deck-page.component.css'
 })
 export class DeckPageComponent {
-  publicDeck=[
-    { title: "Basics of TypeScript", createdBy: "Alice", Likes: 120 },
-    { title: "Advanced JavaScript", createdBy: "Bob", Likes: 450 },
-    { title: "React 101", createdBy: "Charlie", Likes: 300 },
-    { title: "Node.js Crash Course", createdBy: "Diana", Likes: 280 },
-    { title: "Data Structures", createdBy: "Eve", Likes: 560 },
-    { title: "Algorithms Simplified", createdBy: "Frank", Likes: 700 },
-    { title: "Python for Beginners", createdBy: "Grace", Likes: 200 },
-    { title: "Cloud Computing Fundamentals", createdBy: "Hank", Likes: 150 },
-    { title: "Frontend Mastery", createdBy: "Alice", Likes: 320 },
-    { title: "Backend Best Practices", createdBy: "Bob", Likes: 390 },
-    { title: "Basics of TypeScript", createdBy: "Alice", Likes: 120 },
-    { title: "Advanced JavaScript", createdBy: "Bob", Likes: 450 },
-    { title: "React 101", createdBy: "Charlie", Likes: 300 },
-    { title: "Node.js Crash Course", createdBy: "Diana", Likes: 280 },
-    { title: "Data Structures", createdBy: "Eve", Likes: 560 },
-    { title: "Algorithms Simplified", createdBy: "Frank", Likes: 700 },
-    { title: "Python for Beginners", createdBy: "Grace", Likes: 200 },
-    { title: "Cloud Computing Fundamentals", createdBy: "Hank", Likes: 150 },
-    { title: "Frontend Mastery", createdBy: "Alice", Likes: 320 },
-    { title: "Backend Best Practices", createdBy: "Bob", Likes: 390 },
-    { title: "Basics of TypeScript", createdBy: "Alice", Likes: 120 },
-    { title: "Advanced JavaScript", createdBy: "Bob", Likes: 450 },
-    { title: "React 101", createdBy: "Charlie", Likes: 300 },
-    { title: "Node.js Crash Course", createdBy: "Diana", Likes: 280 },
-    { title: "Data Structures", createdBy: "Eve", Likes: 560 },
-    { title: "Algorithms Simplified", createdBy: "Frank", Likes: 700 },
-    { title: "Python for Beginners", createdBy: "Grace", Likes: 200 },
-    { title: "Cloud Computing Fundamentals", createdBy: "Hank", Likes: 150 },
-    { title: "Frontend Mastery", createdBy: "Alice", Likes: 320 },
-    { title: "Backend Best Practices", createdBy: "Bob", Likes: 390 },
-]
+  //these decks needed to be filled after api Integeration
+  publicDeck: { id: string; title: string; createdBy: string; Likes: number }[] = [];
+  favDecks:  { id: string; title: string; createdBy: string; Likes: number }[] = [];
+  /*
+  below dummy data data is for frontend testing 
+  publicDeck = [
+  { id: "1", title: "Basics of TypeScript", createdBy: "Alice", Likes: 120 },
+  { id: "2", title: "Advanced JavaScript", createdBy: "Bob", Likes: 450 },
+  { id: "3", title: "React 101", createdBy: "Charlie", Likes: 300 },
+  { id: "4", title: "Node.js Crash Course", createdBy: "Diana", Likes: 280 },
+  { id: "5", title: "Data Structures", createdBy: "Eve", Likes: 560 },
+  { id: "6", title: "Algorithms Simplified", createdBy: "Frank", Likes: 700 },
+  { id: "7", title: "Python for Beginners", createdBy: "Grace", Likes: 200 },
+  { id: "8", title: "Cloud Computing Fundamentals", createdBy: "Hank", Likes: 150 },
+  { id: "9", title: "Frontend Mastery", createdBy: "Alice", Likes: 320 },
+  { id: "10", title: "Backend Best Practices", createdBy: "Bob", Likes: 390 },
+];
 favDecks= [
     { title: "Basics of TypeScript", createdBy: "Alice", Likes: 120 },
     { title: "Advanced JavaScript", createdBy: "Bob", Likes: 450 },
     { title: "React 101", createdBy: "Charlie", Likes: 300 },
     { title: "Node.js Crash Course", createdBy: "Diana", Likes: 280 },
     { title: "Algorithms Simplified", createdBy: "Frank", Likes: 700 },
-]
+]*/
 
   // Toggle states
   showAllPublic: boolean = false;
@@ -89,6 +74,7 @@ favDecks= [
       if(this.isSuccess){
         // Append new deck to the savedDeck array
         const newDeck = {
+          id:"400",
           title: data.title,
           createdBy: 'John Doe', // Assuming the current user is the creator
           Likes: 0 // New decks start with 0 likes
