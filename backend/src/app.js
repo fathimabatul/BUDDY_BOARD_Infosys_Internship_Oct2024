@@ -22,10 +22,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 import userRouter from "./routes/user.routes.js";
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 app.use("/api/auth/users", userRouter);
-
-import cardRouter from "./routes/card.routes.js";
-
-app.use("/api/card", cardRouter);
 app.use(errorHandler);
 
 export { app };

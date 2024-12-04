@@ -1,83 +1,181 @@
+body {
+  margin: 10px;
+  padding: 10px;
+  border: 4px solid black;
+  box-sizing: border-box;
+  background-color: #ffa500;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-title {
+  font-size: 4rem;
+  font-weight: bold;
+  color: rgb(8, 0, 0);
+  position: absolute;
+  top: 10px;
+  text-align: center;
+  width: 100%;
+  font-family: "Papyrus", fantasy;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #c0c0c0;
+  border: 4px solid black;
+  box-sizing: border-box;
+}
 
 .form-box {
-    max-width: 300px;
-    background: #f1f7fe;
-    overflow: hidden;
-    border-radius: 16px;
-    color: #010101;
-  }
-  
-  .form {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 32px 24px 24px;
-    gap: 16px;
-    text-align: center;
-  }
-  
-  /*Form text*/
-  .title {
-    font-weight: bold;
-    font-size: 1.6rem;
-  }
-  
-  .subtitle {
-    font-size: 1rem;
-    color: #666;
-  }
-  
-  /*Inputs box*/
-  .form-container {
-    overflow: hidden;
-    border-radius: 8px;
-    background-color: #fff;
-    margin: 1rem 0 .5rem;
-    width: 100%;
-  }
-  
-  .input {
-    background: none;
-    border: 0;
-    outline: 0;
-    height: 40px;
-    width: 100%;
-    border-bottom: 1px solid #eee;
-    font-size: .9rem;
-    padding: 8px 15px;
-  }
-  
-  .form-section {
-    padding: 16px;
-    font-size: .85rem;
-    background-color: #e0ecfb;
-    box-shadow: rgb(0 0 0 / 8%) 0 -1px;
-  }
-  
-  .form-section a {
-    font-weight: bold;
-    color: #0066ff;
-    transition: color .3s ease;
-  }
-  
-  .form-section a:hover {
-    color: #005ce6;
-    text-decoration: underline;
-  }
-  
-  /*Button*/
-  .form button {
-    background-color: #0066ff;
-    color: #fff;
-    border: 0;
-    border-radius: 24px;
-    padding: 10px 16px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color .3s ease;
-  }
-  
-  .form button:hover {
-    background-color: #005ce6;
-  }
+  width: 300px;
+  padding: 20px;
+  background: #ffffff;
+  border: 3px solid black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input {
+  width: 100%;
+  height: 30px;
+  background-color: #e0e0e0;
+  border: 1px solid #080808;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  border-bottom: 2px solid #0066ff;
+}
+
+.password-container {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #666;
+  transition: color 0.3s;
+}
+
+.eye-icon:hover {
+  color: #333;
+}
+
+.submit-button {
+  width: 100px;
+  padding: 10px;
+  background-color: #87CEEB;
+  color: #070000;
+  border: 1px solid #080808;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 10px auto 0 auto;
+  display: block;
+  font-family: "Papyrus", fantasy;
+}
+
+.submit-button:hover {
+  background-color: #005ce6;
+}
+
+.form-section {
+  font-size: 0.85rem;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.form-section a, .form-section p {
+  font-weight: bold;
+  color: #0066ff;
+  text-decoration: none;
+  font-family: "Papyrus", fantasy;
+}
+
+.form-section a:hover {
+  color: #005ce6;
+  text-decoration: underline;
+}
+
+form label {
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  text-align: left;
+  font-family: "Papyrus", fantasy;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgb(12, 12, 12);
+  font-weight: bold;
+  font-family: "Papyrus", fantasy;
+  margin-top: auto;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.alert {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
