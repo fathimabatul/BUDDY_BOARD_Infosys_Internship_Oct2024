@@ -172,7 +172,7 @@ const sendPasswordResetEmail = asyncHandler(async (req, res) => {
 
   const resetUrl = `${req.protocol}://localhost:4200/reset-password/${resetToken}`;
 
-  const message = `You are receiving this email because you (or someone else) have requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+  const message = `You are receiving this email because you (or someone else) have requested the reset of a password. Please click over the link to continue: \n\n ${resetUrl}`;
 
   await sendEmail({
     email: user.email,
