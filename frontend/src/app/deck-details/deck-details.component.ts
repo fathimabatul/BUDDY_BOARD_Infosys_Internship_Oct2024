@@ -1,16 +1,22 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { Component, Input, OnInit } from '@angular/core'; 
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-deck-details',
   standalone: true,
   templateUrl: './deck-details.component.html',
   styleUrls: ['./deck-details.component.css'],
-  imports: [CommonModule] // Include CommonModule here
+  imports: [CommonModule]
 })
-export class DeckDetailsComponent {
+export class DeckDetailsComponent implements OnInit {
   currentIndex = 2;
   deckTitle = "Operating Systems";
+
+  @Input() createdOn: string = "12th Feb"; 
+  @Input() createdBy: string = "BabaRam"; 
+  likesCount: number = 0;
+  deckId: string = "operatingSystemsDeck"; 
+
   cards = [
     { title: "Processes", description: "Description about Processes" },
     { title: "Kernel", description: "Description about Kernel" },
@@ -20,6 +26,11 @@ export class DeckDetailsComponent {
   ];
 
   message: string | null = null;
+
+  ngOnInit() {
+    const storedLikes = localStorage.getItem(`likes_${this.deckId}`);
+    this.likesCount = storedLikes ? +storedLikes : 0; 
+  }
 
   changeCard(index: number) {
     this.currentIndex = index;
@@ -38,17 +49,27 @@ export class DeckDetailsComponent {
   }
 
   likeDeck() {
+    this.likesCount++; 
+    this.updateLikesStorage();
     this.showMessage("This deck was added to favorites!");
   }
 
   dislikeDeck() {
-    this.showMessage("You have removed the deck from favorites.");
+    if (this.likesCount > 0) {
+      this.likesCount--;
+      this.updateLikesStorage();
+      this.showMessage("You have removed the deck from favorites.");
+    }
+  }
+
+  private updateLikesStorage() {
+    localStorage.setItem(`likes_${this.deckId}`, this.likesCount.toString());
   }
 
   private showMessage(msg: string) {
     this.message = msg;
     setTimeout(() => {
       this.message = null;
-    }, 3000); // Hide the message after 3 seconds
+    }, 3000);
   }
 }
