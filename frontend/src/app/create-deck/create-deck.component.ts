@@ -12,25 +12,24 @@ import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular
 
 export class CreateDeckComponent {
   deckForm: FormGroup;
-  savedDeck: { title: string; description: string } | null = null; // Simulate saved deck
+  savedDeck: { title: string} | null = null; // Simulate saved deck
   feedbackMessage: string = ''; // Success or error feedback
   @Input() isModalVisible: boolean = false; 
   @Input() isSuccess:Boolean | null = null;;
-  @Output() passedDeckFormData =new EventEmitter<{ title: string; description: string }>();
+  @Output() passedDeckFormData =new EventEmitter<{ title: string }>();
 
   constructor(private fb: FormBuilder) {
     this.deckForm = this.fb.group({
       deckName: [
         '',
         [Validators.required, Validators.minLength(3), Validators.maxLength(100)]
-      ],
-      description: ['', [Validators.maxLength(500)]],
+      ]
     });
   }
   onSubmit(): void {
     if (this.deckForm.valid) {
-      const { deckName, description } = this.deckForm.value;
-      const deckData = { title: deckName, description: description };
+      const { deckName } = this.deckForm.value;
+      const deckData = { title: deckName };
   
       this.feedbackMessage = 'Saving deck...'; // Indicate processing
       this.passedDeckFormData.emit(deckData); // Emit the data to the parent
@@ -44,7 +43,6 @@ export class CreateDeckComponent {
   onCancel(): void {
     this.deckForm.reset({
       deckName: '',
-      description: '',
     });
     this.feedbackMessage = '';
     this.savedDeck = null;
@@ -58,7 +56,6 @@ export class CreateDeckComponent {
       this.feedbackMessage = 'Deck successfully saved!';
       this.deckForm.reset({
         deckName: '',
-        description: '',
       });
     } else if (this.isSuccess === false) {
       this.feedbackMessage = 'Error: Failed to save the deck. Please try again.';

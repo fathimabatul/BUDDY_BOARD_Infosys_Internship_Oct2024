@@ -11,12 +11,12 @@ import { CreateDeckComponent } from '../create-deck/create-deck.component';
 export class LandingComponent {
   isModalVisible: boolean = false; 
   isSuccess:boolean| null = null;
-  savedDeck: { title: string; description: string }[] = []; ;
+  savedDeck: { title: string}[] = []; ;
   toggleOverlay(): void {
     this. isModalVisible= !this.isModalVisible;
   }
   
-  getDeckFormData(data: { title: string; description: string }): void {
+  getDeckFormData(data: { title: string }): void {
     setTimeout(() => {
       this.isSuccess=true;
       if(this.isSuccess){
