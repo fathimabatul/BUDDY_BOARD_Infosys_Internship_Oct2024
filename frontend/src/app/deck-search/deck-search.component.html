@@ -3,15 +3,15 @@
   <header class="navbar">
     <h1>Study Buddies</h1>
     <nav>
-      <a href="#">Feed</a>
-      <a href="#">Cards</a>
-      <a href="#" class="active">Decks</a>
-      <a href="#">Logout</a>
+      <a routerLink="/dashboard">Feed</a>
+      <a routerLink="/cardpage">Cards</a>
+      <a routerLink="/deckPage" class="active">Decks</a>
+      <a routerLink="/signin">Logout</a>
     </nav>
   </header>
 
   <main>
-    <button class="back-button" (click)="resetFilters()">Back to Decks</button>
+    <button class="back-button" (click)="resetFilters()" routerLink="/deckPage">Back to Decks</button>
     <div class="sidebar">
       <div class="filters">
         <label>

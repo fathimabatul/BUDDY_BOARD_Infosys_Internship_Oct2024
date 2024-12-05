@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core'; 
 import { CommonModule } from '@angular/common'; 
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-deck-details',
   standalone: true,
   templateUrl: './deck-details.component.html',
   styleUrls: ['./deck-details.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule,RouterLink]
 })
 export class DeckDetailsComponent implements OnInit {
   currentIndex = 2;

@@ -1,113 +1,64 @@
-<div class="dashboard">
-    <!-- Header Section -->
-    <header class="header">
-        <h1>Study Buddies</h1>
-        <nav class="nav-links">
-            <a href="#" routerLink="/feed">Feed</a>
-            <a href="#" routerLink="/cards">Cards</a>
-            <a href="#" routerLink="/decks">Decks</a>
-            <a href="#" routerLink="/logout">Logout</a>
-        </nav>
+<div class="container">
+    <header>
+      <h1>Study Buddies</h1>
+      <nav>
+        <a routerLink="/dashboard">Feed</a>
+        <a routerLink="/cardpage">Cards</a>
+        <a routerLink="/deckPage">Decks</a>
+        <a routerLink="/signin">Logout</a>
+      </nav>
     </header>
-  
-    <!-- Main Dashboard Content -->
-    <div class="main-content">
-        <!-- Favorite Decks Section -->
-        <section class="favorite-decks">
-            <div class="section-header">
-                <h2>Favorite Decks (5)</h2>
-                <a href="#" class="see-all">See All</a>
-            </div>
-            <div class="deck-list">
-                <div class="deck-card">
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-details">
-                        <div class="deck-name">Operating Systems</div>
-                        <div class="deck-author">By BabaRam</div>
+    <br><br>
+    <main>
+      <section class="deck-section">
+        <h2>My Favorite Decks (7)</h2>
+        <br><br>
+        <div class="decks">
+            <div class="deck" *ngFor="let deck of favoriteDecks | slice:0:4" >
+                <a href="your-link-here" routerLink="/deckDetails" class="icon-link">
+                  <div class="icon">
+                    <div class="paper back"></div>
+                    <div class="paper middle"></div>
+                    <div class="paper front">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
                     </div>
-                </div>
-  
-                <div class="deck-card">
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-details">
-                        <div class="deck-name">Compiler Design</div>
-                        <div class="deck-author">By GreatPerson</div>
+                  </div>
+                </a>
+                <p class="deck-title">{{ deck.name }}</p>
+                <p class="deck-author">By By {{ deck.author }}</p>
+              </div>
+          <a routerLink="/favoriteDecks" class="see-all">See All</a>
+        </div>
+      </section>
+      <hr class="divider">
+      <br>
+      <section class="deck-section">
+        <h2>My Public Decks (7)</h2>
+        <br><br>
+        <div class="decks">
+            <div class="deck" *ngFor="let deck of publicDecks | slice:0:4" >
+                <a href="your-link-here" routerLink="/deckDetails" class="icon-link">
+                  <div class="icon">
+                    <div class="paper back"></div>
+                    <div class="paper middle"></div>
+                    <div class="paper front">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
                     </div>
-                </div>
-  
-                <div class="deck-card">
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-details">
-                        <div class="deck-name">Artificial Intelligence</div>
-                        <div class="deck-author">By Rahul__M</div>
-                    </div>
-                </div>
-  
-                <div class="deck-card">
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-details">
-                        <div class="deck-name">Maths III</div>
-                        <div class="deck-author">By Manas</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-  
-        <!-- Public Decks Section -->
-        <section class="public-decks">
-            <div class="section-header">
-                <h2>My Public Decks (3)</h2>
-                <a href="#" class="see-all">See All</a>
-            </div>
-            <div class="deck-list">
-                <div class="deck-card">
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-details">
-                        <div class="deck-name">Electrical Notes</div>
-                        <div class="likes">❤️ 678</div>
-                    </div>
-                </div>
-  
-                <div class="deck-card">
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-details">
-                        <div class="deck-name">Robotics Notes</div>
-                        <div class="likes">❤️ 54</div>
-                    </div>
-                </div>
-  
-                <div class="deck-card">
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-details">
-                        <div class="deck-name">Time Managing</div>
-                        <div class="likes">❤️ 2k</div>
-                    </div>
-                </div>
-                <div class="deck-card">
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-lines"></div>
-                    <div class="deck-details">
-                        <div class="deck-name">Gardening tips</div>
-                        <div class="likes">❤️ 13k</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+                  </div>
+                </a>
+                <p class="deck-title">{{ deck.name }}</p>
+                <p class="deck-author">By By {{ deck.author }}</p>
+              </div>
+          <a routerLink="/publicDecks" class="see-all">See All</a>
+        </div>
+      </section>
+    </main>
+    <hr class="divider">
+    <footer>
+      <p><b>Study Buddies, All rights reserved, 2024</b></p>
+    </footer>
   </div>
-  

@@ -1,0 +1,168 @@
+/* General Styles */
+body {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #c0c0c0;
+    height: 98%;
+  }
+  
+  .container {
+    height: 99vh; /* Ensure it takes up the full height of the viewport */
+    display: flex;
+    flex-direction: column; /* Use column layout */
+    border: 2px solid black;
+    background-color: #c0c0c0;
+  }
+  
+  header {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    background-color: white;
+    border-bottom: 2px solid black;
+    padding: 7px 7px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+  header h1 {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    font-size: 20px;
+    margin: 0;
+    font-weight: bold;
+  }
+  h2 {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    font-size: 20px;
+    color: blue;
+    margin-left: 50px;
+    margin-top: 0;/* Remove any top margin */
+    margin-bottom: 0;
+  }
+  
+  header nav a {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    margin: 0 10px;
+    text-decoration: none;
+    color: blue;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  header nav a:hover {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    text-decoration: underline;
+  }
+  
+  /* Main Section */
+  main {
+    flex-grow: 1; /* Allow it to take up remaining space */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+  }
+  
+  .controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  .new-card-btn {
+    background-color: #87CEEB;
+    color: black;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid black; /* Bold black border */
+    cursor: pointer;
+    margin-left: 50px;
+    margin-top: 10px;
+    font-family: 'Papyrus', 'Arial', sans-serif; /* Papyrus for button */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Bottom shadow */
+  }
+  
+  .new-card-btn:hover {
+    background-color: #6AB0DA;
+  }
+  
+  
+  
+  /* Notes Section */
+  .notes-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    gap: 0; /* Ensure no gap between grid items */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any padding */
+  }
+  
+  .note-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0; /* Remove margin from note cards */
+    padding: 0;
+  }
+  
+  .note {
+    width: 60px;
+    height: 80px;
+    background-color: rgb(233, 233, 56);
+    border: 1px solid rgb(3, 3, 72);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 7px;
+    padding: 0px;
+  }
+  
+  .horizontal-lines {
+    width: 80%; /* Stretch lines to the width of the .note */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 5px auto;
+  }
+  
+  .horizontal-lines div {
+    border-bottom: 2px dotted #333; /* Dotted line */
+    height: 0;  /* Line color */
+    margin: 8px 0; /* Spacing between lines */
+  }
+  
+  .note-link {
+    text-decoration: none; /* Removes underline from the link */
+    color: inherit; /* Ensures the link uses the current text color */
+  }
+  
+  .note-title {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(11, 11, 176);
+    text-align: center;
+    word-wrap: break-word;
+    text-decoration: none;
+  }
+  
+  /* Footer */
+  footer {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    padding: 0px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .icon-box {
+    width: 80px; /* Adjust as needed */
+    height: 100px;
+    background-color: yellow; /* Yellow background */
+    border: 2px solid black; /* Black border */
+    padding: 20px; /* Add padding inside the box */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for a 3D look */
+  }
+  

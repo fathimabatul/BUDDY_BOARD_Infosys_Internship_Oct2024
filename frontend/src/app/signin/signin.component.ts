@@ -48,7 +48,7 @@ export class SigninComponent {
           }
 
           // Navigate to dashboard or home page
-          this.router.navigate(['/landing']);
+          this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           console.log(error);

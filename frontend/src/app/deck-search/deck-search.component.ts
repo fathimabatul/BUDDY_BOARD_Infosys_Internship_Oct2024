@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
+  standalone: true,
   selector: 'app-deck-search',
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './deck-search.component.html',
   styleUrls: ['./deck-search.component.css']
 })

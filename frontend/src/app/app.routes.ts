@@ -7,6 +7,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeckDetailsComponent } from './deck-details/deck-details.component';
 import { DeckPageComponent } from './deck-page/deck-page.component';
 import { DeckSearchComponent } from './deck-search/deck-search.component';
+import { FavoriteDeckComponent } from './favorite-deck/favorite-deck.component';
+import { PublicDeckComponent } from './public-deck/public-deck.component';
+import { FlashcardComponent } from './flashcard/flashcard.component';
+import { CardsPageComponent } from './cards-page/cards-page.component';
 
 
 export const routes: Routes = [
@@ -57,11 +61,35 @@ export const routes: Routes = [
   {path:'deck-details',
     component:DeckDetailsComponent
   },
-  {path:'deck-page',
+  {path:'deckPage',
     component:DeckPageComponent
   },
   {path:'deck-search',
     component:DeckSearchComponent
   },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  {
+    path: 'favoriteDecks',
+    component: FavoriteDeckComponent
+  },
+  {
+    path: 'publicDecks',
+    component: PublicDeckComponent
+  },
+  {
+    path: 'deckDetails',
+    component: DeckDetailsComponent
+  },
+  {
+    path: 'flashcard',
+    component: FlashcardComponent
+  },
+  {
+    path: 'cardpage',
+    component: CardsPageComponent
+  },
+  {
+    path: 'flashcard',
+    component: FlashcardComponent
+  }
 ];
