@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class FlashcardComponent {
   flashcardForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     this.flashcardForm = this.fb.group({
       text: ['', [Validators.required, Validators.minLength(5)]],
       tags: [''], // optional field

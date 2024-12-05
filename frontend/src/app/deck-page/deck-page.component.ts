@@ -11,10 +11,10 @@ import { RouterLink } from '@angular/router';
 })
 export class DeckPageComponent {
   //these decks needed to be filled after api Integeration
-  publicDeck: { id: string; title: string; createdBy: string; Likes: number }[] = [];
-  favDecks:  { id: string; title: string; createdBy: string; Likes: number }[] = [];
-  /*
-  below dummy data data is for frontend testing 
+  // publicDeck: { id: string; title: string; createdBy: string; Likes: number }[] = [];
+  // favDecks:  { id: string; title: string; createdBy: string; Likes: number }[] = [];
+  
+  // below dummy data data is for frontend testing 
   publicDeck = [
   { id: "1", title: "Basics of TypeScript", createdBy: "Alice", Likes: 120 },
   { id: "2", title: "Advanced JavaScript", createdBy: "Bob", Likes: 450 },
@@ -33,7 +33,7 @@ favDecks= [
     { title: "React 101", createdBy: "Charlie", Likes: 300 },
     { title: "Node.js Crash Course", createdBy: "Diana", Likes: 280 },
     { title: "Algorithms Simplified", createdBy: "Frank", Likes: 700 },
-]*/
+]
 
   // Toggle states
   showAllPublic: boolean = false;

@@ -16,7 +16,7 @@ import {
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'https://buddy-board-infosys-internship-oct2024.onrender.com/api';
 
   signup(userData: SignupRequest): Observable<SignupResponse> {
     return this.http.post<SignupResponse>(
