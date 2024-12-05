@@ -4,6 +4,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { LandingComponent } from './landing/landing.component';
 import { SignupFollowUpComponent } from './signup-follow-up/signup-follow-up.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DeckDetailsComponent } from './deck-details/deck-details.component';
+import { DeckPageComponent } from './deck-page/deck-page.component';
+import { DeckSearchComponent } from './deck-search/deck-search.component';
 
 
 export const routes: Routes = [
@@ -50,6 +53,15 @@ export const routes: Routes = [
   { 
     path: 'dashboard', 
     component: DashboardComponent 
+  },
+  {path:'deck-details',
+    component:DeckDetailsComponent
+  },
+  {path:'deck-page',
+    component:DeckPageComponent
+  },
+  {path:'deck-search',
+    component:DeckSearchComponent
   },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];

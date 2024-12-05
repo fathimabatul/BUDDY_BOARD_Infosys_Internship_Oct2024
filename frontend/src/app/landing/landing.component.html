@@ -1,2 +1,15 @@
 <button class="btn-show" (click)="toggleOverlay()"> Deck + </button>
-<app-create-deck [isModalVisible]="isModalVisible"></app-create-deck>
+<app-create-deck (passedDeckFormData)="getDeckFormData($event)"  [isModalVisible]="isModalVisible" [isSuccess]="isSuccess"></app-create-deck>
+<br>
+<br>
+<br>
+<br>
+<ul>
+    @for (item of savedDeck; track $index) {
+        <div>
+            <li>{{item.title}}</li>
+         
+        </div>
+        <br>
+    }
+</ul>
