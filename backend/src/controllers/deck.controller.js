@@ -164,6 +164,124 @@ const addCardToDeck = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, updatedDeck, "Card added to deck successfully"));
 });
 
+const searchDecks = asyncHandler(async (req, res) => {
+  // console.log("function called");
+  const {
+    title,
+    exactMatch = false,
+    cardsCount,
+    favoritesCount,
+    postedAfter,
+  } = req.query;
+  // console.log(req);
+
+  try {
+    const pipeline = [
+      // Initial match for public decks
+      {
+        $match: {
+          visibility: "public",
+          is_blocked: false,
+        },
+      },
+    ];
+
+    if (title) {
+      pipeline.push({
+        $match: {
+          title: exactMatch ? title : { $regex: title, $options: "i" },
+        },
+      });
+    }
+
+    pipeline.push({
+      $addFields: {
+        cardsCount: { $size: "$cards" },
+      },
+    });
+
+    if (cardsCount) {
+      pipeline.push({
+        $match: {
+          cardsCount: { $gte: parseInt(cardsCount) },
+        },
+      });
+    }
+
+    if (postedAfter) {
+      pipeline.push({
+        $match: {
+          createdAt: { $gte: new Date(postedAfter) },
+        },
+      });
+    }
+
+    pipeline.push({
+      $addFields: {
+        favoritesCount: { $size: "$favorites" },
+      },
+    });
+
+    if (favoritesCount) {
+      pipeline.push({
+        $match: {
+          favoritesCount: { $gte: parseInt(favoritesCount) },
+        },
+      });
+    }
+
+    pipeline.push({
+      $lookup: {
+        from: "users",
+        localField: "created_by",
+        foreignField: "_id",
+        as: "creator",
+      },
+    });
+
+    pipeline.push({
+      $unwind: {
+        path: "$creator",
+        preserveNullAndEmptyArrays: true,
+      },
+    });
+
+    pipeline.push({
+      $lookup: {
+        from: "cards",
+        localField: "cards",
+        foreignField: "_id",
+        as: "cards",
+      },
+    });
+
+    pipeline.push({
+      $project: {
+        title: 1,
+        cardsCount: 1,
+        created_by: 1,
+        createdAt: 1,
+        favoritesCount: 1,
+        "creator.username": 1,
+      },
+    });
+
+    // console.log("Aggregation Pipeline:", JSON.stringify(pipeline, null, 2));
+    // console.log(pipeline);
+
+    const decks = await Deck.aggregate(pipeline);
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(200, decks, "Search results retrieved successfully")
+      );
+  } catch (error) {
+    console.error("Error in searchDecks:", error);
+    return res.status(500).json(new ApiError(500, "Internal Server Error"));
+  }
+});
+
 export {
   createDeck,
   updateDeck,
@@ -173,4 +291,5 @@ export {
   getFavoriteDecks,
   getPublicDecks,
   addCardToDeck,
+  searchDecks,
 };
