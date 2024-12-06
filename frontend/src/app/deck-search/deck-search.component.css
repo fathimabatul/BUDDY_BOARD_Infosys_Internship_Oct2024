@@ -155,14 +155,14 @@ main {
 /* Search Bar */
 .search-bar {
   display: flex;
+  width: 1000px; /* Ensure it takes full width of the parent */
   align-items: center;
   margin-bottom: 20px;
-  max-width: 900px;
   margin: 0 auto;
 }
 
 .search-bar input {
-  flex: 1;
+  flex-grow: 1; /* Allow the input to grow */
   padding: 10px;
   border: 1px solid #000;
   border-radius: 5px 0 0 5px;
@@ -180,6 +180,7 @@ main {
   cursor: pointer;
   font-size: 14px;
 }
+
 
 .search-bar button:hover {
   background-color: #2499e1;
