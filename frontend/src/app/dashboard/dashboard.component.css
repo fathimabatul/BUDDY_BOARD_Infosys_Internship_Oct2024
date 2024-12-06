@@ -2,15 +2,9 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Papyrus', 'Arial', sans-serif;
 }
 
-body {
-  font-family: 'Papyrus', 'Arial', sans-serif;
-  background-color: #dcdcdc;
-  color: #000;
-  border: #000;
-}
 .container {
   width: 100vw;
   height: 100vh;
@@ -27,23 +21,26 @@ header {
   font-family: 'Papyrus', 'Arial', sans-serif;
   background-color: white;
   border-bottom: 2px solid black;
-  padding: 5px 10px;
+  padding: 7px 7px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-weight: bold;
 }
 
 header h1 {
-  font-size: 18px;
+  font-family: 'Papyrus', 'Arial', sans-serif;
   margin: 0;
+  font-weight: bold;
 }
 
 header nav a {
-  margin: 0 8px;
-  text-decoration: none;
-  color: blue;
-  font-size: 12px;
-  font-weight: bold;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+    margin: 0 10px;
+    text-decoration: none;
+    color: blue;
+    font-size: 1.25rem;
+    font-weight: bold;
 }
 
 /* Section Titles */
@@ -51,6 +48,10 @@ header nav a {
   font-size: 16px;
   color: #0000ff;
   margin-bottom: 5px;
+}
+.deck-section{
+  width: 90%;
+  margin: auto;
 }
 
 /* Deck Container */
@@ -61,18 +62,22 @@ header nav a {
 }
 
 .deck {
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 200px;
+  font-family: 'Papyrus', 'Arial', sans-serif;
 }
 
 .deck-title {
-  text-align: center;
+  display: flex;                /* Use flexbox for centering */
+  justify-content: center;      /* Center horizontally */
+  align-items: center;          /* Center vertically */
+  text-align: center;           /* Ensure text is centered inside the flex container */
   font-size: 14px;
   margin: 5px 0;
   font-weight: bold;
+  font-family: 'Papyrus', 'Arial', sans-serif;
 }
 
 .deck-author {
@@ -84,8 +89,9 @@ header nav a {
 }
 
 .divider {
+  width: 90%;
   border: 1px solid black;
-  margin: 20px 0;
+  margin: auto;
 }
 
 
@@ -96,18 +102,28 @@ header nav a {
 
 /* See All Link */
 .see-all {
-  text-decoration: none;
-  color: #0000ff;
-  font-size: 10px;
-  margin-top: 5px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    text-decoration: none;
+    color: #0000ff;
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+    position: relative;  /* Allow further positioning adjustments */
+    top: -30px;  /* Move the button 20px upwards */
 }
 
 /* Footer */
 footer {
   font-size: 12px;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 5px;
+  font-family: 'Papyrus', 'Arial', sans-serif;
 }
 /* Icon Container */
 .icon {
@@ -119,21 +135,22 @@ footer {
 /* Paper Base */
 .paper {
   position: absolute;
-  width: 60px;
+  width: 80px;
   height: 75px;
-  background-color: yellow;
+  background-color: rgb(214, 214, 3);
   border: 1px solid black;
   border-radius: 2px;
+  padding-top: 3px;
 }
 
 .paper.back {
-  bottom: 6px;
-  right: 6px;
+  bottom: 10px;
+  right: 10px;
 }
 
 .paper.middle {
-  bottom: 3px;
-  right: 3px;
+  bottom: 5px;
+  right: 5px;
 }
 
 .paper.front {
@@ -143,7 +160,7 @@ footer {
 
 /* Dotted Lines */
 .paper .line {
-  width: 60%;
+  width: 70%;
   height: 1px;
   background-color: black;
   border-bottom: 1px dotted black;
@@ -161,10 +178,3 @@ footer {
   opacity: 0.8;
 }
 
-/* Navigation */
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
-}
