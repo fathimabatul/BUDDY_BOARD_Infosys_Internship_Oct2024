@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="deck-search.component.css">
 <div class="container">
   <header class="navbar">
-    <h1>Study Buddies</h1>
+    <h1>Buddy Board</h1>
     <nav>
       <a routerLink="/dashboard">Feed</a>
       <a routerLink="/cardpage">Cards</a>
@@ -48,9 +48,9 @@
       </div>
 
       <div class="deck-list">
-        <div 
-          *ngFor="let deck of filteredDecks" 
-          class="deck-item" 
+        <div
+          *ngFor="let deck of filteredDecks"
+          class="deck-item"
           (click)="openDeck(deck)">
           <div class="deck-content">
             <h3>{{ deck.name }}
