@@ -1,4 +1,3 @@
-
 <div class ='overlay' [class.showoverlay]="isModalVisible" (click)="onCancel()"></div>
 <div class='form-container' [class.showDeckForm]="isModalVisible">
     <span (click)="onCancel()">&times;</span>
@@ -20,18 +19,21 @@
           <small *ngIf="deckForm.get('deckName')?.hasError('maxlength')">Deck Name cannot exceed 100 characters.</small>
         </div>
       </div>
-  
+
       <!-- Action Buttons -->
       <div class="action-buttons">
-        <button type="submit" [disabled]="deckForm.invalid">Create Deck</button>
-        <button type="button" (click)="onCancel()">Cancel</button>
+        <div class ="submit">
+          <button type="submit" [disabled]="deckForm.invalid">Create Deck</button>
+        </div>
+        <div class ="cancel">
+          <button type="button" (click)="onCancel()">Cancel</button>
+        </div>
       </div>
     </form>
-  
+
     <!-- Feedback Message -->
     <div *ngIf="feedbackMessage" class="feedback-message">
       <p>{{ feedbackMessage }}</p>
-    </div>
+    </div>
 
 </div>
-  

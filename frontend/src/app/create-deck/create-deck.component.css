@@ -1,91 +1,129 @@
+.overlay {
+  width: 100%;
+  top: 0%;
+  position: fixed;
+  height: 120vh;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  z-index: -1;
+  transition: 1s;
+}
 
-  .overlay{
-    width: 100%;
-    top: 0%;
-    position: fixed;
-    height: 100vh;
-    background: rgba(0,0,0,0.5);
-    opacity:0;
-    z-index: -1;
-    transition: 1s;
-  }
-   .showoverlay{
-      opacity: 1;
-      z-index: 1;
-    }
+.showoverlay {
+  opacity: 1;
+  z-index: 1;
+}
 
 .form-container {
-  width:300px;
-  padding:30px 20px;
-  background-color:white;
-  box-shadow:0 0 10px 3px #ccc;
-    position: absolute;
-    top: -50%;
-    left: 50%;
-    transform: translate(-50%,-50%);  
-    transition: 2s;
-  }
-  .showDeckForm{
-    top: 50%;
-    z-index:9;
-    }
-    .form-container span{
-      position: absolute;
-      right: 0;
-      width: 30px;
-      line-height: 30px;
-      height: 30px;
-      color: white;
-      text-align: center;
-      background-color: green;
-      top : 0;
-      cursor:pointer;
-     
-    }
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  input,
-  textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  textarea {
-    resize: vertical;
-  }
-  
-  small {
-    color: red;
-  }
-  
-  .action-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-  }
-  
-  .feedback-message {
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #e0f7e9;
-    color: #2e7d32;
-  }
-  
-  .feedback-message.error {
-    background-color: #fdecea;
-    color: #d32f2f;
-  }
-  
+  width: 300px;
+  padding: 30px 20px;
+  background-color: rgb(233, 233, 56);
+  border: 2px solid black;
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 2s;
+}
 
+.showDeckForm {
+  top: 50%;
+  z-index: 9;
+}
+
+.form-container span {
+  position: absolute;
+  right: 0;
+  width: 30px;
+  line-height: 30px;
+  height: 30px;
+  color: rgb(21, 182, 236);
+  text-align: center;
+  background-color: green;
+  top: 0;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.6rem;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+}
+
+input,
+textarea {
+  width: 90%;
+  padding: 8px;
+  margin-bottom: 5px;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 1.25rem;
+  color: blue;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+}
+
+textarea {
+  resize: vertical;
+}
+
+small {
+  color: red;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+  gap: 30px;
+}
+
+.action-buttons button {
+  padding: 10px 20px;
+  border: none;
+  color: black; 
+  font-size: 1.25rem;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submit {
+  background-color: rgb(21, 182, 236);
+}
+
+.cancel {
+  background-color: red;
+}
+
+.action-buttons button:hover {
+  opacity: 0.5;
+}
+
+.deckForm button[type="submit"]:disabled,
+.deckForm button[type="cancel"]:disabled {
+  background-color: rgb(0, 26, 112);
+  cursor: not-allowed;
+}
+
+.feedback-message {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #e0f7e9;
+  color: #2e7d32;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+}
+
+.feedback-message.error {
+  background-color: #ffaca3;
+  color: #d32f2f;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+}
