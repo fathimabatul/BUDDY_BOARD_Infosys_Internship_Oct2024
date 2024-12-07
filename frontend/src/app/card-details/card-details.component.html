@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <header>
-            <a href="#" style="color: black;">Study Buddies</a>
+            <a href="#" style="color: black;">Buddy Board</a>
             <nav>
                 <a routerLink="/dashboard">Feed</a>
                 <a routerLink="/cardpage">Cards</a>
@@ -20,24 +20,24 @@
 
         <main>
             <div style="display: flex; align-items: center; width: 100%; flex-direction: column;">
-               
+
                 <a href="#" class="back-to-cards" style="align-self: flex-start;">Back to Cards</a>
 
-            
+
                 <div class="note-title">
                     <span id="noteTitle" style="color:blue;">Title</span>
                     <i id="editTitleButton">&#9998;</i>
                 </div>
             </div>
-            
+
             <div class="note-container">
-    
+
                 <div class="note-metadata">
                     <p><strong>Created On:</strong> <span id="createdOn">--</span></p>
                     <p><strong>Last Edited On:</strong> <span id="lastEdited">--</span></p>
                 </div>
 
-           
+
                 <div class="note-content">
                     <textarea id="noteContent" placeholder="Type your note here..."></textarea>
                     <div class="buttons">
@@ -60,7 +60,7 @@
         const noteTitle = document.getElementById("noteTitle");
         const editTitleButton = document.getElementById("editTitleButton");
 
-   
+
         const initialNote = {
             content: "",
             createdOn: new Date().toLocaleDateString(),
@@ -72,7 +72,7 @@
         createdOn.textContent = savedNote.createdOn;
         lastEdited.textContent = savedNote.lastEdited;
 
-      
+
         function saveNote() {
             const now = new Date().toLocaleDateString();
             savedNote.content = noteContent.value;
