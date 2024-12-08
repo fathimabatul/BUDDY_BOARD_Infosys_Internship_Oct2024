@@ -11,6 +11,7 @@ import { FavoriteDeckComponent } from './favorite-deck/favorite-deck.component';
 import { PublicDeckComponent } from './public-deck/public-deck.component';
 import { FlashcardComponent } from './flashcard/flashcard.component';
 import { CardsPageComponent } from './cards-page/cards-page.component';
+import { CardDetailsComponent } from './card-details/card-details.component';
 
 
 export const routes: Routes = [
@@ -77,7 +78,7 @@ export const routes: Routes = [
     component: PublicDeckComponent
   },
   {
-    path: 'deckDetails',
+    path: 'deck/:id',
     component: DeckDetailsComponent
   },
   {
@@ -91,5 +92,9 @@ export const routes: Routes = [
   {
     path: 'flashcard',
     component: FlashcardComponent
+  },
+  {
+    path: 'card/:id',
+    component: CardDetailsComponent
   }
 ];

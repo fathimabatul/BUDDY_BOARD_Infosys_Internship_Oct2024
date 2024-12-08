@@ -1,4 +1,5 @@
 <div class="container">
+  <!-- Header Section -->
   <div class="header">
     <h1>Study Buddies</h1>
     <nav>
@@ -8,40 +9,57 @@
       <a routerLink="/signin">Logout</a>
     </nav>
   </div>
+
+  <!-- Popup Message -->
   <div class="popup-message" *ngIf="message">
     <p>{{ message }}</p>
   </div>
 
+  <!-- Content Section -->
   <div class="content">
+    <!-- Sidebar -->
     <div class="sidebar">
       <div class="index-page">
-        <button class="back-button">Back to Decks</button>
+        <button class="back-button" routerLink="/deckPage">Back to Decks</button>
         <h2>{{ deckTitle }}</h2>
+
         <div class="actions">
-          <button class="like-button" (click)="likeDeck()">👍</button>
-          <button class="dislike-button" (click)="dislikeDeck()">👎</button>
+          <button class="like-button" (click)="likeDeck()" *ngIf="!isFavorite">👍</button>
+          <button class="dislike-button" (click)="dislikeDeck()" *ngIf="isFavorite">👎</button>
         </div>
+        
+
+        <!-- Card List -->
         <ul class="menu">
-          <li 
-            *ngFor="let card of cards; let i = index" 
-            [class.active]="i === currentIndex" 
-            (click)="changeCard(i)">
+          <li
+            *ngFor="let card of cards; let i = index"
+            [class.active]="i === currentIndex"
+            (click)="changeCard(i)"
+          >
             {{ i + 1 }}. {{ card.title }}
           </li>
         </ul>
       </div>
+
+      <!-- Deck Info -->
       <div class="info">
-        <p>❤️<span>{{ likesCount | number }}</span></p>
+        <p>❤️ <span>{{ likesCount | number }}</span></p>
         <p>Created On: {{ createdOn }}</p>
         <p>Created By: {{ createdBy }}</p>
       </div>
     </div>
 
+    <!-- Main Content -->
     <div class="main-content">
       <div class="content">
-        <h3>{{ cards[currentIndex].title }}</h3>
-        <p>{{ cards[currentIndex].description }}</p>
+        <!-- Card Content Display -->
+        <h3 *ngIf="cards && cards.length > 0 && cards[currentIndex]">{{ cards[currentIndex]?.title }}</h3>
+        <p *ngIf="cards && cards.length > 0 && cards[currentIndex]">{{ cards[currentIndex]?.content }}</p>
+        <p *ngIf="!cards || cards.length === 0">No cards available.</p>
       </div>
+      
+
+      <!-- Navigation Buttons -->
       <div class="navigation">
         <button (click)="goToPrevious()" [disabled]="currentIndex === 0">
           &lt; Previous
