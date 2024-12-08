@@ -33,7 +33,7 @@ header {
 
 header h1 {
     font-size: 1.8rem;
-    color: #0e24f9;
+    color:black;
     font-weight: bold;
     margin: 0;
 }
@@ -217,7 +217,8 @@ header nav a:hover {
 
 footer {
     text-align: center;
-    color: #555;
-    margin-top: 2rem;
+    color: black;
+    margin-top: 8rem;
+    font-weight: bold;
     font-size: 0.9rem;
 }
