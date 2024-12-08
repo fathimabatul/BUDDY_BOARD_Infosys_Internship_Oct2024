@@ -1,102 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Buddies</title>
-     <link rel=stylesheet href="CARDDETAILL.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <a href="#" style="color: black;">Study Buddies</a>
-            <nav>
-                <a routerLink="/dashboard">Feed</a>
-                <a routerLink="/cardpage">Cards</a>
-                <a routerLink="/deckPage">Decks</a>
-                <a routerLink="/signin">Logout</a>
-              </nav>
-        </header>
+<div class="container">
+  <header>
+    <h1>Study Buddies</h1>
+    <nav>
+      <a routerLink="/dashboard">Feed</a>
+      <a routerLink="/cardpage">Cards</a>
+      <a routerLink="/deckPage">Decks</a>
+      <a routerLink="/signin">Logout</a>
+    </nav>
+  </header>
 
-        <main>
-            <div style="display: flex; align-items: center; width: 100%; flex-direction: column;">
-               
-                <a href="#" class="back-to-cards" style="align-self: flex-start;">Back to Cards</a>
+  <div class="note-container">
+    <div class="sidebar">
+      <a routerLink="/cardpage" class="back-to-cards">Back to Cards</a>
 
-            
-                <div class="note-title">
-                    <span id="noteTitle" style="color:blue;">Title</span>
-                    <i id="editTitleButton">&#9998;</i>
-                </div>
-            </div>
-            
-            <div class="note-container">
-    
-                <div class="note-metadata">
-                    <p><strong>Created On:</strong> <span id="createdOn">--</span></p>
-                    <p><strong>Last Edited On:</strong> <span id="lastEdited">--</span></p>
-                </div>
+      <div class="note-title">
+        <span style="color: blue">{{ note.title }}</span>
+        <i (click)="editTitle()" style="cursor: pointer">&#9998;</i>
+      </div>
 
-           
-                <div class="note-content">
-                    <textarea id="noteContent" placeholder="Type your note here..."></textarea>
-                    <div class="buttons">
-                        <button onclick="saveNote()">Save</button>
-                        <button onclick="addToDeck()">Add to Deck</button>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <footer>
-            Study Buddies All rights reserved, 2024
-        </footer>
+      <div class="note-metadata">
+        <p><strong>Created On:</strong> {{ note.createdOn }}</p>
+        <p><strong>Last Edited On:</strong> {{ note.lastEdited }}</p>
+      </div>
     </div>
 
-    <script>
-        const createdOn = document.getElementById("createdOn");
-        const lastEdited = document.getElementById("lastEdited");
-        const noteContent = document.getElementById("noteContent");
-        const noteTitle = document.getElementById("noteTitle");
-        const editTitleButton = document.getElementById("editTitleButton");
+    <div class="note-content">
+      <textarea
+        [(ngModel)]="note.content"
+        placeholder="Type your note here..."
+      ></textarea>
+      <div class="buttons">
+        <button (click)="saveNote()">Save</button>
+        <button (click)="toggleDeckDropdown()">Add to Deck</button>
+      </div>
+    </div>
+  </div>
 
-   
-        const initialNote = {
-            content: "",
-            createdOn: new Date().toLocaleDateString(),
-            lastEdited: "--",
-            title: "My Note"
-        };
-
-        let savedNote = { ...initialNote };
-        createdOn.textContent = savedNote.createdOn;
-        lastEdited.textContent = savedNote.lastEdited;
-
-      
-        function saveNote() {
-            const now = new Date().toLocaleDateString();
-            savedNote.content = noteContent.value;
-            savedNote.lastEdited = now;
-
-            createdOn.textContent = savedNote.createdOn;
-            lastEdited.textContent = savedNote.lastEdited;
-
-            alert("Note saved successfully!");
-        }
-
-        function addToDeck() {
-            alert("Note added to deck!");
-        }
-
-
-        editTitleButton.addEventListener("click", function () {
-            const newTitle = prompt("Enter new title:", savedNote.title);
-            if (newTitle !== null && newTitle.trim() !== "") {
-                savedNote.title = newTitle.trim();
-                noteTitle.textContent = savedNote.title;
-                alert("Title updated successfully!");
-            }
-        });
-    </script>
-</body>
-</html>
+  <!-- Dropdown for selecting a deck -->
+  <div *ngIf="showDeckDropdown" class="deck-dropdown">
+    <label for="deck-select">Choose a Deck:</label>
+    <select [(ngModel)]="selectedDeckId" id="deck-select">
+      <option *ngFor="let deck of decks" [value]="deck._id">{{ deck.title }}</option>
+    </select>
+    <button (click)="addToSelectedDeck()">Add</button>
+    <button (click)="toggleDeckDropdown()">Cancel</button>
+  </div>
+</div>

@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DeckService } from '../services/deck.service';
+import { Deck, DecksResponse } from '../models/deck.interface';
 
 @Component({
   selector: 'app-favorite-deck',
@@ -10,21 +12,27 @@ import { RouterLink } from '@angular/router';
   styleUrl: './favorite-deck.component.css'
 })
 export class FavoriteDeckComponent {
-  favoriteDecks = [
-    { name: 'Math Basics', author: 'John Doe' },
-    { name: 'Science Trivia', author: 'Jane Smith' },
-    { name: 'World Geography', author: 'Emma Watson' },
-    { name: 'History Facts', author: 'Alex Johnson' },
-    { name: 'Programming Fundamentals', author: 'Alice Cooper' },
-    { name: 'Art and Culture', author: 'Mike Ross' },
-    { name: 'Physics Simplified', author: 'Rachel Green' },
-    { name: 'Biology Insights', author: 'Ross Geller' },
-    { name: 'Modern Literature', author: 'Monica Bing' },
-    { name: 'Chemistry Basics', author: 'Chandler Bing' },
-    { name: 'Space Exploration', author: 'Joey Tribbiani' },
-    { name: 'Psychology 101', author: 'Phoebe Buffay' },
-    { name: 'Economics Explained', author: 'Walter White' },
-    { name: 'Music Theory', author: 'Jesse Pinkman' },
-    { name: 'Philosophy and Ethics', author: 'Hannah Montana' }
-  ];
+  favoriteDecks: Deck[] = [];
+  isLoadingFavorites = true;
+
+  constructor(private deckService: DeckService) {}
+
+  ngOnInit(): void {
+    this.loadFavoriteDecks();
+  }
+
+  private loadFavoriteDecks(): void {
+    this.deckService.getFavoriteDecks().subscribe(
+      (response: DecksResponse) => {
+        this.favoriteDecks = response.data || [];
+        this.isLoadingFavorites = false;
+        console.log(this.favoriteDecks);
+        
+      },
+      (error) => {
+        console.error('Failed to load favorite decks:', error);
+        this.isLoadingFavorites = false;
+      }
+    );
+  }
 }

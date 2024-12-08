@@ -19,15 +19,31 @@ export interface SigninRequest {
   password: string;
 }
 
+// export interface SigninResponse {
+//   success: boolean;
+//   message: string;
+//   token?: string;
+//   user?: {
+//     id: string;
+//     name: string;
+//     email: string;
+//   };
+// }
 export interface SigninResponse {
-  success: boolean;
-  message: string;
-  token?: string;
-  user?: {
-    id: string;
-    name: string;
-    email: string;
+  statuscode: number;
+  message: {
+    accessToken: string;
+    refreshToken: string;
+    user: {
+      _id: string;
+      name: string;
+      email: string;
+      role: string;
+      isEmailVerified: boolean;
+    };
   };
+  data: string;
+  success: boolean;
 }
 
 export interface PasswordResetRequest {

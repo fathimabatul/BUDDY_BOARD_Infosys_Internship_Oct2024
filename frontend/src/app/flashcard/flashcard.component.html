@@ -1,27 +1,31 @@
-<div class="flashcard-form">
+<div class="container">
+  <h1 class="main-title">Buddy Board</h1>
+  <div class="flashcard-form">
     <h2>Create Flashcard</h2>
     <form [formGroup]="flashcardForm" (ngSubmit)="onSave()">
-      <div>
-        <label for="text">Title:</label>
-        <input id="text" type="text" formControlName="text" />
-        <div *ngIf="flashcardForm.get('text')?.touched && flashcardForm.get('text')?.invalid">
-          <small *ngIf="flashcardForm.get('text')?.hasError('required')">Title is required.</small>
-          <small *ngIf="flashcardForm.get('text')?.hasError('minlength')">Minimum 5 characters.</small>
+      <div class="title">
+        <label for="title">Title:</label>
+        <input id="title" type="text" formControlName="title" /> <!-- Changed to "title" -->
+        <div *ngIf="flashcardForm.get('title')?.touched && flashcardForm.get('title')?.invalid">
+          <small *ngIf="flashcardForm.get('title')?.hasError('required')">Title is required.</small>
+          <small *ngIf="flashcardForm.get('title')?.hasError('minlength')">Minimum 5 characters.</small>
         </div>
       </div>
-      <div>
-        <label for="tags">Tags: <span class="optional">(Optional)</span></label>
-        <input id="tags" type="text" formControlName="tags" placeholder="Enter tags separated by commas" />
-      </div>
-      <div>
-        <label for="deck">Description:</label>
-        <input id="deck" type="text" formControlName="deckAssignment" />
-        <div *ngIf="flashcardForm.get('deckAssignment')?.touched && flashcardForm.get('deckAssignment')?.invalid">
-          <small *ngIf="flashcardForm.get('deckAssignment')?.hasError('required')">Description is required.</small>
+      <div class="content">
+        <label for="content">Content:</label>
+        <textarea id="content" formControlName="content"></textarea> <!-- Changed to "content" -->
+        <div *ngIf="flashcardForm.get('content')?.touched && flashcardForm.get('content')?.invalid">
+          <small *ngIf="flashcardForm.get('content')?.hasError('required')">Content is required.</small>
+          <small *ngIf="flashcardForm.get('content')?.hasError('minlength')">Minimum 10 characters.</small>
         </div>
       </div>
-      <button type="submit" [disabled]="flashcardForm.invalid">Save</button>
-      <button type="button" (click)="onCancel()">Cancel</button>
+      <div class="button-group">
+        <button type="submit" [disabled]="flashcardForm.invalid">Save</button>
+        <button type="button" (click)="onCancel()">Cancel</button>
+      </div>
     </form>
   </div>
-  
+  <footer>
+    Studdy Buddies, All rights reserved, 2024
+  </footer>
+</div>
