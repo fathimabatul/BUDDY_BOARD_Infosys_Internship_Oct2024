@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { DeckSearchComponent } from './deck-search.component';
 
@@ -8,7 +11,8 @@ describe('DeckSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeckSearchComponent]
+      declarations: [DeckSearchComponent],
+      imports: [FormsModule, CommonModule, RouterModule.forRoot([])],
     })
     .compileComponents();
 

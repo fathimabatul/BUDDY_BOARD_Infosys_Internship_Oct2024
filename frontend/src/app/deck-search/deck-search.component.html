@@ -2,7 +2,7 @@
 
 <div class="container">
   <header class="navbar">
-    <h1>Study Buddies</h1>
+    <h1>Buddy Board</h1>
     <nav>
       <a routerLink="/dashboard">Feed</a>
       <a routerLink="/cardpage">Cards</a>
@@ -71,10 +71,11 @@
         />
         <button class="search-button" (click)="searchDecks()">🔍</button>
       </div>
-
+      
       <!-- Displaying Search Results -->
       <div class="deck-list" *ngIf="filteredDecks.length > 0">
         <div *ngFor="let deck of filteredDecks" [routerLink]="['/deck', deck._id]" class="deck-item">
+
           <div class="deck-content">
             <h3>
               {{ deck.title }}

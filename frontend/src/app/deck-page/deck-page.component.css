@@ -8,38 +8,41 @@
     border: 4px solid black;
     box-sizing: border-box;
   }
-  
+
   /* Header */
   header {
-    width: 100%;
-    box-sizing: border-box;
     font-family: 'Papyrus', 'Arial', sans-serif;
     background-color: white;
     border-bottom: 2px solid black;
-    padding: 5px 10px;
+    padding: 7px 7px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  header h1 {
-    font-size: 18px;
-    margin: 0;
-  }
-  
-  header nav a {
-    margin: 0 8px;
-    text-decoration: none;
-    color: blue;
-    font-size: 12px;
     font-weight: bold;
   }
-  
+
+  header h1 {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    font-weight: 800;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  header nav a {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    margin: 0 10px;
+    text-decoration: none;
+    color: blue;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
   /* Section Titles */
   .deck-section h2 {
     font-size: 16px;
     color: #0000ff;
     margin-bottom: 5px;
+    font-family: 'Papyrus', 'Arial', sans-serif;
   }
   .deck-section{
     width: 90%;
@@ -51,14 +54,15 @@
     flex-wrap: wrap;
     gap: 15px;
   }
-  
+
   .deck {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 200px;
+    font-family: 'Papyrus', 'Arial', sans-serif;
   }
-  
+
   .deck-title {
     display: flex;                /* Use flexbox for centering */
     justify-content: center;      /* Center horizontally */
@@ -67,24 +71,26 @@
     font-size: 14px;
     margin: 5px 0;
     font-weight: bold;
+    font-family: 'Papyrus', 'Arial', sans-serif;
   }
-  
+
   .deck-author {
     font-size: 10px;
     color: #000;
+    font-family: 'Papyrus', 'Arial', sans-serif;
   }
   .divider {
     width: 90%;
     border: 1px solid black;
     margin: auto;
   }
-  
-  
+
+
   .heart {
     color: red;
     font-size: 10px;
   }
-  
+
 
 
   /* Footer */
@@ -93,6 +99,7 @@
     text-align: center;
     margin-top: 5px;
     padding: 5px;
+    font-family: 'Papyrus', 'Arial', sans-serif;
   }
   /* Icon Container */
   .icon {
@@ -100,7 +107,7 @@
     width: 50px; /* Reduced size */
     height: 65px; /* Reduced size */
   }
-  
+
   /* Paper Base */
   .paper {
     position: absolute;
@@ -111,22 +118,22 @@
     border-radius: 2px;
     padding-top: 3px;
   }
-  
+
   .paper.back {
     bottom: 10px;
     right: 10px;
   }
-  
+
   .paper.middle {
     bottom: 5px;
     right: 5px;
   }
-  
+
   .paper.front {
     bottom: 0;
     right: 0;
   }
-  
+
   /* Dotted Lines */
   .paper .line {
     width: 70%;
@@ -135,13 +142,13 @@
     border-bottom: 1px dotted black;
     margin: 5px auto;
   }
-  
+
   /* Icon Link */
   .icon-link {
     display: inline-block;
     text-decoration: none;
   }
-  
+
   .icon-link:hover .icon {
     cursor: pointer;
     opacity: 0.8;
@@ -215,12 +222,5 @@
   .deck-button:hover {
     background-color: rgb(0, 120, 210);
 }
-  
-  /* Navigation */
-  nav {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
+
+

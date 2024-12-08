@@ -6,7 +6,7 @@ body {
     background-color: #c0c0c0;
     height: 98%;
   }
-  
+
   .container {
     height: 99vh; /* Ensure it takes up the full height of the viewport */
     display: flex;
@@ -14,7 +14,7 @@ body {
     border: 2px solid black;
     background-color: #c0c0c0;
   }
-  
+
   header {
     font-family: 'Papyrus', 'Arial', sans-serif;
     background-color: white;
@@ -25,10 +25,10 @@ body {
     align-items: center;
     font-weight: bold;
   }
-  
+
   header h1 {
     font-family: 'Papyrus', 'Arial', sans-serif;
-    font-size: 20px;
+    font-weight: 800;
     margin: 0;
     font-weight: bold;
   }
@@ -40,32 +40,32 @@ body {
     margin-top: 0;/* Remove any top margin */
     margin-bottom: 0;
   }
-  
+
   header nav a {
     font-family: 'Papyrus', 'Arial', sans-serif;
     margin: 0 10px;
     text-decoration: none;
     color: blue;
-    font-size: 16px;
+    font-size: 1.25rem;
     font-weight: bold;
   }
-  
+
   header nav a:hover {
     font-family: 'Papyrus', 'Arial', sans-serif;
     text-decoration: underline;
   }
-  
+
   /* Main Section */
   main {
     flex-grow: 1; /* Allow it to take up remaining space */
     overflow-y: auto; /* Enable scrolling if content overflows */
   }
-  
+
   .controls {
     display: flex;
     align-items: center;
   }
-  
+
   .new-card-btn {
     background-color: #87CEEB;
     color: black;
@@ -79,13 +79,13 @@ body {
     font-family: 'Papyrus', 'Arial', sans-serif; /* Papyrus for button */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Bottom shadow */
   }
-  
+
   .new-card-btn:hover {
     background-color: #6AB0DA;
   }
-  
-  
-  
+
+
+
   /* Notes Section */
   .notes-container {
     display: grid;
@@ -95,7 +95,7 @@ body {
     margin: 0; /* Remove any default margin */
     padding: 0; /* Remove any padding */
   }
-  
+
   .note-card {
     display: flex;
     flex-direction: column;
@@ -103,7 +103,7 @@ body {
     margin: 0; /* Remove margin from note cards */
     padding: 0;
   }
-  
+
   .note {
     width: 60px;
     height: 80px;
@@ -113,7 +113,7 @@ body {
     margin-bottom: 7px;
     padding: 0px;
   }
-  
+
   .horizontal-lines {
     width: 80%; /* Stretch lines to the width of the .note */
     display: flex;
@@ -121,18 +121,18 @@ body {
     gap: 5px;
     margin: 5px auto;
   }
-  
+
   .horizontal-lines div {
     border-bottom: 2px dotted #333; /* Dotted line */
     height: 0;  /* Line color */
     margin: 8px 0; /* Spacing between lines */
   }
-  
+
   .note-link {
     text-decoration: none; /* Removes underline from the link */
     color: inherit; /* Ensures the link uses the current text color */
   }
-  
+
   .note-title {
     font-family: 'Papyrus', 'Arial', sans-serif;
     margin-top: 5px;
@@ -143,7 +143,7 @@ body {
     word-wrap: break-word;
     text-decoration: none;
   }
-  
+
   /* Footer */
   footer {
     font-family: 'Papyrus', 'Arial', sans-serif;
@@ -152,7 +152,7 @@ body {
     font-size: 14px;
     font-weight: bold;
   }
-  
+
   .icon-box {
     width: 80px; /* Adjust as needed */
     height: 100px;
@@ -165,4 +165,3 @@ body {
     align-items: center;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for a 3D look */
   }
-  

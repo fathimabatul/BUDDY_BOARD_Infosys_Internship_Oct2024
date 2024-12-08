@@ -3,14 +3,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Papyrus', 'Arial', sans-serif;
   }
   
-  body {
-    font-family: 'Papyrus', 'Arial', sans-serif;
-    background-color: #dcdcdc;
-    color: #000;
-    border: #000;
-  }
   .container {
     width: 100vw;
     height: 100vh;
@@ -20,7 +15,6 @@
     background-color: #c0c0c0;
     border: 4px solid black;
     box-sizing: border-box;
-  
   }
   
   /* Header */
@@ -28,22 +22,24 @@
     font-family: 'Papyrus', 'Arial', sans-serif;
     background-color: white;
     border-bottom: 2px solid black;
-    padding: 5px 10px;
+    padding: 7px 7px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: bold;
   }
   
   header h1 {
-    font-size: 18px;
     margin: 0;
+    font-weight: bold;
   }
   
   header nav a {
-    margin: 0 8px;
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    margin: 0 10px;
     text-decoration: none;
     color: blue;
-    font-size: 12px;
+    font-size: 1.25rem;
     font-weight: bold;
   }
   
@@ -52,6 +48,7 @@
     font-size: 16px;
     color: #0000ff;
     margin-bottom: 5px;
+    margin-left: 20px;
   }
   
   /* Deck Container */
@@ -66,7 +63,7 @@
     flex-direction: column;
     align-items: center;
     width: 200px;
-    margin-bottom: 20px;
+    padding: 5px;
   }
   
   .deck-title {
@@ -162,11 +159,4 @@
     opacity: 0.8;
   }
   
-  /* Navigation */
-  nav {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
   
