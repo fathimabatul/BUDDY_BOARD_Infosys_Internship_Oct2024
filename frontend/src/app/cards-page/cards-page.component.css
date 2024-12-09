@@ -100,19 +100,24 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0; /* Remove margin from note cards */
+    justify-content: center; /* Ensures the note and title are vertically centered */
+    margin: 0; /* Remove extra margins */
     padding: 0;
-  }
+}
 
-  .note {
-    width: 60px;
-    height: 80px;
-    background-color: rgb(233, 233, 56);
-    border: 1px solid rgb(3, 3, 72);
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-    margin-bottom: 7px;
-    padding: 0px;
-  }
+
+.note {
+  width: 60px; /* Fixed width for consistency */
+  height: 80px; /* Fixed height */
+  background-color: rgb(233, 233, 56);
+  border: 1px solid rgb(3, 3, 72);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  display: flex; /* Flexbox to align content inside the note */
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  margin-bottom: 7px;
+}
+
 
   .horizontal-lines {
     width: 80%; /* Stretch lines to the width of the .note */
@@ -135,23 +140,15 @@ body {
 
   .note-title {
     font-family: 'Papyrus', 'Arial', sans-serif;
-    margin-top: 5px;
     font-size: 12px;
     font-weight: bold;
     color: rgb(11, 11, 176);
     text-align: center;
+    max-width: 60px; /* Same width as the note */
     word-wrap: break-word;
-    text-decoration: none;
-  }
-
-  /* Footer */
-  footer {
-    font-family: 'Papyrus', 'Arial', sans-serif;
-    padding: 0px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-  }
+    white-space: normal;
+    line-height: 1.2; /* Adjust spacing for readability */
+}
 
   .icon-box {
     width: 80px; /* Adjust as needed */
@@ -164,4 +161,13 @@ body {
     justify-content: space-between;
     align-items: center;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for a 3D look */
+  }
+
+  /* Footer */
+  footer {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    padding: 0px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
   }
