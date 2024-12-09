@@ -1,4 +1,9 @@
-/* General container styles */
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+}
 .container {
   height: 99vh; /* Ensure it takes up the full height of the viewport */
   display: flex;
