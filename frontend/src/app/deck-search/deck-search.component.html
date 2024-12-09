@@ -1,7 +1,8 @@
-<link rel="stylesheet" href="deck-search.component.css">
+
+
 <div class="container">
   <header class="navbar">
-    <h1>Study Buddies</h1>
+    <h1>Buddy Board</h1>
     <nav>
       <a routerLink="/dashboard">Feed</a>
       <a routerLink="/cardpage">Cards</a>
@@ -11,55 +12,95 @@
   </header>
 
   <main>
-    <button class="back-button" (click)="resetFilters()" routerLink="/deckPage">Back to Decks</button>
+    <!-- Back button to reset filters and go back to deck page -->
+    <button class="back-button" (click)="resetFilters()" routerLink="/deckPage">
+      Back to Decks
+    </button>
+
     <div class="sidebar">
       <div class="filters">
-        <label>
-          <input type="checkbox" [(ngModel)]="exactMatch">
-          Exact Match
-        </label>
+        <!-- Filter for Exact Match -->
+        <div class="buttons">
+          <label>
+            <input type="checkbox" [(ngModel)]="exactMatch" /> Exact Match
+          </label>
+  
+          <button class="reset-button" (click)="resetFilters()">Reset Filters</button>
+        </div>
+
+        <!-- Filter for Likes -->
         <label>
           Likes greater than
-          <input type="range" [(ngModel)]="likesThreshold" min="0" max="10000">
+          <input
+            type="range"
+            [(ngModel)]="likesThreshold"
+            min="0"
+            max="10000"
+          />
           <div class="slider-labels">
-            <span>0</span>
+            <span>{{ likesThreshold }} </span>
             <span>10k+</span>
           </div>
         </label>
+
+        <!-- Filter for Cards -->
         <label>
           Cards greater than
-          <input type="range" [(ngModel)]="cardsThreshold" min="0" max="20">
+          <input type="range" [(ngModel)]="cardsThreshold" min="0" max="20" />
           <div class="slider-labels">
-            <span>0</span>
+            <span>{{ cardsThreshold }} </span>
             <span>20+</span>
           </div>
         </label>
+
+        <!-- Filter for Posted After -->
         <label>
           Posted After
-          <input type="date" [(ngModel)]="postedAfter">
+          <input type="date" [(ngModel)]="postedAfter" />
         </label>
       </div>
     </div>
 
     <div class="main-content">
+      <!-- Search Bar -->
       <div class="search-bar">
-        <input type="text" [(ngModel)]="searchKeyword" placeholder="Search deck by keyword">
+        <input
+          type="text"
+          [(ngModel)]="searchKeyword"
+          placeholder="Search deck by keyword"
+        />
         <button class="search-button" (click)="searchDecks()">🔍</button>
       </div>
+      
+      <!-- Displaying Search Results -->
+      <div class="deck-list" *ngIf="filteredDecks.length > 0">
+        <div *ngFor="let deck of filteredDecks" [routerLink]="['/deck', deck._id]" class="deck-item">
 
-      <div class="deck-list">
-        <div 
-          *ngFor="let deck of filteredDecks" 
-          class="deck-item" 
-          (click)="openDeck(deck)">
           <div class="deck-content">
-            <h3>{{ deck.name }}
-              <span>By <a [routerLink]="['/user', deck.username]" class="deck-username">{{ deck.username }}</a></span>
+            <h3>
+              {{ deck.title }}
+              <span
+                >By
+                 <a
+                  class="deck-username"
+                  >{{ deck.created_by }}</a
+                ></span
+              >
             </h3>
-            <p>{{ deck.cards }} cards in deck, posted on <strong>{{ deck.postedOn | date }}</strong></p>
+            <p>
+              {{ deck.cardsCount }} cards in deck, posted on
+              <strong>{{ deck.createdAt | date : "short" }}</strong>
+            </p>
           </div>
-          <button class="likes-button">❤️ <span>{{ deck.likes }}</span></button>
+          <button class="likes-button">
+            ❤️ <span>{{ deck.favoritesCount }}</span>
+          </button>
         </div>
+      </div>
+
+      <!-- No Results Message -->
+      <div *ngIf="filteredDecks.length === 0" class="no-results">
+        <p>No results found. Please try different filters or keywords.</p>
       </div>
     </div>
   </main>

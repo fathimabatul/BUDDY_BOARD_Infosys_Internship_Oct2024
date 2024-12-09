@@ -37,14 +37,16 @@ export class SigninComponent {
 
       this.authService.signin(this.signinForm.value).subscribe({
         next: (response) => {
+          console.log(response);
+          
           // Store the token in localStorage
-          if (response.token) {
-            localStorage.setItem('token', response.token);
+          if (response.message?.accessToken) {
+            localStorage.setItem('token', response.message.accessToken);
           }
-
-          // Store user data if needed
-          if (response.user) {
-            localStorage.setItem('user', JSON.stringify(response.user));
+      
+          // Extract and store the user in localStorage
+          if (response.message?.user) {
+            localStorage.setItem('user', JSON.stringify(response.message.user));
           }
 
           // Navigate to dashboard or home page

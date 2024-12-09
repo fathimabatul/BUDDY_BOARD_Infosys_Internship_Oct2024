@@ -12,43 +12,45 @@ body {
   height: 100vh;
   margin: 0;
 }
+header {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    background-color: white;
+    border-bottom: 2px solid black;
+    padding: 7px 7px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
 
-/* Navbar Styling */
-.navbar {
-  background-color: white;
-  color: black;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-bottom: 3px solid black;
-}
+  header h1 {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    font-weight: 800;
+    margin: 0;
+    font-weight: bold;
+  }
+  h2 {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    font-size: 20px;
+    color: blue;
+    margin-left: 50px;
+    margin-top: 0;/* Remove any top margin */
+    margin-bottom: 0;
+  }
 
-.navbar h1 {
-  font-size: 28px;
-  font-family: 'Papyrus', sans-serif;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
+  header nav a {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    margin: 0 10px;
+    text-decoration: none;
+    color: blue;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
 
-.navbar nav a {
-  color: #317caa;
-  text-decoration: none;
-  margin-left: 20px;
-  font-size: 16px;
-  font-family: 'Papyrus', sans-serif;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
-.navbar nav a.active {
-  text-decoration: underline;
-}
-
-.navbar nav a:hover {
-  color: #2a6e8d;
-}
+  header nav a:hover {
+    font-family: 'Papyrus', 'Arial', sans-serif;
+    text-decoration: underline;
+  }
 
 /* Container for the page */
 .container {
@@ -69,6 +71,7 @@ main {
   align-items: flex-start;
 }
 
+/*Side Bar Section*/
 .sidebar {
   top: 60px;
   width: 300px;
@@ -258,4 +261,28 @@ footer p {
   font-size: 15px;
   font-weight: bold;
   font-family: 'Papyrus', 'Arial', fantasy;
+}
+.reset-button {
+  background-color: #f44336; /* Red background */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.reset-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+.buttons{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-results{
+  margin: 20px;
 }

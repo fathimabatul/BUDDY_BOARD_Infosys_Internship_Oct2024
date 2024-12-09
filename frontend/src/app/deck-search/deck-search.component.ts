@@ -1,75 +1,83 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { DeckSearchService } from '../services/deckSearch.service';
+import { DeckSearchResponse, Deck } from '../services/deckSearch.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  standalone: true,
   selector: 'app-deck-search',
+  standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './deck-search.component.html',
-  styleUrls: ['./deck-search.component.css']
+  styleUrls: ['./deck-search.component.css'],
 })
 export class DeckSearchComponent implements OnInit {
-  searchKeyword: string = '';
   exactMatch: boolean = false;
-  likesThreshold: number = 10000;
-  cardsThreshold: number = 20;
+  likesThreshold: number = 0;
+  cardsThreshold: number = 0;
   postedAfter: string | null = null;
+  searchKeyword: string = '';
+  filteredDecks: Deck[] = [];
 
-  decks: any[] = []; // Full list of decks from the backend
-  filteredDecks: any[] = []; // Filtered decks to display
-
-  constructor(private http: HttpClient) {}
+  constructor(private deckSearchService: DeckSearchService) {}
 
   ngOnInit(): void {
-    this.fetchDecks();
+    // Fetch all decks on initial load
+    this.fetchAllDecks();
   }
 
-  // Fetch decks from backend API
-  fetchDecks(): void {
-    this.http.get<any[]>('/api/decks').subscribe(
-      (data) => {
-        this.decks = data;
-        this.filteredDecks = data; // Initially, all decks are shown
+  fetchAllDecks(): void {
+    // Call the service to get all the decks without filters
+    this.deckSearchService.searchDecks(false, '', 0, 0, null).subscribe(
+      (response: DeckSearchResponse) => {
+        console.log('All decks fetched:', response);
+        this.filteredDecks = response.data; // Set all decks as the initial filtered decks
       },
       (error) => {
-        console.error('Error fetching decks:', error);
+        console.error('Error fetching all decks:', error);
       }
     );
   }
 
-  // Filter decks based on search criteria
-  searchDecks(): void {
-    this.filteredDecks = this.decks.filter((deck) => {
-      const matchesKeyword = this.exactMatch
-        ? deck.name.toLowerCase() === this.searchKeyword.toLowerCase()
-        : deck.name.toLowerCase().includes(this.searchKeyword.toLowerCase());
-
-      const matchesLikes = deck.likes >= this.likesThreshold;
-      const matchesCards = deck.cards >= this.cardsThreshold;
-      const matchesDate =
-        !this.postedAfter || new Date(deck.postedOn) >= new Date(this.postedAfter);
-
-      return matchesKeyword && matchesLikes && matchesCards && matchesDate;
-    });
-  }
-
-  // Reset filters and fetch all decks again
   resetFilters(): void {
-    this.searchKeyword = '';
     this.exactMatch = false;
-    this.likesThreshold = 10000;
-    this.cardsThreshold = 20;
+    this.likesThreshold = 0;
+    this.cardsThreshold = 0;
     this.postedAfter = null;
-    this.filteredDecks = [...this.decks];
+    this.searchKeyword = '';
+    this.filteredDecks = []; // Clear the previous results
+    // Fetch all decks after resetting filters
+    this.fetchAllDecks();
   }
 
-  // Open a specific deck
-  openDeck(deck: any): void {
-    console.log('Opening deck:', deck.name);
-    // Navigate to the deck detail page or perform other actions
+  searchDecks(): void {
+    console.log('Searching decks with filters:', {
+      exactMatch: this.exactMatch,
+      searchKeyword: this.searchKeyword,
+      likesThreshold: this.likesThreshold,
+      cardsThreshold: this.cardsThreshold,
+      postedAfter: this.postedAfter,
+    });
+
+    // Call the service method with the current filter values
+    this.deckSearchService
+      .searchDecks(
+        this.exactMatch,
+        this.searchKeyword,
+        this.cardsThreshold,
+        this.likesThreshold,
+        this.postedAfter
+      )
+      .subscribe(
+        (response: DeckSearchResponse) => {
+          console.log('Deck search results:', response);
+          this.filteredDecks = response.data;
+          console.log(this.filteredDecks);
+        },
+        (error) => {
+          console.error('Error fetching decks:', error);
+        }
+      );
   }
 }
-
