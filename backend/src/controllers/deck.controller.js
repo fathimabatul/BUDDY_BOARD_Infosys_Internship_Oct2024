@@ -108,11 +108,62 @@ const toggleFavorite = asyncHandler(async (req, res) => {
 });
 
 const getFavoriteDecks = asyncHandler(async (req, res) => {
-  const decks = await Deck.find({
-    favorites: req.user._id,
-  })
-    .populate("cards")
-    .populate("favorites", "username email");
+  const decks = await Deck.aggregate([
+    {
+      $match: {
+        favorites: req.user._id,
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "created_by",
+        foreignField: "_id",
+        as: "creator",
+      },
+    },
+    {
+      $unwind: "$creator",
+    },
+    {
+      $addFields: {
+        created_by: "$creator.name",
+      },
+    },
+    {
+      $project: {
+        creator: 0, // Exclude the creator field from the final output
+      },
+    },
+    {
+      $lookup: {
+        from: "cards",
+        localField: "cards",
+        foreignField: "_id",
+        as: "cards",
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "favorites",
+        foreignField: "_id",
+        as: "favorites",
+      },
+    },
+    {
+      $project: {
+        "favorites.email": 1,
+        title: 1,
+        cards: 1,
+        created_by: 1,
+        visibility: 1,
+        is_blocked: 1,
+        createdAt: 1,
+        updatedAt: 1,
+      },
+    },
+  ]);
 
   return res
     .status(200)
@@ -120,11 +171,63 @@ const getFavoriteDecks = asyncHandler(async (req, res) => {
 });
 
 const getPublicDecks = asyncHandler(async (req, res) => {
-  const decks = await Deck.find({
-    visibility: "public",
-  })
-    .populate("cards")
-    .populate("favorites", "username email");
+  const decks = await Deck.aggregate([
+    {
+      $match: {
+        visibility: "public",
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "created_by",
+        foreignField: "_id",
+        as: "creator",
+      },
+    },
+    {
+      $unwind: "$creator",
+    },
+    {
+      $addFields: {
+        created_by: "$creator.name",
+      },
+    },
+    {
+      $project: {
+        creator: 0, // Exclude the creator field from the final output
+      },
+    },
+    {
+      $lookup: {
+        from: "cards",
+        localField: "cards",
+        foreignField: "_id",
+        as: "cards",
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "favorites",
+        foreignField: "_id",
+        as: "favorites",
+      },
+    },
+    {
+      $project: {
+        "favorites.username": 1,
+        "favorites.email": 1,
+        title: 1,
+        cards: 1,
+        created_by: 1,
+        visibility: 1,
+        is_blocked: 1,
+        createdAt: 1,
+        updatedAt: 1,
+      },
+    },
+  ]);
 
   return res
     .status(200)
