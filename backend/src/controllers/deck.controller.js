@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 ApiError;
+import mongoose from "mongoose";
 
 const createDeck = asyncHandler(async (req, res) => {
   const { title } = req.body;
@@ -68,17 +69,118 @@ const deleteDeck = asyncHandler(async (req, res) => {
 });
 
 const getDeck = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const deck = await Deck.findById(id).populate("cards");
+    // Ensure the ID is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new ApiError(400, "Invalid deck ID");
+    }
 
-  if (!deck) {
-    throw new ApiError(404, "Deck not found");
+    const deck = await Deck.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "created_by",
+          foreignField: "_id",
+          as: "creator",
+        },
+      },
+      {
+        $unwind: "$creator",
+      },
+      {
+        $addFields: {
+          created_by: "$creator.name",
+        },
+      },
+      {
+        $lookup: {
+          from: "cards",
+          localField: "cards",
+          foreignField: "_id",
+          as: "cards",
+        },
+      },
+      {
+        $unwind: {
+          path: "$cards",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "cards.created_by",
+          foreignField: "_id",
+          as: "card_creator",
+        },
+      },
+      {
+        $unwind: {
+          path: "$card_creator",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $addFields: {
+          "cards.created_by": "$card_creator.name",
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          title: { $first: "$title" },
+          cards: { $push: "$cards" },
+          created_by: { $first: "$created_by" },
+          visibility: { $first: "$visibility" },
+          is_blocked: { $first: "$is_blocked" },
+          favorites: { $first: "$favorites" },
+          createdAt: { $first: "$createdAt" },
+          updatedAt: { $first: "$updatedAt" },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "favorites",
+          foreignField: "_id",
+          as: "favorites",
+        },
+      },
+      {
+        $project: {
+          "favorites.email": 1,
+          "favorites.name": 1,
+          title: 1,
+          cards: 1,
+          created_by: 1,
+          visibility: 1,
+          is_blocked: 1,
+          createdAt: 1,
+          updatedAt: 1,
+        },
+      },
+    ]);
+
+    if (!deck.length) {
+      throw new ApiError(404, "Deck not found");
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, deck[0], "Deck retrieved successfully"));
+  } catch (error) {
+    console.error("Error retrieving deck:", error);
+    return res
+      .status(500)
+      .json(new ApiResponse(500, null, "Internal server error"));
   }
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, deck, "Deck retrieved successfully"));
 });
 
 const toggleFavorite = asyncHandler(async (req, res) => {

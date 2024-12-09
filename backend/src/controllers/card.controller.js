@@ -2,6 +2,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import Card from "../models/card.model.js";
+import mongoose from "mongoose";
 
 const createCard = asyncHandler(async (req, res) => {
   const { title, content } = req.body;
@@ -68,20 +69,57 @@ const deleteCard = asyncHandler(async (req, res) => {
 });
 
 const getCard = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const card = await Card.findOne({
-    _id: id,
-    created_by: req.user._id,
-  });
+    // Ensure the ID is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new ApiError(400, "Invalid card ID");
+    }
 
-  if (!card) {
-    throw new ApiError(404, "Card not found or unauthorized");
+    const card = await Card.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "created_by",
+          foreignField: "_id",
+          as: "creator",
+        },
+      },
+      {
+        $unwind: "$creator",
+      },
+      {
+        $addFields: {
+          created_by: "$creator.name",
+        },
+      },
+      {
+        $project: {
+          "creator.password": 0, // Exclude the password field from the final output
+          "creator.__v": 0, // Exclude the __v field from the final output
+        },
+      },
+    ]);
+
+    if (!card.length) {
+      throw new ApiError(404, "Card not found or unauthorized");
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, card[0], "Card fetched successfully"));
+  } catch (error) {
+    console.error("Error retrieving card:", error);
+    return res
+      .status(500)
+      .json(new ApiResponse(500, null, "Internal server error"));
   }
-  //   console.log(card);
-  return res
-    .status(200)
-    .json(new ApiResponse(200, card, "Card fetched successfully"));
 });
 
 const getUserCards = asyncHandler(async (req, res) => {
