@@ -3,9 +3,14 @@
   <div class="header">
     <h1>Buddy Board</h1>
     <nav>
+      @if(userRole==='admin'){
+        <a routerLink="/deck-search">Decks</a>
+        <a routerLink="/users" >Users</a>
+      }@else{ 
       <a routerLink="/dashboard">Feed</a>
       <a routerLink="/cardpage">Cards</a>
       <a routerLink="/deckPage">Decks</a>
+    } 
       <a routerLink="/signin">Logout</a>
     </nav>
   </div>
@@ -22,12 +27,15 @@
       <div class="index-page">
         <button class="back-button" routerLink="/deckPage">Back to Decks</button>
         <h2>{{ deckTitle }}</h2>
-
-        <div class="actions">
-          <button class="like-button" (click)="likeDeck()" *ngIf="!isFavorite">👍</button>
-          <button class="dislike-button" (click)="dislikeDeck()" *ngIf="isFavorite">👎</button>
-        </div>
         
+        @if(userRole==='admin'){
+          <button (click)="onDelete()">Delete</button>
+        }@else {
+          <div class="actions">
+            <button class="like-button" (click)="likeDeck()" *ngIf="!isFavorite">👍</button>
+            <button class="dislike-button" (click)="dislikeDeck()" *ngIf="isFavorite">👎</button>
+          </div>
+        }
 
         <!-- Card List -->
         <ul class="menu">
