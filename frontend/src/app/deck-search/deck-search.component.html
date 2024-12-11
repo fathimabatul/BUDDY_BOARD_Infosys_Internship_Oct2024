@@ -4,9 +4,14 @@
   <header class="navbar">
     <h1>Buddy Board</h1>
     <nav>
-      <a routerLink="/dashboard">Feed</a>
+      @if(userRole==='admin'){
+        <a routerLink="/deck-search">Decks</a>
+        <a routerLink="/users" >Users</a>
+      }@else{
+        <a routerLink="/dashboard">Feed</a>
       <a routerLink="/cardpage">Cards</a>
       <a routerLink="/deckPage" class="active">Decks</a>
+      }
       <a routerLink="/signin">Logout</a>
     </nav>
   </header>
@@ -95,6 +100,10 @@
           <button class="likes-button">
             ❤️ <span>{{ deck.favoritesCount }}</span>
           </button>
+          @if(userRole==='admin'){
+            <button (click)="editDeck(deck._id)"> Edit </button>
+          }
+          
         </div>
       </div>
 
