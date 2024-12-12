@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DeckSearchService } from '../services/deckSearch.service';
 import { DeckSearchResponse, Deck } from '../services/deckSearch.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink,Router} from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { title } from 'node:process';
 
 @Component({
   selector: 'app-deck-search',
@@ -13,6 +14,8 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./deck-search.component.css'],
 })
 export class DeckSearchComponent implements OnInit {
+  userRole: 'admin' | 'user' = 'user';
+  
   exactMatch: boolean = false;
   likesThreshold: number = 0;
   cardsThreshold: number = 0;
@@ -20,7 +23,20 @@ export class DeckSearchComponent implements OnInit {
   searchKeyword: string = '';
   filteredDecks: Deck[] = [];
 
-  constructor(private deckSearchService: DeckSearchService) {}
+  setUserRole(role: 'admin' | 'user'): void {
+    if (role === 'admin' || role === 'user') {
+      this.userRole = role;
+    } else {
+      this.userRole = role;
+    }
+  }
+
+  editDeck(deckId: string): void {
+    this.router.navigate(['/deck', deckId]);
+  }
+
+ // this.filteredDecks.unshift(deck);
+  constructor(private deckSearchService: DeckSearchService, private router: Router) {}
 
   ngOnInit(): void {
     // Fetch all decks on initial load

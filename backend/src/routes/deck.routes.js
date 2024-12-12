@@ -10,6 +10,7 @@ import {
   toggleFavorite,
   addCardToDeck,
   searchDecks,
+  getUserDecks,
 } from "../controllers/deck.controller.js";
 
 const router = express.Router();
@@ -23,6 +24,8 @@ router.route("/public").get(getPublicDecks);
 router.route("/favorites").get(getFavoriteDecks);
 
 router.route("/search").get(searchDecks);
+
+router.route("/getUserDecks").get(getUserDecks);
 
 router.route("/:id").get(getDeck).put(updateDeck).delete(deleteDeck);
 

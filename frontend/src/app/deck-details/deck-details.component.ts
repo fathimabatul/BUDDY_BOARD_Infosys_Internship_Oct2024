@@ -5,7 +5,7 @@ import { Deck, SingleDecksResponse } from '../models/deck.interface'; // Adjust 
 import { Card } from '../models/card.interface';
 import { CommonModule, NgIf } from '@angular/common';
 import { userService } from '../services/user.service'; // Import the UserService
-
+import { Router} from '@angular/router';
 @Component({
   selector: 'app-deck-details',
   standalone: true,
@@ -16,6 +16,8 @@ import { userService } from '../services/user.service'; // Import the UserServic
 export class DeckDetailsComponent implements OnInit {
   @Input() createdOn: string = ''; 
   @Input() createdBy: string = ''; 
+  userRole: 'admin' | 'user' = 'user';
+
   currentIndex = 0;
   deckTitle: string = '';
   likesCount: number = 0;
@@ -28,9 +30,23 @@ export class DeckDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute, 
     private deckService: DeckService,
-    private userService: userService // Inject the UserService here
+    private userService: userService,
+    private router: Router // Inject the UserService here
   ) {}
 
+  setUserRole(role: 'admin' | 'user'): void {
+    if (role === 'admin' || role === 'user') {
+      this.userRole = role;
+    } else {
+      this.userRole = role;
+    }
+  }
+  onDelete(){
+    this.message="Deck is deleted successfully!!!";
+    setTimeout(() => {
+      this.router.navigate(['/deck-search']);
+    }, 2000);
+  }
   ngOnInit() {
     // Get the deck ID from the URL
     this.deckId = this.route.snapshot.paramMap.get('id') || '';
