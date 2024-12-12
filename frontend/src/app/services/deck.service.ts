@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Deck, DecksResponse, SingleDecksResponse } from '../models/deck.interface'; // Ensure this path is correct
-
+import {
+  Deck,
+  DecksResponse,
+  SingleDecksResponse,
+} from '../models/deck.interface'; // Ensure this path is correct
 
 @Injectable({
   providedIn: 'root',
 })
 export class DeckService {
-  private apiUrl = 'https://buddy-board-infosys-internship-oct2024.onrender.com/api/deck';
+  private apiUrl =
+    'https://buddy-board-infosys-internship-oct2024.onrender.com/api/deck';
 
   constructor(private http: HttpClient) {}
 
@@ -24,17 +28,13 @@ export class DeckService {
 
   private getAuthToken(): string | null {
     if (typeof window !== 'undefined' && localStorage) {
-      console.log('localStorage:', localStorage);
-      console.log('Token from localStorage:', localStorage.getItem('token'));
+      // console.log('localStorage:', localStorage);
+      // console.log('Token from localStorage:', localStorage.getItem('token'));
       return localStorage.getItem('token');
     }
     console.warn('localStorage is not accessible in this environment.');
     return null;
   }
-  
-
-  
-
 
   /**
    * Helper method to construct authorization headers.
@@ -62,7 +62,9 @@ export class DeckService {
    */
   getDeckById(id: string): Observable<SingleDecksResponse> {
     const headers = this.createAuthHeaders();
-    return this.http.get<SingleDecksResponse>(`${this.apiUrl}/${id}`, { headers });
+    return this.http.get<SingleDecksResponse>(`${this.apiUrl}/${id}`, {
+      headers,
+    });
   }
 
   /**
@@ -71,10 +73,16 @@ export class DeckService {
    * @param title The updated title for the deck.
    * @param cards The array of card IDs to add to the deck.
    */
-  updateDeck(id: string, title: string, cards: string[]): Observable<SingleDecksResponse> {
+  updateDeck(
+    id: string,
+    title: string,
+    cards: string[]
+  ): Observable<SingleDecksResponse> {
     const headers = this.createAuthHeaders();
     const body = { title, cards };
-    return this.http.put<SingleDecksResponse>(`${this.apiUrl}/${id}`, body, { headers });
+    return this.http.put<SingleDecksResponse>(`${this.apiUrl}/${id}`, body, {
+      headers,
+    });
   }
 
   /**
@@ -92,7 +100,18 @@ export class DeckService {
    */
   toggleFavoriteDeck(id: string): Observable<SingleDecksResponse> {
     const headers = this.createAuthHeaders();
-    return this.http.post<SingleDecksResponse>(`${this.apiUrl}/${id}/favorite`, {}, { headers });
+    return this.http.post<SingleDecksResponse>(
+      `${this.apiUrl}/${id}/favorite`,
+      {},
+      { headers }
+    );
+  }
+
+  getUserDecks(): Observable<DecksResponse> {
+    const headers = this.createAuthHeaders();
+    return this.http.get<DecksResponse>(`${this.apiUrl}/getUserDecks`, {
+      headers,
+    });
   }
 
   /**
@@ -110,6 +129,8 @@ export class DeckService {
    */
   getFavoriteDecks(): Observable<DecksResponse> {
     const headers = this.createAuthHeaders();
-    return this.http.get<DecksResponse>(`${this.apiUrl}/favorites`, { headers });
+    return this.http.get<DecksResponse>(`${this.apiUrl}/favorites`, {
+      headers,
+    });
   }
 }

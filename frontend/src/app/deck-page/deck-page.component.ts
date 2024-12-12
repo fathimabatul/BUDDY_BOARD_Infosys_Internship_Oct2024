@@ -8,9 +8,9 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-deck-page',
   standalone: true,
-  imports: [CreateDeckComponent,RouterLink, CommonModule],
+  imports: [CreateDeckComponent, RouterLink, CommonModule],
   templateUrl: './deck-page.component.html',
-  styleUrl: './deck-page.component.css'
+  styleUrl: './deck-page.component.css',
 })
 export class DeckPageComponent {
   favoriteDecks: Deck[] = [];
@@ -21,7 +21,6 @@ export class DeckPageComponent {
   constructor(private deckService: DeckService) {}
 
   ngOnInit(): void {
-
     this.loadFavoriteDecks();
     this.loadPublicDecks();
   }
@@ -29,17 +28,19 @@ export class DeckPageComponent {
   // Toggle states
   showAllPublic: boolean = false;
   showAllFav: boolean = false;
-  isModalVisible: boolean = false; 
-  isSuccess:boolean| null = null;
-  savedDeck: { title: string }[] = []; 
+  isModalVisible: boolean = false;
+  isSuccess: boolean | null = null;
+  savedDeck: { title: string }[] = [];
 
-   // Methods to get displayed decks
+  // Methods to get displayed decks
   getDisplayedPublicDecks() {
     return this.showAllPublic ? this.publicDecks : this.publicDecks.slice(0, 4);
   }
 
   getDisplayedFavDecks() {
-    return this.showAllFav ? this.favoriteDecks : this.favoriteDecks.slice(0, 4);
+    return this.showAllFav
+      ? this.favoriteDecks
+      : this.favoriteDecks.slice(0, 4);
   }
 
   // Toggle methods
@@ -55,7 +56,7 @@ export class DeckPageComponent {
     }
   }
   toggleOverlay(): void {
-    this. isModalVisible= !this.isModalVisible;
+    this.isModalVisible = !this.isModalVisible;
   }
 
   // getDeckFormData(data: { title: string}): void {
@@ -72,7 +73,7 @@ export class DeckPageComponent {
   //     else{
   //       this.isSuccess=false;
   //     }
-  //   }, 2000);  
+  //   }, 2000);
   // }
 
   getDeckFormData(data: { title: string }): void {
@@ -80,7 +81,7 @@ export class DeckPageComponent {
       (response) => {
         console.log('Deck created successfully:', response);
         this.isSuccess = true;
-  
+
         // // Construct the new deck object based on the API response
         // const newDeck: Deck = {
         //   _id: response._id,                // Assuming response includes this
@@ -94,12 +95,12 @@ export class DeckPageComponent {
         //   updatedAt: response.updatedAt || new Date().toISOString(), // Use current time as fallback
         //   __v: response.__v || 0           // Default to 0 if not provided
         // };
-  
+
         // // Add the new deck to the top of the publicDecks array
         // this.publicDecks = [...this.publicDecks, newDeck];
 
         this.loadPublicDecks();
-  
+
         // Close the modal
         this.isModalVisible = false;
       },
@@ -109,8 +110,6 @@ export class DeckPageComponent {
       }
     );
   }
-  
-  
 
   private loadFavoriteDecks(): void {
     this.deckService.getFavoriteDecks().subscribe(
@@ -126,7 +125,7 @@ export class DeckPageComponent {
   }
 
   private loadPublicDecks(): void {
-    this.deckService.getPublicDecks().subscribe(
+    this.deckService.getUserDecks().subscribe(
       (response: DecksResponse) => {
         this.publicDecks = response.data || [];
         this.isLoadingPublic = false;
