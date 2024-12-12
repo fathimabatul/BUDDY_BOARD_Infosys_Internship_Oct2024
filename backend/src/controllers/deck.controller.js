@@ -487,6 +487,116 @@ const searchDecks = asyncHandler(async (req, res) => {
   }
 });
 
+const getUserDecks = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const decks = await Deck.aggregate([
+      {
+        $match: {
+          created_by: new mongoose.Types.ObjectId(userId),
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "created_by",
+          foreignField: "_id",
+          as: "creator",
+        },
+      },
+      {
+        $unwind: "$creator",
+      },
+      {
+        $addFields: {
+          created_by: "$creator.name",
+        },
+      },
+      {
+        $lookup: {
+          from: "cards",
+          localField: "cards",
+          foreignField: "_id",
+          as: "cards",
+        },
+      },
+      {
+        $unwind: {
+          path: "$cards",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "cards.created_by",
+          foreignField: "_id",
+          as: "card_creator",
+        },
+      },
+      {
+        $unwind: {
+          path: "$card_creator",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $addFields: {
+          "cards.created_by": "$card_creator.name",
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          title: { $first: "$title" },
+          cards: { $push: "$cards" },
+          created_by: { $first: "$created_by" },
+          visibility: { $first: "$visibility" },
+          is_blocked: { $first: "$is_blocked" },
+          favorites: { $first: "$favorites" },
+          createdAt: { $first: "$createdAt" },
+          updatedAt: { $first: "$updatedAt" },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "favorites",
+          foreignField: "_id",
+          as: "favorites",
+        },
+      },
+      {
+        $project: {
+          "favorites.email": 1,
+          "favorites.name": 1,
+          title: 1,
+          cards: 1,
+          created_by: 1,
+          visibility: 1,
+          is_blocked: 1,
+          createdAt: 1,
+          updatedAt: 1,
+        },
+      },
+    ]);
+
+    if (!decks.length) {
+      throw new ApiError(404, "No decks found for this user");
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, decks, "User decks retrieved successfully"));
+  } catch (error) {
+    console.error("Error retrieving user decks:", error);
+    return res
+      .status(500)
+      .json(new ApiResponse(500, null, "Internal server error"));
+  }
+});
+
 export {
   createDeck,
   updateDeck,
@@ -497,4 +607,5 @@ export {
   getPublicDecks,
   addCardToDeck,
   searchDecks,
+  getUserDecks, // Add the new function to the exports
 };
