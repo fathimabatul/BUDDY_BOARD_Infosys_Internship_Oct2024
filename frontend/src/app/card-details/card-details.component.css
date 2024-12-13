@@ -48,24 +48,26 @@ header nav a {
 }
 
 header nav a:hover {
-    color: rgb(15, 177, 180);
     text-decoration: underline;
 }
+
+header nav a.active {
+    text-decoration: underline;
+    color: #0000ff; /* Optional: Different color to indicate the active page */
+  }
+  
 
 .note-container {
     display: flex;
     flex-direction: row;
     gap: 2rem;
     padding: 2rem;
-    margin-top: 1rem;
 }
 
 .sidebar {
     width: 25%;
-    background: #f4f4f4;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #c0c0c0;
+    border-radius: 0px;
     padding: 1.5rem;
 }
 
@@ -92,7 +94,7 @@ header nav a:hover {
 
 .note-metadata p {
     font-size: 0.9rem;
-    color: #555;
+    color: #000000;
     margin-bottom: 0.8rem;
 }
 
@@ -100,7 +102,7 @@ header nav a:hover {
     flex: 1;
     background: #e2e41e;
     border: 2px solid black;
-    border-radius: 8px;
+    border-radius: 0px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     display: flex;
@@ -140,7 +142,8 @@ header nav a:hover {
     background-color: rgb(65, 185, 206);
     color: #000;
     border: 1px solid black;
-    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 0px;
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
     cursor: pointer;
@@ -154,13 +157,14 @@ header nav a:hover {
 
 .back-to-cards {
     display: inline-block;
-    background-color: rgb(20, 207, 210);
+    background-color: rgb(65, 185, 206);
     color: #000;
     font-weight: bold;
     text-align: center;
     padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid black;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 0px;
     text-decoration: none;
     margin-bottom: 1.5rem;
     transition: background-color 0.3s ease, transform 0.2s ease;
@@ -174,9 +178,9 @@ header nav a:hover {
 .deck-dropdown {
     margin: 2rem 2rem;
     padding: 1.5rem;
-    background: #f4f4f4;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    background: #e2e41e;
+    border: 2px solid #000000;
+    border-radius: 0px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -190,18 +194,20 @@ header nav a:hover {
 .deck-dropdown select {
     width: 100%;
     padding: 0.8rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
+    font-size: 1.2rem;
+    border: 1px solid #000000;
     border-radius: 4px;
     margin-bottom: 1rem;
     background-color: rgb(241, 241, 181);
+    font-family: 'Papyrus', 'Arial', sans-serif;
 }
 
 .deck-dropdown button {
     background-color: rgb(65, 185, 206);
     color: #000;
     border: 1px solid black;
-    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 0px;
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
     font-weight: bold;
