@@ -1,0 +1,60 @@
+<div *ngIf="loading; else content" class="loading">
+  <p>Loading user data...</p>
+</div>
+
+<ng-template #content>
+  <div *ngIf="errorMessage; else profileContent">
+    <p class="error">{{ errorMessage }}</p>
+  </div>
+</ng-template>
+
+<ng-template #profileContent>
+  <div *ngIf="user" class="navigation">
+    <nav>
+      <ul>
+        <li *ngFor="let option of navOptions">
+          <a href="#">{{ option }}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="user-profile" *ngIf="user">
+    <div class="header">
+      <h1>{{ username }}</h1>
+      <p>Email ID: {{ user?.email || 'Not available' }}</p>
+      <p>Joined on: {{ user?.joined || 'Not available' }}</p>
+    </div>
+
+    <div class="decks-section" *ngIf="user?.decks && user.decks.length; else noDecks">
+      <h2>Number of decks ({{ user?.decks?.length }}):</h2>
+      <div class="decks">
+        <div *ngFor="let deck of limitedDecks" class="deck-item">
+          {{ deck }}
+        </div>
+      </div>
+      <a *ngIf="user?.decks.length > maxVisibleDecks" (click)="showAllDecks()" class="see-all-link">See All</a>
+    </div>
+
+    <ng-template #noDecks>
+      <p>No decks available for this user.</p>
+    </ng-template>
+  </div>
+
+  <!-- Modal for viewing all decks -->
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>All Decks</h2>
+      <ul>
+        <li *ngFor="let deck of user?.decks">{{ deck }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Buddy Boards, All Rights Reserved, 2024</p>
+  </footer>
+</ng-template>
+<p *ngIf="!user">No user data available.</p>
+
