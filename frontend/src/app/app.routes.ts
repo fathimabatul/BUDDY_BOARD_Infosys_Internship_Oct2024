@@ -12,7 +12,7 @@ import { PublicDeckComponent } from './public-deck/public-deck.component';
 import { FlashcardComponent } from './flashcard/flashcard.component';
 import { CardsPageComponent } from './cards-page/cards-page.component';
 import { CardDetailsComponent } from './card-details/card-details.component';
-
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
@@ -30,7 +30,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./forgot-password/forgot-password.component').then(
         (m) => m.ForgotPasswordComponent
-      ), // Load the ForgotPasswordComponent
+      ),
   },
   {
     path: 'signup-follow-up',
@@ -51,50 +51,49 @@ export const routes: Routes = [
         (m) => m.ResetPasswordComponent
       ),
   },
-  // { path: 'feed', component: FeedComponent },
-  // { path: 'cards', component: CardsComponent },
-  // { path: 'decks', component: DecksComponent },
-  // { path: 'logout', component: LogoutComponent },
-  { 
-    path: 'dashboard', 
-    component: DashboardComponent 
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
   },
-  {path:'deck-details',
-    component:DeckDetailsComponent
+  {
+    path: 'deck-details',
+    component: DeckDetailsComponent,
   },
-  {path:'deckPage',
-    component:DeckPageComponent
+  {
+    path: 'deckPage',
+    component: DeckPageComponent,
   },
-  {path:'deck-search',
-    component:DeckSearchComponent
+  {
+    path: 'deck-search',
+    component: DeckSearchComponent,
   },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
     path: 'favoriteDecks',
-    component: FavoriteDeckComponent
+    component: FavoriteDeckComponent,
   },
   {
     path: 'publicDecks',
-    component: PublicDeckComponent
+    component: PublicDeckComponent,
   },
   {
     path: 'deck/:id',
-    component: DeckDetailsComponent
+    component: DeckDetailsComponent,
   },
   {
     path: 'flashcard',
-    component: FlashcardComponent
+    component: FlashcardComponent,
   },
   {
     path: 'cardpage',
-    component: CardsPageComponent
-  },
-  {
-    path: 'flashcard',
-    component: FlashcardComponent
+    component: CardsPageComponent,
   },
   {
     path: 'card/:id',
-    component: CardDetailsComponent
-  }
+    component: CardDetailsComponent,
+  },
+  {
+    path: 'user-profile/:username',
+    component: UserProfileComponent,
+  },
 ];
