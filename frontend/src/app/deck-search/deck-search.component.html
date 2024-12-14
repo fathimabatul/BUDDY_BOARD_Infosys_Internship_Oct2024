@@ -70,13 +70,13 @@
       <!-- Search Bar -->
       <div class="search-bar">
         <input
-          type="text"
-          [(ngModel)]="searchKeyword"
-          placeholder="Search deck by keyword"
+            type="text"
+            [(ngModel)]="searchKeyword"
+            placeholder="Search deck by keyword"
         />
         <button class="search-button" (click)="searchDecks()">🔍</button>
-      </div>
-      
+    </div>
+
       <!-- Displaying Search Results -->
       <div class="deck-list" *ngIf="filteredDecks.length > 0">
         <div *ngFor="let deck of filteredDecks" [routerLink]="['/deck', deck._id]" class="deck-item">

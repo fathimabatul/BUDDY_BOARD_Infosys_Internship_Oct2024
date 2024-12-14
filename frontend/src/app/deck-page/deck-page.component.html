@@ -4,7 +4,7 @@
     <nav>
       <a routerLink="/dashboard">Feed</a>
       <a routerLink="/cardpage">Cards</a>
-      <a routerLink="/deckPage">Decks</a>
+      <a routerLink="/deckPage" class="active">Decks</a>
       <a routerLink="/signin">Logout</a>
     </nav>
   </header>
@@ -41,11 +41,7 @@
         }
       </div>
       <div class="deck-footer">
-        <button
-          *ngIf="favoriteDecks.length > 4"
-          class="see-all"
-          (click)="toggleFavDecks()"
-        >
+        <button class="see-all" (click)="toggleFavDecks()">
           {{ showAllFav ? "See Less" : "See All" }}
         </button>
       </div>

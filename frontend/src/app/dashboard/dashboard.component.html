@@ -2,7 +2,7 @@
   <header>
     <h1>Buddy Board</h1>
     <nav>
-      <a routerLink="/dashboard">Feed</a>
+      <a routerLink="/dashboard" class="active">Feed</a>
       <a routerLink="/cardpage">Cards</a>
       <a routerLink="/deckPage">Decks</a>
       <a routerLink="/signin">Logout</a>
@@ -29,12 +29,7 @@
           <p class="deck-title">{{ deck.title }}</p>
           <p class="deck-author">By {{ deck.created_by }}</p>
         </div>
-        <a
-          *ngIf="favoriteDecks.length > 4"
-          routerLink="/favoriteDecks"
-          class="see-all"
-          >See All</a
-        >
+        <a routerLink="/favoriteDecks" class="see-all">See All</a>
       </div>
     </section>
     <hr class="divider" />
@@ -61,12 +56,7 @@
             {{ deck.favorites ? deck.favorites.length : 0 }}
           </p>
         </div>
-        <a
-          *ngIf="publicDecks.length > 4"
-          routerLink="/publicDecks"
-          class="see-all"
-          >See All</a
-        >
+        <a routerLink="/publicDecks" class="see-all">See All</a>
       </div>
     </section>
   </main>
