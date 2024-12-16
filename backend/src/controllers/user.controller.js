@@ -4,6 +4,8 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { sendEmail } from "../utils/email.js";
 import crypto from "crypto";
+import mongoose from "mongoose";
+import Deck from "../models/deck.model.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -61,12 +63,68 @@ const signUp = asyncHandler(async (req, res) => {
     "host"
   )}/api/auth/users/verifyEmail/${emailVerificationToken}`;
 
-  const message = `Please verify your email by clicking on the following link: \n\n ${verificationUrl}`;
+  const htmlMessage = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Email Verification</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          color: #333;
+        }
+        .container {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          background-color: #f9f9f9;
+        }
+        .header {
+          text-align: center;
+          padding-bottom: 20px;
+        }
+        .content {
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 5px;
+        }
+        .footer {
+          text-align: center;
+          padding-top: 20px;
+          font-size: 0.9em;
+          color: #777;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h2>Email Verification</h2>
+        </div>
+        <div class="content">
+          <p>Dear ${user.name},</p>
+          <p>Please verify your email by clicking on the following link:</p>
+          <p><a href="${verificationUrl}">${verificationUrl}</a></p>
+          <p>If you did not create an account, no further action is required.</p>
+          <p>Thank you for your attention.</p>
+        </div>
+        <div class="footer">
+          <p>&copy; 2024 BuddyBoard. All rights reserved.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
 
   await sendEmail({
     email: user.email,
     subject: "Email Verification",
-    message,
+    message: `Please verify your email by clicking on the following link: \n\n ${verificationUrl}`,
+    html: htmlMessage,
   });
 
   const options = {
@@ -170,14 +228,70 @@ const sendPasswordResetEmail = asyncHandler(async (req, res) => {
   user.passwordResetExpires = Date.now() + 3600000; // 1 hour
   await user.save();
 
-  const resetUrl = `${req.protocol}://localhost:4200/reset-password/${resetToken}`;
+  const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
 
-  const message = `You are receiving this email because you (or someone else) have requested the reset of a password. Please click over the link to continue: \n\n ${resetUrl}`;
+  const htmlMessage = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Password Reset</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          color: #333;
+        }
+        .container {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          background-color: #f9f9f9;
+        }
+        .header {
+          text-align: center;
+          padding-bottom: 20px;
+        }
+        .content {
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 5px;
+        }
+        .footer {
+          text-align: center;
+          padding-top: 20px;
+          font-size: 0.9em;
+          color: #777;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h2>Password Reset</h2>
+        </div>
+        <div class="content">
+          <p>Dear ${user.name},</p>
+          <p>You requested a password reset. Please click on the following link to reset your password:</p>
+          <p><a href="${resetUrl}">${resetUrl}</a></p>
+          <p>If you did not request a password reset, please ignore this email.</p>
+          <p>Thank you for your attention.</p>
+        </div>
+        <div class="footer">
+          <p>&copy; 2024 BuddyBoard. All rights reserved.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
 
   await sendEmail({
     email: user.email,
-    subject: "Password reset token",
-    message,
+    subject: "Password Reset",
+    message: `You requested a password reset. Please click on the following link to reset your password: \n\n ${resetUrl}`,
+    html: htmlMessage,
   });
 
   return res.status(200).json(new ApiResponse(200, "Email sent successfully"));
@@ -205,4 +319,128 @@ const resetPassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "Password reset successfully"));
 });
 
-export { signUp, signIn, verifyEmail, sendPasswordResetEmail, resetPassword };
+const getUser = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  if (!userId) {
+    throw new ApiError(400, "User Id is required");
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new ApiError(400, "Invalid user ID");
+  }
+
+  const user = await User.aggregate([
+    { $match: { _id: new mongoose.Types.ObjectId(userId) } },
+    {
+      $lookup: {
+        from: "decks",
+        localField: "_id",
+        foreignField: "created_by",
+        as: "decks",
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        email: 1,
+        role: 1,
+        isEmailVerified: 1,
+        createdAt: 1,
+        updatedAt: 1,
+        decks: {
+          _id: 1,
+          title: 1,
+          visibility: 1,
+          is_blocked: 1,
+          createdAt: 1,
+          updatedAt: 1,
+        },
+      },
+    },
+  ]);
+
+  if (!user.length) {
+    throw new ApiError(404, "User not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user[0], "User retrieved successfully"));
+});
+
+const searchUser = asyncHandler(async (req, res) => {
+  const {
+    name,
+    exactMatch = false,
+    likesCount,
+    decksCount,
+    joinedAfter,
+    role = "user",
+  } = req.query;
+
+  const matchStage = { role };
+
+  if (name) {
+    matchStage.name = exactMatch ? name : { $regex: name, $options: "i" };
+  }
+
+  if (joinedAfter) {
+    matchStage.createdAt = { $gte: new Date(joinedAfter) };
+  }
+
+  const pipeline = [
+    { $match: matchStage },
+    {
+      $lookup: {
+        from: "decks",
+        localField: "_id",
+        foreignField: "created_by",
+        as: "decks",
+      },
+    },
+    {
+      $addFields: {
+        decksCount: { $size: "$decks" },
+        likesCount: {
+          $sum: {
+            $map: {
+              input: "$decks",
+              as: "deck",
+              in: { $size: "$$deck.favorites" },
+            },
+          },
+        },
+      },
+    },
+  ];
+
+  if (decksCount) {
+    pipeline.push({
+      $match: {
+        decksCount: { $gte: parseInt(decksCount) },
+      },
+    });
+  }
+
+  if (likesCount) {
+    pipeline.push({
+      $match: {
+        likesCount: { $gte: parseInt(likesCount) },
+      },
+    });
+  }
+
+  const users = await User.aggregate(pipeline);
+
+  res.status(200).json(users);
+});
+
+export {
+  signUp,
+  signIn,
+  verifyEmail,
+  sendPasswordResetEmail,
+  resetPassword,
+  getUser,
+  searchUser,
+};
