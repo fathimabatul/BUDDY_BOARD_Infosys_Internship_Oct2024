@@ -5,7 +5,10 @@ import {
   verifyEmail,
   sendPasswordResetEmail,
   resetPassword,
+  getUser,
+  searchUser,
 } from "../controllers/user.controller.js";
+import { isAdmin, verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -14,5 +17,7 @@ router.post("/signin", signIn);
 router.get("/verifyEmail/:token", verifyEmail);
 router.post("/sendPasswordResetEmail", sendPasswordResetEmail);
 router.post("/resetPassword", resetPassword);
+router.get("/getUser/:userId", verifyJWT, getUser);
+router.get("/searchUser", verifyJWT, isAdmin, searchUser);
 
 export default router;
