@@ -196,6 +196,24 @@ const signIn = asyncHandler(async (req, res) => {
     );
 });
 
+const signOut = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(req.user._id, {
+    $set: {
+      refreshToken: undefined,
+    },
+  });
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .clearCookie("accessToken")
+    .clearCookie("refreshToken", options)
+    .json(new ApiResponse(200, "User Logged Out"));
+});
+
 const verifyEmail = asyncHandler(async (req, res) => {
   const { token } = req.params;
 
@@ -443,4 +461,5 @@ export {
   resetPassword,
   getUser,
   searchUser,
+  signOut,
 };
