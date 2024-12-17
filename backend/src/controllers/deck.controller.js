@@ -599,6 +599,9 @@ const getUserDecks = asyncHandler(async (req, res) => {
 const softDeleteDeck = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { reasons } = req.body;
+  if (!reasons) {
+    throw new ApiError(400, "Reasons for blocking the deck is required");
+  }
 
   const deck = await Deck.findOneAndUpdate(
     { _id: id },
