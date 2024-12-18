@@ -1,59 +1,69 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute to get route parameters
 import { UserProfileService } from '../services/user-profile.service';
-
-interface User {
-  email: string;
-  joined: string;
-  decks: string[];
-}
+import { UserProfileResponse, UserProfile, Deck } from '../models/user-profile.interface';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
-  username: string = '';
-  isAdmin: boolean = false;
-  navOptions: string[] = [];
-  user: User | null = null;
-  loading: boolean = true;
+  user: UserProfile | null = null; // User profile data
+  loading: boolean = true; // Loading state
+  errorMessage: string | null = null; // Error message
+  navOptions: string[] = ['Option 1', 'Option 2', 'Option 3']; // Navigation options
+  maxVisibleDecks: number = 3; // Maximum number of visible decks
+  limitedDecks: string[] = []; // Limited decks for initial display
+  showModal: boolean = false; // Modal visibility state
 
-  maxVisibleDecks: number = 4;
-  limitedDecks: string[] = [];
-  showModal: boolean = false;
+  constructor(
+    private userProfileService: UserProfileService,
+    private activatedRoute: ActivatedRoute // Inject ActivatedRoute to get the route parameter
+  ) {}
 
-  errorMessage: string = ''; // To store error messages
+  ngOnInit(): void {
+    const userId = this.activatedRoute.snapshot.paramMap.get('userid');
+    if (userId) {
+      this.fetchUserProfile(userId);
+    }
+  }
 
-  constructor(private route: ActivatedRoute, private userProfileService: UserProfileService) {}
-
-  ngOnInit() {
-    this.username = this.route.snapshot.paramMap.get('username') || 'Unknown User';
-
-    this.userProfileService.getUserProfile(this.username).subscribe(
-      (data: User) => {
-        this.user = data;
-        this.isAdmin = this.username === 'admin';
-        this.navOptions = this.isAdmin ? ['Users', 'Decks', 'Logout'] : ['Feed', 'Cards', 'Decks', 'Logout'];
-        this.limitedDecks = this.user.decks.slice(0, this.maxVisibleDecks);
+  fetchUserProfile(id: string): void {
+    this.userProfileService.getUserProfile(id).subscribe(
+      (response: UserProfileResponse) => {
         this.loading = false;
+        if (response.success) {
+          this.user = response.data;
+          console.log(this.user);
+          
+          this.limitedDecks = this.user.decks.slice(0, this.maxVisibleDecks).map(deck => deck.title);
+        } else {
+          this.errorMessage = response.message;
+        }
       },
-      (error: any) => {
-        console.error('Error fetching user data:', error);
-        this.errorMessage = 'Unable to fetch user data. Please try again later.';
+      (error) => {
         this.loading = false;
+        this.errorMessage = 'Failed to fetch user data';
       }
     );
   }
 
-  showAllDecks() {
-    if (this.user?.decks?.length) {
-      this.showModal = true;
-    }
+  // Add this getter to prevent undefined errors in the template
+  get userDecks(): Deck[] {
+    return this.user?.decks || []; // Return an empty array if user or decks is undefined
   }
 
-  closeModal() {
+  showAllDecks(): void {
+    this.showModal = true;
+  }
+
+  closeModal(): void {
     this.showModal = false;
   }
 }
+

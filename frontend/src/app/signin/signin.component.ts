@@ -38,19 +38,31 @@ export class SigninComponent {
       this.authService.signin(this.signinForm.value).subscribe({
         next: (response) => {
           console.log(response);
-          
+
           // Store the token in localStorage
           if (response.message?.accessToken) {
             localStorage.setItem('token', response.message.accessToken);
           }
-      
+
+          // Extract and store the user in localStorage
+          // if (response.message?.user) {
+          //   localStorage.setItem('user', JSON.stringify(response.message.user));
+          // }
+
+          // // Navigate to dashboard or home page
+          // this.router.navigate(['/dashboard']);
           // Extract and store the user in localStorage
           if (response.message?.user) {
-            localStorage.setItem('user', JSON.stringify(response.message.user));
-          }
+            const user = response.message.user;
+            localStorage.setItem('user', JSON.stringify(user));
 
-          // Navigate to dashboard or home page
-          this.router.navigate(['/dashboard']);
+            // Redirect based on user role
+            if (user.role === 'admin') {
+              this.router.navigate(['/deckPage']); // Admin landing page
+            } else {
+              this.router.navigate(['/dashboard']); // User landing page
+            }
+          }
         },
         error: (error) => {
           console.log(error);

@@ -1,60 +1,67 @@
-<div *ngIf="loading; else content" class="loading">
-  <p>Loading user data...</p>
-</div>
-
-<ng-template #content>
-  <div *ngIf="errorMessage; else profileContent">
-    <p class="error">{{ errorMessage }}</p>
-  </div>
-</ng-template>
-
-<ng-template #profileContent>
-  <div *ngIf="user" class="navigation">
+<div class="container">
+  <header>
+    <h1>Buddy Board</h1>
     <nav>
-      <ul>
-        <li *ngFor="let option of navOptions">
-          <a href="#">{{ option }}</a>
-        </li>
-      </ul>
+      <a routerLink="/deckPage" class="active">Decks</a>
+      <a routerLink="/userSearch">Users</a>
+      <a routerLink="/signin">Logout</a>
     </nav>
-  </div>
+  </header>
 
-  <div class="user-profile" *ngIf="user">
-    <div class="header">
-      <h1>{{ username }}</h1>
-      <p>Email ID: {{ user?.email || 'Not available' }}</p>
-      <p>Joined on: {{ user?.joined || 'Not available' }}</p>
-    </div>
+  <br /><br />
 
-    <div class="decks-section" *ngIf="user?.decks && user.decks.length; else noDecks">
-      <h2>Number of decks ({{ user?.decks?.length }}):</h2>
-      <div class="decks">
-        <div *ngFor="let deck of limitedDecks" class="deck-item">
-          {{ deck }}
+  <main>
+    <section class="user-profile-section">
+      <div class="user-profile-header">
+        <!-- add profile icon here -->
+        <i class="fas fa-user-circle profile-icon"></i> <!-- Profile icon -->
+
+        <div class="profileInfo">
+          <h2>{{user?.name}}</h2>
+          <p>Email: {{ user?.email || "..." }}</p>
+          <p>
+            Joined on: {{ user?.createdAt | date: 'd MMMM yyyy' || 'Not available' }}
+          </p>
         </div>
       </div>
-      <a *ngIf="user?.decks.length > maxVisibleDecks" (click)="showAllDecks()" class="see-all-link">See All</a>
-    </div>
 
-    <ng-template #noDecks>
-      <p>No decks available for this user.</p>
-    </ng-template>
-  </div>
+      <br />
 
-  <!-- Modal for viewing all decks -->
-  <div class="modal" *ngIf="showModal">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h2>All Decks</h2>
-      <ul>
-        <li *ngFor="let deck of user?.decks">{{ deck }}</li>
-      </ul>
-    </div>
-  </div>
+      <!-- Decks Section -->
+       <div class="AllDecks">
+         <h3>Total Decks ({{ userDecks.length }})</h3>
+         <div class="decks">
+           <div
+             *ngFor="let deck of userDecks.slice(0, maxVisibleDecks)"
+             class="deck"
+           >
+             <a [routerLink]="['/deck', deck._id]" class="icon-link">
+               <div class="icon">
+                 <div class="paper back"></div>
+                 <div class="paper middle"></div>
+                 <div class="paper front">
+                   <div class="line"></div>
+                   <div class="line"></div>
+                   <div class="line"></div>
+                 </div>
+               </div>
+             </a>
+             <p class="deck-title">{{ deck.title || "No Decks" }}</p>
+           </div>
+         </div>
 
-  <footer class="footer">
-    <p>Buddy Boards, All Rights Reserved, 2024</p>
+       </div>
+
+      <!-- Show All Decks Button -->
+      <div *ngIf="userDecks.length > maxVisibleDecks" class="deck-footer">
+        <button class="see-all" (click)="showAllDecks()">See All Decks</button>
+      </div>
+    </section>
+  </main>
+
+  <hr class="divider" />
+
+  <footer>
+    <p><b>Buddy Board, All rights reserved, 2024</b></p>
   </footer>
-</ng-template>
-<p *ngIf="!user">No user data available.</p>
-
+</div>

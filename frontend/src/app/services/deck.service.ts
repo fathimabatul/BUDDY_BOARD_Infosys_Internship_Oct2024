@@ -89,10 +89,15 @@ export class DeckService {
    * Delete a deck by ID.
    * @param id The ID of the deck to delete.
    */
-  deleteDeck(id: string): Observable<any> {
+  // deleteDeck(id: string): Observable<SingleDecksResponse> {
+  //   const headers = this.createAuthHeaders();
+  //   return this.http.delete<SingleDecksResponse>(`${this.apiUrl}/${id}`, { headers });
+  // }
+  deleteDeck(id: string, body: { reasons: string }): Observable<SingleDecksResponse> {
     const headers = this.createAuthHeaders();
-    return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+    return this.http.delete<SingleDecksResponse>(`${this.apiUrl}/${id}`, { headers, body });
   }
+  
 
   /**
    * Favorite or unfavorite a deck by ID.

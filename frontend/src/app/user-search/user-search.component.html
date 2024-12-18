@@ -1,0 +1,101 @@
+<div class="container">
+    <!-- Navbar -->
+    <header class="navbar">
+      <h1>Buddy Board</h1>
+      <nav>
+        <a routerLink="/deckPage">Decks</a>
+        <a routerLink="/userSearch" class="active">Users</a>
+        <a routerLink="/logout">Logout</a>
+      </nav>
+    </header>
+  
+    <!-- Main Content -->
+    <main>
+      <!-- Back Button -->
+      <button class="back-button" routerLink="/deckPage">Back to Decks</button>
+  
+      <!-- Sidebar for Filters -->
+      <div class="sidebar">
+        <div class="filters">
+          <!-- Exact Match Filter -->
+          <div class="buttons">
+            <label>
+              <input type="checkbox" [(ngModel)]="exactMatch" />
+              Exact Match
+            </label>
+            <button class="reset-button" (click)="resetFilters()">Reset Filters</button>
+          </div>
+  
+          <!-- Likes Filter -->
+          <label>
+            Likes greater than
+            <input type="range" [(ngModel)]="likesThreshold" min="0" max="100" />
+            <div class="slider-labels">
+              <span>{{ likesThreshold }}</span>
+              <span>100</span>
+            </div>
+          </label>
+  
+          <!-- Decks Filter -->
+          <label>
+            Decks greater than
+            <input type="range" [(ngModel)]="decksThreshold" min="0" max="20" />
+            <div class="slider-labels">
+              <span>{{ decksThreshold }}</span>
+              <span>20+</span>
+            </div>
+          </label>
+  
+          <!-- Joined After Filter -->
+          <label>
+            Joined After
+            <input type="date" [(ngModel)]="joinedAfter" />
+          </label>
+        </div>
+      </div>
+  
+      <!-- Main Content Area -->
+      <div class="main-content">
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <input
+            type="text"
+            [(ngModel)]="searchKeyword"
+            placeholder="Search users by keyword"
+          />
+          <button class="search-button" (click)="searchUsers()">🔍</button>
+        </div>
+  
+        <!-- Users List -->
+        <div class="user-list" *ngIf="filteredUsers.length > 0">
+          <div *ngFor="let user of filteredUsers" class="user-item" [routerLink]="['/user-profile', user._id]">
+            <div class="user-content">
+              <h3>
+                <a class="username-link">
+                  {{ user.name }}
+                </a>
+              </h3>
+              <p>
+                {{ user.decksCount }} public decks, joined on
+                <strong>{{ user.createdAt | date : 'dd MMM, yyyy' }}</strong>
+              </p>
+            </div>
+            <button class="likes-button">
+              ❤️ <span>{{ user.likesCount }}</span>
+            </button>
+          </div>
+        </div>
+  
+        <!-- No Results Found -->
+        <div *ngIf="filteredUsers.length === 0" class="no-results">
+          <p>No users found. Try adjusting your filters or search query.</p>
+        </div>
+      </div>
+    </main>
+  
+    <!-- Footer -->
+    <footer>
+      <p>Buddy Board, All rights reserved, 2024</p>
+    </footer>
+  </div>
+  
