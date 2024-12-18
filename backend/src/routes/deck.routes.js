@@ -1,5 +1,5 @@
 import express from "express";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { isAdmin, verifyJWT } from "../middlewares/auth.middleware.js";
 import {
   createDeck,
   updateDeck,
@@ -11,6 +11,7 @@ import {
   addCardToDeck,
   searchDecks,
   getUserDecks,
+  softDeleteDeck,
 } from "../controllers/deck.controller.js";
 
 const router = express.Router();
@@ -27,7 +28,11 @@ router.route("/search").get(searchDecks);
 
 router.route("/getUserDecks").get(getUserDecks);
 
-router.route("/:id").get(getDeck).put(updateDeck).delete(deleteDeck);
+router
+  .route("/:id")
+  .get(getDeck)
+  .put(updateDeck)
+  .delete(isAdmin, softDeleteDeck);
 
 router.route("/:id/favorite").post(toggleFavorite);
 

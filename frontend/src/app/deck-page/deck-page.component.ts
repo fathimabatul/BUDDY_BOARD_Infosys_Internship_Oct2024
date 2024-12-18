@@ -20,18 +20,38 @@ export class DeckPageComponent {
 
   constructor(private deckService: DeckService) {}
 
-  ngOnInit(): void {
-
-    this.loadFavoriteDecks();
-    this.loadPublicDecks();
-  }
-
+  userRole: 'admin' | 'user' = 'user';
   // Toggle states
   showAllPublic: boolean = false;
   showAllFav: boolean = false;
   isModalVisible: boolean = false; 
   isSuccess:boolean| null = null;
   savedDeck: { title: string }[] = []; 
+
+  ngOnInit(): void {
+    this.setUserRoleBasedOnLocalStorage(); // Fetch and set user role
+    this.loadFavoriteDecks();
+    this.loadPublicDecks();
+  }
+
+  setUserRoleBasedOnLocalStorage(): void {
+    const user = localStorage.getItem('user'); // Retrieve the user data from localStorage
+    if (user) {
+      try {
+        const userData = JSON.parse(user); // Parse the JSON string
+        this.userRole = userData.role === 'admin' ? 'admin' : 'user'; // Set role based on stored data
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error);
+        this.userRole = 'user'; // Default to 'user' if parsing fails
+      }
+    } else {
+      console.warn(
+        'No user data found in localStorage. Defaulting to "user" role.'
+      );
+      this.userRole = 'user'; // Default to 'user' if no data is found
+    }
+  }
+
 
    // Methods to get displayed decks
   getDisplayedPublicDecks() {
@@ -58,46 +78,11 @@ export class DeckPageComponent {
     this. isModalVisible= !this.isModalVisible;
   }
 
-  // getDeckFormData(data: { title: string}): void {
-  //   setTimeout(() => {
-  //     this.isSuccess=true;
-  //     if(this.isSuccess){
-  //       // Append new deck to the savedDeck array
-  //       const newDeck = {
-  //         title: data.title
-  //     };
-  //     // Add the new deck at the top of the publicDeck array
-  //     this.publicDecks.unshift(newDeck);
-  //     }
-  //     else{
-  //       this.isSuccess=false;
-  //     }
-  //   }, 2000);  
-  // }
-
   getDeckFormData(data: { title: string }): void {
     this.deckService.createDeck(data.title).subscribe(
       (response) => {
         console.log('Deck created successfully:', response);
         this.isSuccess = true;
-  
-        // // Construct the new deck object based on the API response
-        // const newDeck: Deck = {
-        //   _id: response._id,                // Assuming response includes this
-        //   title: response.title,            // The title from the response
-        //   cards: response.cards || [],      // Default to empty array if not provided
-        //   created_by: response.created_by,  // The creator's ID
-        //   visibility: response.visibility || 'public', // Default to 'public' if not provided
-        //   is_blocked: response.is_blocked || false,    // Default to false if not provided
-        //   favorites: response.favorites || [],         // Default to empty array if not provided
-        //   createdAt: response.createdAt || new Date().toISOString(), // Use current time as fallback
-        //   updatedAt: response.updatedAt || new Date().toISOString(), // Use current time as fallback
-        //   __v: response.__v || 0           // Default to 0 if not provided
-        // };
-  
-        // // Add the new deck to the top of the publicDecks array
-        // this.publicDecks = [...this.publicDecks, newDeck];
-
         this.loadPublicDecks();
   
         // Close the modal

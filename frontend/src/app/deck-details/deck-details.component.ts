@@ -5,17 +5,19 @@ import { Deck, SingleDecksResponse } from '../models/deck.interface'; // Adjust 
 import { Card } from '../models/card.interface';
 import { CommonModule, NgIf } from '@angular/common';
 import { userService } from '../services/user.service'; // Import the UserService
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-deck-details',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgIf],
+  imports: [CommonModule, RouterLink, NgIf, FormsModule],
   templateUrl: './deck-details.component.html',
-  styleUrls: ['./deck-details.component.css']
+  styleUrls: ['./deck-details.component.css'],
 })
 export class DeckDetailsComponent implements OnInit {
-  @Input() createdOn: string = ''; 
-  @Input() createdBy: string = ''; 
+  @Input() createdOn: string = '';
+  @Input() createdBy: string = '';
   userRole: 'admin' | 'user' = 'user';
 
   currentIndex = 0;
@@ -27,8 +29,12 @@ export class DeckDetailsComponent implements OnInit {
   isFavorite: boolean = false; // Track the favorite status of the deck
   user: any = null; // Define the 'user' property to hold the user data
 
+  // Variables for delete popup
+  showDeletePopup: boolean = false; // Toggle the delete reason popup
+  deleteReason: string = ''; // Store the delete reason
+
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private deckService: DeckService,
     private userService: userService,
     private router: Router // Inject the UserService here
@@ -41,27 +47,22 @@ export class DeckDetailsComponent implements OnInit {
       this.userRole = role;
     }
   }
-  onDelete(){
-    this.message="Deck is deleted successfully!!!";
-    setTimeout(() => {
-      this.router.navigate(['/deck-search']);
-    }, 2000);
-  }
+
   ngOnInit() {
     // Get the deck ID from the URL
     this.deckId = this.route.snapshot.paramMap.get('id') || '';
-    
+  
     if (this.deckId) {
-      this.user = this.userService.getUserFromLocalStorage(); // Fetch user data from localStorage
-      if (this.user) {
-        console.log(this.user); // Log the user data for debugging or displaying
+      this.user = this.userService.getUserFromLocalStorage(); // Fetch user data
+      if (this.user && this.user.role) {
+        this.setUserRole(this.user.role); // Ensure userRole is set
       } else {
-        console.error('No user data found in localStorage');
+        console.error('User role not found');
       }
       this.fetchDeckDetails(this.deckId);
     }
   }
-
+  
   /**
    * Fetch deck details from the service and populate component variables.
    * @param id - The ID of the deck.
@@ -77,9 +78,11 @@ export class DeckDetailsComponent implements OnInit {
 
         // Set the likes count and favorite status directly from the response
         this.likesCount = deck.favorites ? deck.favorites.length : 0;
-        this.isFavorite = deck.favorites ? deck.favorites.includes(this.user._id) : false;
+        this.isFavorite = deck.favorites
+          ? deck.favorites.some((fav) => fav.email === this.user.email)
+          : false;
+
         console.log(response);
-        
       },
       (error) => {
         console.error('Failed to fetch deck details:', error);
@@ -103,7 +106,7 @@ export class DeckDetailsComponent implements OnInit {
       this.currentIndex--;
     }
   }
-  
+
   goToNext() {
     if (this.cards && this.currentIndex < this.cards.length - 1) {
       this.currentIndex++;
@@ -117,8 +120,8 @@ export class DeckDetailsComponent implements OnInit {
     this.deckService.toggleFavoriteDeck(this.deckId).subscribe(
       (response) => {
         if (response.success) {
-          this.isFavorite = true;  // Set the deck as a favorite
-          this.likesCount++;  // Increment likes count
+          this.isFavorite = true; // Set the deck as a favorite
+          this.likesCount++; // Increment likes count
           this.showMessage('This deck was added to favorites!');
         }
       },
@@ -137,7 +140,7 @@ export class DeckDetailsComponent implements OnInit {
       (response) => {
         if (response.success) {
           this.isFavorite = false; // Remove the deck from favorites
-          this.likesCount--;  // Decrement likes count
+          this.likesCount--; // Decrement likes count
           this.showMessage('You have removed the deck from favorites.');
         }
       },
@@ -146,6 +149,48 @@ export class DeckDetailsComponent implements OnInit {
         this.showMessage('Failed to remove from favorites.');
       }
     );
+  }
+
+  /**
+   * Open the delete reason popup.
+   */
+  deleteDeck(): void {
+    this.showDeletePopup = true;
+  }
+
+  /**
+   * Confirm deletion of the deck with a reason.
+   */
+  confirmDelete(): void {
+    if (this.deleteReason.trim()) {
+      const body = { reasons: this.deleteReason };
+      this.deckService.deleteDeck(this.deckId, body).subscribe(
+        (response) => {
+          if (response.success) {
+            console.log('Deck deleted successfully:', response.message);
+            this.showMessage('Deck deleted successfully!');
+            setTimeout(() => {
+              this.router.navigate(['/deckPage']); // Route to /deckPage
+            }, 2000);
+          }
+        },
+        (error) => {
+          console.error('Failed to delete the deck:', error);
+          this.showMessage('Failed to delete the deck. Please try again.');
+        }
+      );
+      this.showDeletePopup = false;
+    } else {
+      this.showMessage('Please provide a reason for deleting the deck.');
+    }
+  }
+
+  /**
+   * Close the delete reason popup without deleting.
+   */
+  cancelDelete(): void {
+    this.showDeletePopup = false;
+    this.deleteReason = '';
   }
 
   /**

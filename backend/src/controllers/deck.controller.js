@@ -4,6 +4,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 ApiError;
 import mongoose from "mongoose";
+import { sendEmail } from "../utils/email.js";
+import { User } from "../models/user.model.js";
 
 const createDeck = asyncHandler(async (req, res) => {
   const { title } = req.body;
@@ -214,6 +216,7 @@ const getFavoriteDecks = asyncHandler(async (req, res) => {
     {
       $match: {
         favorites: req.user._id,
+        is_blocked: false,
       },
     },
     {
@@ -277,6 +280,7 @@ const getPublicDecks = asyncHandler(async (req, res) => {
     {
       $match: {
         visibility: "public",
+        is_blocked: false,
       },
     },
     {
@@ -370,7 +374,6 @@ const addCardToDeck = asyncHandler(async (req, res) => {
 });
 
 const searchDecks = asyncHandler(async (req, res) => {
-  // console.log("function called");
   const {
     title,
     exactMatch = false,
@@ -378,7 +381,6 @@ const searchDecks = asyncHandler(async (req, res) => {
     favoritesCount,
     postedAfter,
   } = req.query;
-  // console.log(req);
 
   try {
     const pipeline = [
@@ -451,15 +453,14 @@ const searchDecks = asyncHandler(async (req, res) => {
       },
     });
 
+    // Add the creator's name into the created_by field
     pipeline.push({
-      $lookup: {
-        from: "cards",
-        localField: "cards",
-        foreignField: "_id",
-        as: "cards",
+      $addFields: {
+        created_by: "$creator.name",
       },
     });
 
+    // Optionally, exclude the creator field if not needed
     pipeline.push({
       $project: {
         title: 1,
@@ -467,12 +468,10 @@ const searchDecks = asyncHandler(async (req, res) => {
         created_by: 1,
         createdAt: 1,
         favoritesCount: 1,
-        "creator.username": 1,
+        // Remove the creator field if you don't need it
+        // creator: 0,
       },
     });
-
-    // console.log("Aggregation Pipeline:", JSON.stringify(pipeline, null, 2));
-    // console.log(pipeline);
 
     const decks = await Deck.aggregate(pipeline);
 
@@ -597,6 +596,98 @@ const getUserDecks = asyncHandler(async (req, res) => {
   }
 });
 
+const softDeleteDeck = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { reasons } = req.body;
+
+  const deck = await Deck.findOneAndUpdate(
+    { _id: id },
+    {
+      $set: {
+        is_blocked: true,
+        updated_at: Date.now(),
+      },
+    },
+    { new: true }
+  );
+
+  if (!deck) {
+    throw new ApiError(404, "Deck not found or unauthorized");
+  }
+
+  const creator = await User.findById(deck.created_by);
+
+  const htmlMessage = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Deck Blocked Notification</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          color: #333;
+        }
+        .container {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          background-color: #f9f9f9;
+        }
+        .header {
+          text-align: center;
+          padding-bottom: 20px;
+        }
+        .content {
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 5px;
+        }
+        .footer {
+          text-align: center;
+          padding-top: 20px;
+          font-size: 0.9em;
+          color: #777;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h2>Deck Blocked Notification</h2>
+        </div>
+        <div class="content">
+          <p>Dear ${creator.name},</p>
+          <p>We regret to inform you that your deck titled <strong>${deck.title}</strong> has been blocked for the following reasons:</p>
+          <p>${reasons}</p>
+          <p>Please contact the admin for more information.</p>
+          <p>Thank you for your understanding.</p>
+        </div>
+        <div class="footer">
+          <p>&copy; 2024 BuddyBoard. All rights reserved.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  if (creator) {
+    await sendEmail({
+      email: creator.email,
+      subject: "Deck Blocked",
+      message: `Your deck ${deck.title} has been blocked for ${reasons}. Please contact the admin for more information.`,
+      html: htmlMessage,
+    });
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, deck, "Deck soft deleted successfully"));
+});
+
 export {
   createDeck,
   updateDeck,
@@ -607,5 +698,6 @@ export {
   getPublicDecks,
   addCardToDeck,
   searchDecks,
-  getUserDecks, // Add the new function to the exports
+  getUserDecks,
+  softDeleteDeck,
 };

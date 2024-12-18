@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DeckSearchService } from '../services/deckSearch.service';
 import { DeckSearchResponse, Deck } from '../services/deckSearch.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink,Router} from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { title } from 'node:process';
 
@@ -15,7 +15,7 @@ import { title } from 'node:process';
 })
 export class DeckSearchComponent implements OnInit {
   userRole: 'admin' | 'user' = 'user';
-  
+
   exactMatch: boolean = false;
   likesThreshold: number = 0;
   cardsThreshold: number = 0;
@@ -23,24 +23,51 @@ export class DeckSearchComponent implements OnInit {
   searchKeyword: string = '';
   filteredDecks: Deck[] = [];
 
-  setUserRole(role: 'admin' | 'user'): void {
-    if (role === 'admin' || role === 'user') {
-      this.userRole = role;
-    } else {
-      this.userRole = role;
-    }
-  }
+  // setUserRole(role: 'admin' | 'user'): void {
+  //   if (role === 'admin' || role === 'user') {
+  //     this.userRole = role;
+  //   } else {
+  //     this.userRole = role;
+  //   }
+  // }
 
   editDeck(deckId: string): void {
     this.router.navigate(['/deck', deckId]);
   }
 
- // this.filteredDecks.unshift(deck);
-  constructor(private deckSearchService: DeckSearchService, private router: Router) {}
+  // this.filteredDecks.unshift(deck);
+  constructor(
+    private deckSearchService: DeckSearchService,
+    private router: Router
+  ) {}
+
+  // ngOnInit(): void {
+  //   // Fetch all decks on initial load
+  //   this.fetchAllDecks();
+  // }
 
   ngOnInit(): void {
-    // Fetch all decks on initial load
-    this.fetchAllDecks();
+    this.setUserRoleBasedOnLocalStorage(); // Fetch and set user role
+    this.fetchAllDecks(); // Fetch decks based on role
+  }
+
+  // Function to fetch role dynamically from localStorage
+  setUserRoleBasedOnLocalStorage(): void {
+    const user = localStorage.getItem('user'); // Retrieve the user data from localStorage
+    if (user) {
+      try {
+        const userData = JSON.parse(user); // Parse the JSON string
+        this.userRole = userData.role === 'admin' ? 'admin' : 'user'; // Set role based on stored data
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error);
+        this.userRole = 'user'; // Default to 'user' if parsing fails
+      }
+    } else {
+      console.warn(
+        'No user data found in localStorage. Defaulting to "user" role.'
+      );
+      this.userRole = 'user'; // Default to 'user' if no data is found
+    }
   }
 
   fetchAllDecks(): void {

@@ -1,0 +1,67 @@
+<div class="container">
+  <header>
+    <h1>Buddy Board</h1>
+    <nav>
+      <a routerLink="/deckPage" class="active">Decks</a>
+      <a routerLink="/userSearch">Users</a>
+      <a routerLink="/signin">Logout</a>
+    </nav>
+  </header>
+
+  <br /><br />
+
+  <main>
+    <section class="user-profile-section">
+      <div class="user-profile-header">
+        <!-- add profile icon here -->
+        <i class="fas fa-user-circle profile-icon"></i> <!-- Profile icon -->
+
+        <div class="profileInfo">
+          <h2>{{user?.name}}</h2>
+          <p>Email: {{ user?.email || "..." }}</p>
+          <p>
+            Joined on: {{ user?.createdAt | date: 'd MMMM yyyy' || 'Not available' }}
+          </p>
+        </div>
+      </div>
+
+      <br />
+
+      <!-- Decks Section -->
+       <div class="AllDecks">
+         <h3>Total Decks ({{ userDecks.length }})</h3>
+         <div class="decks">
+           <div
+             *ngFor="let deck of userDecks.slice(0, maxVisibleDecks)"
+             class="deck"
+           >
+             <a [routerLink]="['/deck', deck._id]" class="icon-link">
+               <div class="icon">
+                 <div class="paper back"></div>
+                 <div class="paper middle"></div>
+                 <div class="paper front">
+                   <div class="line"></div>
+                   <div class="line"></div>
+                   <div class="line"></div>
+                 </div>
+               </div>
+             </a>
+             <p class="deck-title">{{ deck.title || "No Decks" }}</p>
+           </div>
+         </div>
+
+       </div>
+
+      <!-- Show All Decks Button -->
+      <div *ngIf="userDecks.length > maxVisibleDecks" class="deck-footer">
+        <button class="see-all" (click)="showAllDecks()">See All Decks</button>
+      </div>
+    </section>
+  </main>
+
+  <hr class="divider" />
+
+  <footer>
+    <p><b>Buddy Board, All rights reserved, 2024</b></p>
+  </footer>
+</div>

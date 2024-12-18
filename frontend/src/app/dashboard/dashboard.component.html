@@ -1,64 +1,67 @@
 <div class="container">
-    <header>
-      <h1>Buddy Board</h1>
-      <nav>
-        <a routerLink="/dashboard" class="active">Feed</a>
-        <a routerLink="/cardpage">Cards</a>
-        <a routerLink="/deckPage">Decks</a>
-        <a routerLink="/signin">Logout</a>
-      </nav>
-    </header>
-    <br><br>
-    <main>
-      <section class="deck-section">
-        <h2>My Favorite Decks ({{favoriteDecks.length}})</h2>
-        <br><br>
-        <div class="decks">
-            <div class="deck" *ngFor="let deck of favoriteDecks | slice:0:4" >
-                <a [routerLink]="['/deck', deck._id]" class="icon-link">
-                  <div class="icon">
-                    <div class="paper back"></div>
-                    <div class="paper middle"></div>
-                    <div class="paper front">
-                      <div class="line"></div>
-                      <div class="line"></div>
-                      <div class="line"></div>
-                    </div>
-                  </div>
-                </a>
-                <p class="deck-title"> {{ deck.title }} </p>
-                <p class="deck-author">By {{ deck.created_by}}</p>
+  <header>
+    <h1>Buddy Board</h1>
+    <nav>
+      <a routerLink="/dashboard" class="active">Feed</a>
+      <a routerLink="/cardpage">Cards</a>
+      <a routerLink="/deckPage">Decks</a>
+      <a routerLink="/signin">Logout</a>
+    </nav>
+  </header>
+  <br /><br />
+  <main>
+    <section class="deck-section">
+      <h2>My Favorite Decks ({{ favoriteDecks.length }})</h2>
+      <br /><br />
+      <div class="decks">
+        <div class="deck" *ngFor="let deck of favoriteDecks | slice : 0 : 4">
+          <a [routerLink]="['/deck', deck._id]" class="icon-link">
+            <div class="icon">
+              <div class="paper back"></div>
+              <div class="paper middle"></div>
+              <div class="paper front">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
               </div>
-          <a routerLink="/favoriteDecks" class="see-all">See All</a>
+            </div>
+          </a>
+          <p class="deck-title">{{ deck.title }}</p>
+          <p class="deck-author">By {{ deck.created_by }}</p>
         </div>
-      </section>
-      <hr class="divider">
-      <br>
-      <section class="deck-section">
-        <h2>My Public Decks ({{publicDecks.length}})</h2>
-        <br><br>
-        <div class="decks">
-            <div class="deck" *ngFor="let deck of publicDecks | slice:0:4" >
-                <a [routerLink]="['/deck', deck._id]" class="icon-link">
-                  <div class="icon">
-                    <div class="paper back"></div>
-                    <div class="paper middle"></div>
-                    <div class="paper front">
-                      <div class="line"></div>
-                      <div class="line"></div>
-                      <div class="line"></div>
-                    </div>
-                  </div>
-                </a>
-                <p class="deck-title"> {{ deck.title }} </p>
-                <p class="deck-author"><span class="heart">❤️</span> {{deck.favorites ? deck.favorites.length : 0}} </p>
+        <a *ngIf="favoriteDecks.length > 0" routerLink="/favoriteDecks" class="see-all">See All</a>
+      </div>
+    </section>
+    <hr class="divider" />
+    <br />
+    <section class="deck-section">
+      <h2>My Public Decks ({{ publicDecks.length }})</h2>
+      <br /><br />
+      <div class="decks">
+        <div class="deck" *ngFor="let deck of publicDecks | slice : 0 : 4">
+          <a [routerLink]="['/deck', deck._id]" class="icon-link">
+            <div class="icon">
+              <div class="paper back"></div>
+              <div class="paper middle"></div>
+              <div class="paper front">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
               </div>
-          <a routerLink="/publicDecks" class="see-all">See All</a>
+            </div>
+          </a>
+          <p class="deck-title">{{ deck.title }}</p>
+          <p class="deck-author">
+            <span class="heart">❤️</span>
+            {{ deck.favorites ? deck.favorites.length : 0 }}
+          </p>
         </div>
-      </section>
-    </main>
-    <hr class="divider">
-    <footer>
-      <p><b>Buddy Board, All rights reserved, 2024</b></p>
-    </footer>
-  </div>
+        <a *ngIf="publicDecks.length > 0" routerLink="/publicDecks" class="see-all">See All</a>
+      </div>
+    </section>
+  </main>
+  <hr class="divider" />
+  <footer>
+    <p><b>Buddy Board, All rights reserved, 2024</b></p>
+  </footer>
+</div>
