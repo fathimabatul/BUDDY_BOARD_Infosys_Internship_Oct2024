@@ -1,14 +1,12 @@
-
-
 <div class="container">
   <header class="navbar">
     <h1>Buddy Board</h1>
     <nav>
       @if(userRole==='admin'){
-        <a routerLink="/deck-search">Decks</a>
-        <a routerLink="/users" >Users</a>
+      <a routerLink="/deckPage" class="active">Decks</a>
+      <a routerLink="/userSearch">Users</a>
       }@else{
-        <a routerLink="/dashboard">Feed</a>
+      <a routerLink="/dashboard">Feed</a>
       <a routerLink="/cardpage">Cards</a>
       <a routerLink="/deckPage" class="active">Decks</a>
       }
@@ -29,22 +27,19 @@
           <label>
             <input type="checkbox" [(ngModel)]="exactMatch" /> Exact Match
           </label>
-  
-          <button class="reset-button" (click)="resetFilters()">Reset Filters</button>
+
+          <button class="reset-button" (click)="resetFilters()">
+            Reset Filters
+          </button>
         </div>
 
         <!-- Filter for Likes -->
         <label>
           Likes greater than
-          <input
-            type="range"
-            [(ngModel)]="likesThreshold"
-            min="0"
-            max="10000"
-          />
+          <input type="range" [(ngModel)]="likesThreshold" min="0" max="100" />
           <div class="slider-labels">
             <span>{{ likesThreshold }} </span>
-            <span>10k+</span>
+            <span>100</span>
           </div>
         </label>
 
@@ -70,40 +65,40 @@
       <!-- Search Bar -->
       <div class="search-bar">
         <input
-            type="text"
-            [(ngModel)]="searchKeyword"
-            placeholder="Search deck by keyword"
+          type="text"
+          [(ngModel)]="searchKeyword"
+          placeholder="Search deck by keyword"
         />
         <button class="search-button" (click)="searchDecks()">🔍</button>
-    </div>
+      </div>
 
       <!-- Displaying Search Results -->
       <div class="deck-list" *ngIf="filteredDecks.length > 0">
-        <div *ngFor="let deck of filteredDecks" [routerLink]="['/deck', deck._id]" class="deck-item">
-
+        <div
+          *ngFor="let deck of filteredDecks"
+          [routerLink]="['/deck', deck._id]"
+          class="deck-item"
+        >
           <div class="deck-content">
             <h3>
               {{ deck.title }}
               <span
-                >By
-                 <a
-                  class="deck-username"
-                  >{{ deck.created_by }}</a
-                ></span
+                >By <a class="deck-username">{{ deck.created_by }}</a></span
               >
             </h3>
             <p>
               {{ deck.cardsCount }} cards in deck, posted on
-              <strong>{{ deck.createdAt | date : "short" }}</strong>
+              <strong>{{
+                deck.createdAt | date : "dd/MM/yyyy, hh:mm a"
+              }}</strong>
             </p>
           </div>
           <button class="likes-button">
             ❤️ <span>{{ deck.favoritesCount }}</span>
           </button>
-          @if(userRole==='admin'){
-            <button (click)="editDeck(deck._id)"> Edit </button>
-          }
-          
+          <!-- @if(userRole==='admin'){
+          <button (click)="editDeck(deck._id)">Edit</button>
+          } -->
         </div>
       </div>
 

@@ -13,6 +13,7 @@ import { FlashcardComponent } from './flashcard/flashcard.component';
 import { CardsPageComponent } from './cards-page/cards-page.component';
 import { CardDetailsComponent } from './card-details/card-details.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserSearchComponent } from './user-search/user-search.component';
 
 export const routes: Routes = [
   {
@@ -93,7 +94,11 @@ export const routes: Routes = [
     component: CardDetailsComponent,
   },
   {
-    path: 'user-profile/:username',
+    path: 'user-profile/:userid',
     component: UserProfileComponent,
   },
+  {
+    path: 'userSearch',
+    component: UserSearchComponent
+  }
 ];

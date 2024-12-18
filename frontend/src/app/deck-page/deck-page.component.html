@@ -1,10 +1,21 @@
 <div class="container">
   <header>
     <h1>Buddy Board</h1>
-    <nav>
+    <!-- <nav>
       <a routerLink="/dashboard">Feed</a>
       <a routerLink="/cardpage">Cards</a>
       <a routerLink="/deckPage" class="active">Decks</a>
+      <a routerLink="/signin">Logout</a>
+    </nav> -->
+    <nav>
+      @if(userRole==='admin'){
+      <a routerLink="/deckPage" class="active">Decks</a>
+      <a routerLink="/userSearch">Users</a>
+      }@else{
+      <a routerLink="/dashboard">Feed</a>
+      <a routerLink="/cardpage">Cards</a>
+      <a routerLink="/deckPage" class="active">Decks</a>
+      }
       <a routerLink="/signin">Logout</a>
     </nav>
   </header>
@@ -41,8 +52,12 @@
         }
       </div>
       <div class="deck-footer">
-        <button class="see-all" (click)="toggleFavDecks()">
-          {{ showAllFav ? "See Less" : "See All" }}
+        <button
+          class="see-all"
+          [disabled]="publicDecks.length <= 4"
+          (click)="togglePublicDecks()"
+        >
+          {{ showAllPublic ? "See Less" : "See All" }}
         </button>
       </div>
     </section>
@@ -71,7 +86,7 @@
           </a>
           <p class="deck-title">{{ item.title }}</p>
           <p class="deck-author">
-            By <a href="#">{{ item.created_by }}</a>
+            By {{ item.created_by }}
           </p>
           <p class="deck-author">
             <span class="heart">❤️</span>

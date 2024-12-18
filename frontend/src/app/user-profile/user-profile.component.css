@@ -1,105 +1,193 @@
-/* General Container Styling */
-.user-section {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 20px 50px;
-    background-color: #f9f9f9;
-    border: 2px solid black;
-    border-radius: 10px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-    margin: 20px auto;
-    width: 80%;
-  }
-  
-  /* User Icon Styling */
-  .user-icon img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 4px solid #4caf50;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    margin-right: 20px;
-    transition: transform 0.3s ease;
-  }
-  
-  .user-icon img:hover {
-    transform: scale(1.1);
-  }
-  
-  /* User Details Styling */
-  .user-details {
-    font-family: 'Arial', sans-serif;
-    color: #333;
-  }
-  
-  .username {
-    font-size: 28px;
-    font-weight: bold;
-    color: #4caf50;
-    margin-bottom: 8px;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
-  }
-  
-  .username:hover {
-    text-decoration: underline;
-    color: #007bff;
-  }
-  
-  .user-email,
-  .user-joined-on {
-    font-size: 16px;
-    margin: 5px 0;
-    color: #666;
-  }
-  
-  /* Button Styling */
-  .see-all {
-    color: #007bff;
-    font-weight: bold;
-    text-decoration: none;
-    border: 2px solid #007bff;
-    padding: 8px 16px;
-    border-radius: 5px;
-    display: inline-block;
-    margin-top: 20px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .see-all:hover {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  /* Footer Styling */
-  footer {
-    font-size: 14px;
-    text-align: center;
-    padding: 10px;
-    background-color: #f1f1f1;
-    border-top: 2px solid black;
-    color: #333;
-  }
-  
-  /* Responsiveness */
-  @media (max-width: 768px) {
-    .user-section {
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-  
-    .user-icon img {
-      margin: 0 0 15px 0;
-    }
-  
-    .user-details {
-      text-align: center;
-    }
-  
-    .see-all {
-      display: block;
-      margin: 20px auto;
-    }
-  }
-  
+/* General Styling */
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #c0c0c0;
+  border: 4px solid black;
+  box-sizing: border-box;
+}
+
+header {
+  font-family: 'Papyrus', 'Arial', sans-serif;
+  background-color: white;
+  border-bottom: 2px solid black;
+  padding: 7px 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+header h1 {
+  font-family: 'Papyrus', 'Arial', sans-serif;
+  font-weight: 800;
+  margin: 0;
+  font-weight: bold;
+}
+
+header nav a {
+  font-family: 'Papyrus', 'Arial', sans-serif;
+  margin: 0 10px;
+  text-decoration: none;
+  color: blue;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+header nav a.active {
+  text-decoration: underline;
+  color: #0000ff; /* Optional: Different color to indicate the active page */
+}
+
+/* User Profile Section */
+.user-profile-section {
+  width: 90%;
+  margin: auto;
+}
+
+.user-profile-header {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.user-profile-header i{
+  font-size: 8rem;
+}
+.user-profile-header h2 {
+  font-size: 28px;
+  color: #0000ff;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+}
+
+.user-profile-header p {
+  font-size: 18px;
+  color: #333;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+}
+
+/* Decks Section */
+.AllDecks{
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.decks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+  padding: 1.3rem;
+}
+
+.deck-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  margin: 5px 0;
+  font-weight: bold;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+}
+
+.deck-author {
+  font-size: 12px;
+  color: #000;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+}
+
+.divider {
+  width: 90%;
+  border: 1px solid black;
+  margin: auto;
+}
+
+footer {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 5px;
+  padding: 5px;
+  font-family: 'Papyrus', 'Arial', sans-serif;
+}
+
+/* Icon styling for Deck */
+.icon {
+  position: relative;
+  width: 50px;
+  height: 65px;
+}
+
+.paper {
+  position: absolute;
+  width: 80px;
+  height: 65px;
+  background-color: rgb(214, 214, 3);
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.paper.back {
+  bottom: 10px;
+  right: 10px;
+}
+
+.paper.middle {
+  bottom: 5px;
+  right: 5px;
+}
+
+.paper.front {
+  bottom: 0;
+  right: 0;
+}
+
+.paper .line {
+  width: 70%;
+  height: 1px;
+  background-color: black;
+  border-bottom: 1px dotted black;
+  margin: 5px auto;
+}
+
+.icon-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.icon-link:hover .icon {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+/* Footer Button Styling */
+.deck-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.see-all {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #0000ff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.see-all:hover {
+  text-decoration: underline;
+}
