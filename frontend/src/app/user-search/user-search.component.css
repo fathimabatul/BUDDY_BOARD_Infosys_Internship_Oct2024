@@ -51,7 +51,10 @@
       font-family: 'Papyrus', 'Arial', sans-serif;
       text-decoration: underline;
     }
-  
+   header nav a.active{
+    text-decoration: underline;
+    color: blue;
+   }
     .container {
       width: 100vw;
       min-height: 100vh; /* Starts at 100vh but grows with content */
