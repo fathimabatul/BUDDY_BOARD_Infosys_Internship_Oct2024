@@ -80,12 +80,12 @@ body {
     padding: 10px 20px;
     font-weight: bold;
     font-size: 16px;
-    border: 1px solid black; /* Bold black border */
+    border: 2px solid black; /* Bold black border */
     cursor: pointer;
     margin-left: 50px;
     margin-top: 10px;
     font-family: 'Papyrus', 'Arial', sans-serif; /* Papyrus for button */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Bottom shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }
 
   .new-card-btn:hover {

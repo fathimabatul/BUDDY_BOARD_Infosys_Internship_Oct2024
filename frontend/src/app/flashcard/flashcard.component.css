@@ -23,10 +23,11 @@
   align-items: center;
 }
 .flashcard-form { 
+  margin-top: 40px;
   width: 800px;
   padding: 20px 1px 1px 20px;
   background-color: rgb(227, 227, 14);
-  border: 1px solid #010101;
+  border: 2px solid #010101;
   font-family: "Papyrus", fantasy;
 }
 .flashcard-form h2 {
@@ -48,10 +49,10 @@
   font-family: "Papyrus", fantasy;
 }
 .flashcard-form input {
-  width: 90%;
+  width: 93%;
   padding: 5px;
   font-size:16px;
-  border: 1px solid #010101;
+  border: 2px solid #010101;
   background: white;
   color:blue;
   font-family: "Papyrus", fantasy;
@@ -62,10 +63,10 @@
 }
 .flashcard-form textarea {
   width: 90%;
-  height: 100px;
-  padding: 5px;
-  font-size: 16px; 
-  border: 1px solid #010101; 
+  height: 250px;
+  padding: 17px;
+  font-size: 20px; 
+  border: 2px solid #010101; 
   background: white;
   color:blue; 
   font-family: "Papyrus", fantasy;
@@ -91,13 +92,14 @@
   font-family: 'Papyrus', 'Arial', sans-serif;
   font-weight: bolder;
   width: 15%;
-  background-color: rgb(20, 207, 210);
+  background-color: #71bad6;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   color: black;
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
-  margin-right: 4.2rem;
+  margin-right: 2.5rem;
   margin-left:1.2rem;
 }
 .flashcard-form button:hover {
