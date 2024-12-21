@@ -91,11 +91,20 @@ header nav a.active {
 
 .deck-author {
   font-size: 10px;
-  color: #000;
+  color: #2200ff;
 }
-.deck-author a{
-  color: #0000ff;
+
+.deck-author .by-text {
+  font-weight: bold;
+  color: #000000; /* Same as the main text color */
 }
+
+.deck-author .author-name {
+  font-weight: bold;
+  color: #2200ff; /* Different color for the author's name */
+  text-decoration: underline; /* Remove underline from the author's name if needed */
+}
+
 
 .divider {
   width: 90%;

@@ -5,7 +5,7 @@
   font-family: "Papyrus", "Arial", sans-serif;
 }
 .container {
-  height: 99vh; /* Ensure it takes up the full height of the viewport */
+  height: 99.5vh; /* Ensure it takes up the full height of the viewport */
   display: flex;
   flex-direction: column; /* Use column layout */
   border: 2px solid black;
@@ -66,9 +66,10 @@
 }
 
 .back-button {
-  background-color: lightblue;
+  background-color: #71bad6;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   font-weight: 600;
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 10px;
   cursor: pointer;
   margin-bottom: 20px;
