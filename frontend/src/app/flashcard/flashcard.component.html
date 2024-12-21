@@ -5,7 +5,7 @@
     <form [formGroup]="flashcardForm" (ngSubmit)="onSave()">
       <div class="title">
         <label for="title">Title:</label>
-        <input id="title" type="text" formControlName="title" /> <!-- Changed to "title" -->
+        <input id="title" type="text" formControlName="title" placeholder="Provide the Title"/> <!-- Changed to "title" -->
         <div *ngIf="flashcardForm.get('title')?.touched && flashcardForm.get('title')?.invalid">
           <small *ngIf="flashcardForm.get('title')?.hasError('required')">Title is required.</small>
           <small *ngIf="flashcardForm.get('title')?.hasError('minlength')">Minimum 5 characters.</small>
@@ -13,7 +13,7 @@
       </div>
       <div class="content">
         <label for="content">Content:</label>
-        <textarea id="content" formControlName="content"></textarea> <!-- Changed to "content" -->
+        <textarea id="content" formControlName="content" placeholder="Please enter the detailed description."></textarea> <!-- Changed to "content" -->
         <div *ngIf="flashcardForm.get('content')?.touched && flashcardForm.get('content')?.invalid">
           <small *ngIf="flashcardForm.get('content')?.hasError('required')">Content is required.</small>
           <small *ngIf="flashcardForm.get('content')?.hasError('minlength')">Minimum 10 characters.</small>
@@ -26,6 +26,6 @@
     </form>
   </div>
   <footer>
-    Studdy Buddies, All rights reserved, 2024
+    Buddy Board, All rights reserved, 2024
   </footer>
 </div>

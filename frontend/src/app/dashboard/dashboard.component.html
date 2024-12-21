@@ -11,7 +11,7 @@
   <br /><br />
   <main>
     <section class="deck-section">
-      <h2>My Favorite Decks ({{ favoriteDecks.length }})</h2>
+      <h2>Favorite Decks ({{ favoriteDecks.length }})</h2>
       <br /><br />
       <div class="decks">
         <div class="deck" *ngFor="let deck of favoriteDecks | slice : 0 : 4">
@@ -35,7 +35,7 @@
     <hr class="divider" />
     <br />
     <section class="deck-section">
-      <h2>My Public Decks ({{ publicDecks.length }})</h2>
+      <h2>Public Decks ({{ publicDecks.length }})</h2>
       <br /><br />
       <div class="decks">
         <div class="deck" *ngFor="let deck of publicDecks | slice : 0 : 4">
