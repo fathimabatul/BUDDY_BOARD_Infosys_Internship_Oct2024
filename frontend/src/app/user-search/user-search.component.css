@@ -6,6 +6,11 @@
     font-family: 'Papyrus', 'Arial', sans-serif;
   }
   
+  .active {
+    text-decoration: underline;
+    color: #0000ff; /* Optional: Different color to indicate the active page */
+  }
+
   body {
     background-color: #eaeaea;
     color: #333;

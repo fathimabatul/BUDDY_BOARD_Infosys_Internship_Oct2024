@@ -61,6 +61,7 @@ header nav a.active {
 .deck-section{
   width: 90%;
   margin: auto;
+  padding: 2rem;
 }
 
 /* Deck Container */

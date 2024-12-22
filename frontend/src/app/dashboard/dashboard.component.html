@@ -11,7 +11,7 @@
   <br /><br />
   <main>
     <section class="deck-section">
-      <h2>My Favorite Decks ({{ favoriteDecks.length }})</h2>
+      <h2>Favorite Decks ({{ favoriteDecks.length }})</h2>
       <br /><br />
       <div class="decks">
         <div class="deck" *ngFor="let deck of favoriteDecks | slice : 0 : 4">
@@ -29,13 +29,13 @@
           <p class="deck-title">{{ deck.title }}</p>
           <p class="deck-author">By {{ deck.created_by }}</p>
         </div>
-        <a *ngIf="favoriteDecks.length > 0" routerLink="/favoriteDecks" class="see-all">See All</a>
+        <a *ngIf="favoriteDecks.length > 4" routerLink="/favoriteDecks" class="see-all">See All</a>
       </div>
     </section>
     <hr class="divider" />
     <br />
     <section class="deck-section">
-      <h2>My Public Decks ({{ publicDecks.length }})</h2>
+      <h2>Public Decks ({{ publicDecks.length }})</h2>
       <br /><br />
       <div class="decks">
         <div class="deck" *ngFor="let deck of publicDecks | slice : 0 : 4">
@@ -56,7 +56,7 @@
             {{ deck.favorites ? deck.favorites.length : 0 }}
           </p>
         </div>
-        <a *ngIf="publicDecks.length > 0" routerLink="/publicDecks" class="see-all">See All</a>
+        <a *ngIf="publicDecks.length > 4" routerLink="/publicDecks" class="see-all">See All</a>
       </div>
     </section>
   </main>
