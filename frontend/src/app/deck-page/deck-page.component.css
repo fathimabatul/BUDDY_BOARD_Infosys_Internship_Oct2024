@@ -81,10 +81,21 @@
   }
 
   .deck-author {
-    font-size: 10px;
-    color: #000;
-    font-family: 'Papyrus', 'Arial', sans-serif;
+    font-size: 12px; /* Adjust font size as needed */
+    display: inline-block; /* Ensure text stays inline */
   }
+  
+  .deck-author .by-text {
+    font-weight: bold;
+    color: #000000; /* Color for "By" text */
+  }
+  
+  .deck-author .author-name {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #2200ff; /* Color for "By" text */
+  }
+  
   .divider {
     width: 90%;
     border: 1px solid black;
@@ -167,8 +178,9 @@
     position: relative;
 }
 .see-all {
-  background-color: transparent;
-  background-repeat: no-repeat;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    font-family: 'Papyrus', 'Arial', sans-serif;
     border: none;
     cursor: pointer;
     overflow: hidden;
@@ -217,8 +229,9 @@
     right: 1px;
 }
 .see-all2{
-  background-color: transparent;
-  background-repeat: no-repeat;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    font-family: 'Papyrus', 'Arial', sans-serif;
     border: none;
     cursor: pointer;
     overflow: hidden;

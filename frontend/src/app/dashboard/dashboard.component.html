@@ -27,11 +27,16 @@
             </div>
           </a>
           <p class="deck-title">{{ deck.title }}</p>
-          <p class="deck-author">By {{ deck.created_by }}</p>
+          <p class="deck-author">
+            <span class="by-text">By&nbsp;</span>
+            <span class="author-name">{{ deck.created_by }}</span>
+          </p>
+          
         </div>
-        <a *ngIf="favoriteDecks.length > 0" routerLink="/favoriteDecks" class="see-all">See All</a>
+        <a *ngIf="favoriteDecks.length > 4" routerLink="/favoriteDecks" class="see-all">See All</a>
       </div>
     </section>
+    <br>
     <hr class="divider" />
     <br />
     <section class="deck-section">
@@ -56,7 +61,7 @@
             {{ deck.favorites ? deck.favorites.length : 0 }}
           </p>
         </div>
-        <a *ngIf="publicDecks.length > 0" routerLink="/publicDecks" class="see-all">See All</a>
+        <a *ngIf="publicDecks.length > 4" routerLink="/publicDecks" class="see-all">See All</a>
       </div>
     </section>
   </main>
