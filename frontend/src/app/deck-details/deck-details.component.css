@@ -5,7 +5,7 @@
   font-family: "Papyrus", "Arial", sans-serif;
 }
 .container {
-  height: 99vh; /* Ensure it takes up the full height of the viewport */
+  height: 99.5vh; /* Ensure it takes up the full height of the viewport */
   display: flex;
   flex-direction: column; /* Use column layout */
   border: 2px solid black;
@@ -40,7 +40,10 @@
 .header nav a:hover {
   text-decoration: underline;
 }
-
+.header nav a.active{
+  text-decoration: underline;
+  color: blue;
+}
 /* Content styles */
 .content {
   display: flex;
@@ -63,9 +66,10 @@
 }
 
 .back-button {
-  background-color: lightblue;
+  background-color: #71bad6;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   font-weight: 600;
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 10px;
   cursor: pointer;
   margin-bottom: 20px;
@@ -117,15 +121,15 @@
 .menu li {
   margin: 10px 0;
   padding: 8px;
-  background-color: yellow;
+  background-color: rgb(224, 222, 222);
   cursor: pointer;
   font-weight: 600;
   border: 1px solid black;
 }
 
 .menu li.active {
-  background-color: black;
-  color: white;
+  background-color:yellow ;
+  color: rgb(19, 19, 19);
 }
 
 .info {
@@ -234,6 +238,7 @@ footer {
   position: fixed;
   top: 0;
   left: 0;
+  padding-top: 110px;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Dim effect */
@@ -248,9 +253,9 @@ footer {
   position: relative;
   width: 90%;
   max-width: 400px;
-  background: #ffffff; /* Popup background */
+  background: white; /* Popup background */
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
   padding: 20px;
   text-align: center;
   z-index: 1001; /* Ensure it's above the overlay */
@@ -281,7 +286,8 @@ footer {
 .popup-container p {
   font-size: 1rem;
   margin-bottom: 20px;
-  color: #555;
+  color: rgb(247, 60, 60);
+  font-weight: bolder;
 }
 .popup-container textarea{
   width: 95%;
@@ -307,6 +313,7 @@ footer {
 .popup-container .actions .confirm {
   background-color: #e74c3c; /* Red for confirmation */
   color: #fff;
+  font-weight: bolder;
 }
 
 .popup-container .actions .confirm:hover {
@@ -316,6 +323,7 @@ footer {
 .popup-container .actions .cancel {
   background-color: #bdc3c7; /* Gray for cancel */
   color: #fff;
+  font-weight: bolder;
 }
 
 .popup-container .actions .cancel:hover {

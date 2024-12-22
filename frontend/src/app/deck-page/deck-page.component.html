@@ -23,7 +23,7 @@
   <main>
     <section class="deck-section">
       <div class="deck-section-header">
-        <h2>My Public Decks ({{ publicDecks.length }})</h2>
+        <h2>Public Decks ({{ publicDecks.length }})</h2>
         <button class="deck-button" (click)="toggleOverlay()">
           Deck <span class="circle">+</span>
         </button>
@@ -85,9 +85,12 @@
             </div>
           </a>
           <p class="deck-title">{{ item.title }}</p>
+          
           <p class="deck-author">
-            By {{ item.created_by }}
+            <span class="by-text">By</span>
+            <span class="author-name">{{ item.created_by }}</span>
           </p>
+          
           <p class="deck-author">
             <span class="heart">❤️</span>
             {{ item.favorites ? item.favorites.length : 0 }}
