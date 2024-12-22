@@ -52,8 +52,9 @@
             type="button" 
             class="eye-icon"
             (click)="togglePasswordVisibility()"
+            aria-label="Toggle Password Visibility"
           >
-            {{ showPassword ? '👁️' : '👁️‍🗨️' }}
+            <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
           </button>
         </div>
         <div class="invalid-feedback" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
