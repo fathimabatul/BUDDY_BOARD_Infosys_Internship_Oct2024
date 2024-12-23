@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;
   message: string | null = null;
+  isLoading: boolean = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.forgotPasswordForm = this.fb.group({
@@ -30,6 +31,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit() {
     if (this.forgotPasswordForm.valid) {
+      this.isLoading = true;
       const emailData: PasswordResetRequest = {
         email: this.forgotPasswordForm.value.email,
       };
@@ -37,10 +39,12 @@ export class ForgotPasswordComponent implements OnInit {
       this.authService.sendPasswordResetEmail(emailData).subscribe({
         next: (response) => {
           this.message = response.message;
+          this.isLoading = false;
         },
         error: (err) => {
           this.message = 'Failed to send reset email. Please try again.';
           console.error(err);
+          this.isLoading = false;
         },
       });
     }
