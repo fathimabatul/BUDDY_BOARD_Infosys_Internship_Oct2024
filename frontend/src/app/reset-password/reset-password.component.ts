@@ -76,10 +76,11 @@ export class ResetPasswordComponent implements OnInit {
     this.authService.resetPassword(this.token, password).subscribe({
       next: () => {
         this.message = 'Password successfully reset!';
+        this.loading = false; // Stop loading before navigating
+
         setTimeout(() => {
-          this.loading = false; // Stop loading before navigating
           this.router.navigate(['/signin']);
-        }, 2000);
+        }, 3000);
       },
       error: (err) => {
         this.loading = false; // Stop loading on error
