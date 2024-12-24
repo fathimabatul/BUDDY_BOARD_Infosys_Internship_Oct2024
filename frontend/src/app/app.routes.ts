@@ -100,5 +100,6 @@ export const routes: Routes = [
   {
     path: 'userSearch',
     component: UserSearchComponent
-  }
+  },
+  { path: 'card-details', component: CardDetailsComponent },
 ];
