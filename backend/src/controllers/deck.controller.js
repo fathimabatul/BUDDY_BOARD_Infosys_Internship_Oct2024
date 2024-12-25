@@ -396,7 +396,8 @@ const searchDecks = asyncHandler(async (req, res) => {
     if (title) {
       pipeline.push({
         $match: {
-          title: exactMatch ? title : { $regex: title, $options: "i" },
+          title:
+            exactMatch === "true" ? title : { $regex: title, $options: "i" },
         },
       });
     }
