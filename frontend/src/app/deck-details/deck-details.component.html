@@ -74,10 +74,10 @@
       <div class="content">
         <!-- Card Content Display -->
         <h3 *ngIf="cards && cards.length > 0 && cards[currentIndex]">
-          {{ cards[currentIndex]?.title }}
+          {{ cards[currentIndex].title }}
         </h3>
         <p *ngIf="cards && cards.length > 0 && cards[currentIndex]">
-          {{ cards[currentIndex]?.content }}
+          {{ cards[currentIndex].content }}
         </p>
         <p *ngIf="!cards || cards.length === 0">No cards available.</p>
       </div>
