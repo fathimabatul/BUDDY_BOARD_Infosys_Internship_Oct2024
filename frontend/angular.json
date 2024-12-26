@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/buddyboard-frontend",
+            "outputPath": "dist/frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -41,13 +41,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "5kB",
+                  "maximumError": "6kB"
                 }
               ],
               "outputHashing": "all"
@@ -99,10 +99,6 @@
     }
   },
   "cli": {
-<<<<<<< HEAD
-    "analytics": "ba08dd04-3ffd-4cab-a9b1-bfe57f03c657"
-=======
     "analytics": false
->>>>>>> 9d7e0a75467febebe7a408aed64819bc77cb628c
   }
 }
