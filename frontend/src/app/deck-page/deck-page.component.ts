@@ -8,9 +8,9 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-deck-page',
   standalone: true,
-  imports: [CreateDeckComponent,RouterLink, CommonModule],
+  imports: [CreateDeckComponent, RouterLink, CommonModule],
   templateUrl: './deck-page.component.html',
-  styleUrl: './deck-page.component.css'
+  styleUrl: './deck-page.component.css',
 })
 export class DeckPageComponent {
   favoriteDecks: Deck[] = [];
@@ -24,9 +24,9 @@ export class DeckPageComponent {
   // Toggle states
   showAllPublic: boolean = false;
   showAllFav: boolean = false;
-  isModalVisible: boolean = false; 
-  isSuccess:boolean| null = null;
-  savedDeck: { title: string }[] = []; 
+  isModalVisible: boolean = false;
+  isSuccess: boolean | null = null;
+  savedDeck: { title: string }[] = [];
 
   ngOnInit(): void {
     this.setUserRoleBasedOnLocalStorage(); // Fetch and set user role
@@ -52,14 +52,15 @@ export class DeckPageComponent {
     }
   }
 
-
-   // Methods to get displayed decks
+  // Methods to get displayed decks
   getDisplayedPublicDecks() {
     return this.showAllPublic ? this.publicDecks : this.publicDecks.slice(0, 4);
   }
 
   getDisplayedFavDecks() {
-    return this.showAllFav ? this.favoriteDecks : this.favoriteDecks.slice(0, 4);
+    return this.showAllFav
+      ? this.favoriteDecks
+      : this.favoriteDecks.slice(0, 4);
   }
 
   // Toggle methods
@@ -75,7 +76,7 @@ export class DeckPageComponent {
     }
   }
   toggleOverlay(): void {
-    this. isModalVisible= !this.isModalVisible;
+    this.isModalVisible = !this.isModalVisible;
   }
 
   getDeckFormData(data: { title: string }): void {
@@ -84,7 +85,7 @@ export class DeckPageComponent {
         console.log('Deck created successfully:', response);
         this.isSuccess = true;
         this.loadPublicDecks();
-  
+
         // Close the modal
         this.isModalVisible = false;
       },
@@ -94,8 +95,6 @@ export class DeckPageComponent {
       }
     );
   }
-  
-  
 
   private loadFavoriteDecks(): void {
     this.deckService.getFavoriteDecks().subscribe(
@@ -111,15 +110,28 @@ export class DeckPageComponent {
   }
 
   private loadPublicDecks(): void {
-    this.deckService.getPublicDecks().subscribe(
-      (response: DecksResponse) => {
-        this.publicDecks = response.data || [];
-        this.isLoadingPublic = false;
-      },
-      (error) => {
-        console.error('Failed to load public decks:', error);
-        this.isLoadingPublic = false;
-      }
-    );
+    if (this.userRole === 'admin') {
+      this.deckService.getPublicDecks().subscribe(
+        (response: DecksResponse) => {
+          this.publicDecks = response.data || [];
+          this.isLoadingPublic = false;
+        },
+        (error) => {
+          console.error('Failed to load all decks:', error);
+          this.isLoadingPublic = false;
+        }
+      );
+    } else {
+      this.deckService.getUserDecks().subscribe(
+        (response: DecksResponse) => {
+          this.publicDecks = response.data || [];
+          this.isLoadingPublic = false;
+        },
+        (error) => {
+          console.error('Failed to load public decks:', error);
+          this.isLoadingPublic = false;
+        }
+      );
+    }
   }
 }
