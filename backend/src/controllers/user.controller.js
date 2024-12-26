@@ -399,7 +399,8 @@ const searchUser = asyncHandler(async (req, res) => {
   const matchStage = { role };
 
   if (name) {
-    matchStage.name = exactMatch ? name : { $regex: name, $options: "i" };
+    matchStage.name =
+      exactMatch === "true" ? name : { $regex: name, $options: "i" };
   }
 
   if (joinedAfter) {
